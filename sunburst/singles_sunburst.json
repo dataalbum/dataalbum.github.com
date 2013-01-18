@@ -1,0 +1,103 @@
+{
+  "New Order - Singles": {
+    "1981": {
+        "Ceremony": 1,
+        "Procession": 1,
+        "Everything's Gone Green":1
+    },
+    "1982": {
+        "Temptation": 1
+    },
+	"1983": {
+        "Blue Monday": 1,
+        "Confusion": 1
+    },
+    "1984": {
+        "Thieves Like Us": 1,
+        "Murder": 1
+    },
+    "1985": {
+        "Low-Life": {
+        	"The Perfect Kiss": 1,
+        	"Sub-culture": 1,
+        	"Everything's Gone Green":1
+        }
+    },
+    "1986": {
+    	"Pretty in Pink (Soundtrack)": {
+    		"Shellshock": 1
+    	},
+    	"Brotherhood": {
+    		"State of the Nation": 1,
+    		"Bizarre Love Triangle": 1
+    	}
+  	},
+  	"1987": {
+  		"Substance": {
+  			"True Faith": 1
+  		},
+  		"Salvation! (Original Soundtrack)": {
+  			"Touched by the Hand of God": 1
+  		}
+  	},
+  	"1988": {
+  		"Blue Monday 1988": 1,
+  		"Technique": {
+  			"Fine Time": 1
+  		}
+  	},
+  	"1989": {
+  		"Technique": {
+  			"Round & Round": 1 ,
+  			"Run 2": 1
+  		}
+  	},
+  	"1990": {
+  		"World in Motion": 1
+  	},
+  	"1993": {
+  		"Republic": {
+  			"Regret": 1,
+  			"Ruined in a Day": 1,
+  			"World (The price of Love)": 1,
+  			"Spooky": 1
+  		}
+  	},
+  	"1994": {
+  		"The Best of New Order": {
+  			"True Faith-94": 1
+  		}
+  	},
+  	"1995": {
+  		"The Best of New Order": {
+  			"1963": 1,
+  			"Blue Monday-95": 1
+  		}
+  	},
+  	"1997": {
+  		"Video 5 8 6": 1
+  	},
+  	"2001": {
+  		"Get Ready": {
+  			"Crystal": 1,
+  			"60 Miles an Hour": 1,
+  			"Someone Like You": 1
+  		}
+  	},
+  	"2002": {
+  		"24 Hour Party People (Soundtrack)": {
+  			"Here to Stay": 1
+  		},
+  		"World in Motion (re-release)": 1,
+  		"Confusion Remixes '02": 1
+  	},
+  	"2005": {
+  		"Waiting for the Sirens' Call": {
+  			"Krafty": 1,
+  			"Jetstream": 1,
+  			"Waiting for the Sirens' Call": 1,
+  			"Guilt Is a Useless Emotion": 1
+  		}
+  	}	
+  }
+}

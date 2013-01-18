@@ -1,0 +1,518 @@
+{
+	"name": "New Order",
+	"children": [
+	{
+  		"name": "Singles", 
+  		"children": [ 
+  		{
+    		"name": "1981",
+    		"children": [
+        		{"name": "Ceremony", "size": 7},
+        		{"name": "Procession", "size": 7},
+        		{"name": "Everything's Gone Green", "size": 7}
+			]
+   		},
+   		{
+  			"name": "1982",
+  			"children": [
+  				{"name": "Temptation", "size": 7}
+  			]
+  		},
+  		{
+  			"name": "1983",
+  			"children": [
+  				{"name": "Blue Monday", "size": 7},
+  				{"name": "Confusion", "size": 7}
+  			]
+  		},
+  		{
+  			"name": "1984",
+  			"children": [
+  				{"name": "Thieves Like Us", "size": 7},
+  				{"name": "Murder", "size": 7}
+  			]
+  		},
+  		{
+    		"name": "1985",
+    		"children": [
+        		{"name": "The Perfect Kiss", "size": 7},
+        		{"name": "Sub-culture", "size": 7}
+        	]
+   		},
+  		{
+    		"name": "1986",
+    		"children": [
+        		{"name": "Shellshock", "size": 7},
+        		{"name": "State of the Nation", "size": 7},
+        		{"name": "Bizarre Love Triangle", "size": 7}
+			]
+   		},
+  		{
+    		"name": "1987",
+    		"children": [
+        		{"name": "True Faith", "size": 7},
+        		{"name": "Touched by the Hand of God", "size": 7}
+ 			]
+   		},
+  		{
+    		"name": "1988",
+    		"children": [
+        		{"name": "Blue Monday 1988", "size": 7},
+        		{"name": "Fine Time", "size": 7}
+ 			]
+   		},
+   		{
+    		"name": "1989",
+    		"children": [
+        		{"name": "Round & Round", "size": 7},
+        		{"name": "Run 2", "size": 7}
+ 			]
+   		},
+  		{
+    		"name": "1990",
+    		"children": [
+        		{"name": "World in Motion", "size": 7}
+ 			]
+   		},
+   		{
+    		"name": "1993",
+    		"children": [
+        		{"name": "Regret", "size": 7},
+        		{"name": "Ruined in a Day", "size": 7},
+        		{"name": "World (The Price of Love)", "size": 7},
+        		{"name": "Spooky", "size": 7}
+ 			]
+   		},
+  		{
+    		"name": "1994",
+    		"children": [
+        		{"name": "True Faith-94", "size": 7}
+ 			]
+   		},
+  		{
+    		"name": "1995",
+    		"children": [
+        		{"name": "1963", "size": 7},
+        		{"name": "Blue Monday-95", "size": 7}
+ 			]
+   		},
+  		{
+    		"name": "1997",
+    		"children": [
+        		{"name": "Video 5 8 6", "size": 7}
+ 			]
+   		},
+  		{
+    		"name": "2001",
+    		"children": [
+        		{"name": "Crystal", "size": 7},
+        		{"name": "60 Miles an Hour", "size": 7},
+        		{"name": "Someone Like You", "size": 7}
+ 			]
+   		},
+  		{
+    		"name": "2002",
+    		"children": [
+        		{"name": "Here to Stay", "size": 7},
+        		{"name": "World in Motion (re-release)", "size": 7},
+        		{"name": "Confusion Remixes '02", "size": 7}
+ 			]
+   		},
+  		{
+    		"name": "2005",
+    		"children": [
+        		{"name": "Krafty", "size": 7},
+        		{"name": "Jetstream", "size": 7},
+        		{"name": "Waiting for the Sirens' Call", "size": 7},
+        		{"name": "Guilt Is a Useless Emotion", "size": 7}
+ 			]
+   		}
+	]
+  	},
+  	{
+  		"name": "Studio Albums",
+  		"children": [  			
+   		{
+  			"name": "1981",
+  			"children": [
+  				{"name": "Movement", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "1983",
+  			"children": [
+  				{"name": "Power,Corruption & Lies", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "1985",
+  			"children": [
+  				{"name": "Low-life", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "1986",
+  			"children": [
+  				{"name": "Brotherhood", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "1989",
+  			"children": [
+  				{"name": "Technique", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "1993",
+  			"children": [
+  				{"name": "Republic", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "2001",
+  			"children": [
+  				{"name": "Get Ready", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "2005",
+  			"children": [
+  				{"name": "Waiting for the Sirens' Call", "size": 12}
+  			]
+  		},
+  		{
+  			"name": "2013",
+  			"children": [
+  				{"name": "The Lost Sirens", "size": 12}
+  			]
+  		}
+  	]
+	},
+	{
+  		"name": "Live Albums",
+  		"children": [  			
+   		{
+  			"name": "1990",
+  			"children": [
+  				{"name": "The John Peel Sessions", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "1992",
+  			"children": [
+  				{"name": "BBC Radio 1 Live In Concert", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "2002",
+  			"children": [
+  				{"name": "Before & After - The BBC Sessions", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "2004",
+  			"children": [
+  				{"name": "In Session", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "2011",
+  			"children": [
+  				{"name": "Live at the London Troxy", "size": 12}
+  			]
+  		}
+  	]
+	},
+	{
+  		"name": "Compilations",
+  		"children": [  			
+   		{
+  			"name": "1987",
+  			"children": [
+  				{"name": "Substance 1987", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "1994",
+  			"children": [
+  				{"name": "(the best of) New Order", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "1995",
+  			"children": [
+  				{"name": "(the rest of) New Order", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "2002",
+  			"children": [
+  				{"name": "International", "size": 12},
+  				{"name": "Retro", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "2005",
+  			"children": [
+  				{"name": "Best Remixes", "size": 12},
+  				{"name": "Singles", "size": 12}
+  			]
+  		},
+  		   		{
+  			"name": "2007",
+  			"children": [
+  				{"name": "iTunes Originals - New Order", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "2011",
+  			"children": [
+  				{"name": "Total: From Joy Division to New Order", "size": 12}
+  			]
+  		}
+  	]
+  	},
+  	{
+  		"name": "EPs",
+  		"children": [  			
+   		{
+  			"name": "1982",
+  			"children": [
+  				{"name": "1981 - 1982", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "1986",
+  			"children": [
+  				{"name": "Peel Sessions 1982", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "1987",
+  			"children": [
+  				{"name": "Peel Sessions 1981", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "2002",
+  			"children": [
+  				{"name": "60 Miles an Hour - Australian Tour EP", "size": 12}
+  			]
+  		},
+   		{
+  			"name": "2003",
+  			"children": [
+  				{"name": "The Peter Saville Show Soundtrack", "size": 12}
+  			]
+  		},
+  		{
+  			"name": "2006",
+  			"children": [
+  				{"name": "12x12''", "size": 12}
+  			]
+  		}
+	]
+	},
+	{
+  		"name": "Soundtracks and compilations with other artists",
+  		"children": [  			
+   		{
+  			"name": "1980",
+  			"children": [
+  				{
+  					"name": "From Brussels with Love",
+  					"children": [
+  						{"name": "Haystack (with Kevin Hewik)", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "1982",
+  			"children": [
+  				{
+  					"name": "The Hacienda Christmas Flexi - Factory FAC 51B",
+  					"children": [
+  						{"name": "Rocking Carol", "size": 7},
+  						{"name": "Rocking Carol", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "1986",
+  			"children": [
+  				{
+  					"name": "Pretty in Pink: Original Motion Picture Soundtrack",
+  					"children": [
+  						{"name": "Shellshock", "size": 7}
+  					]
+  				},
+  				{
+  					"name": "Something Wild: Music from the Motion Picture",
+  					"children": [
+  						{"name": "Temptation", "size": 7}
+  					]
+  				},
+  				{
+  					"name": "The Quick Neat Job",
+  					"children": [
+  						{"name": "Theme (Hommage á la MGM)", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "1987",
+  			"children": [
+  				{
+  					"name": "Salvation! (Original Soundtrack)",
+  					"children": [
+  						{"name": "Let's Go", "size": 7},
+  						{"name": "Salvation Theme", "size": 7},
+  						{"name": "Skullcrusher", "size": 7},
+  						{"name": "Sputnik", "size": 7},
+  						{"name": "Touched by the Hand of God", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "1996",
+  			"children": [
+  				{
+  					"name": "Transpotting: Music from Motion Picture",
+  					"children": [
+  						{"name": "Temptation", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "1998",
+  			"children": [
+  				{
+  					"name": "Blade: Music from and Inspired by the Motion Picture",
+  					"children": [
+  						{"name": "Confusion (Pump Panel Reconstruction Mix)", "size": 7}
+  					]
+  				},
+  				{
+  					"name": "The Wedding Singer: Music from the Motion Picture",
+  					"children": [
+  						{"name": "Blue Monday", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "2000",
+  			"children": [
+  				{
+  					"name": "American Psycho: Music from the Controversial Motion Picture",
+  					"children": [
+  						{"name": "True Faith", "size": 7}
+  					]
+  				},
+  				{
+  					"name": "The Beach: Motion Picture Soundtrack",
+  					"children": [
+  						{"name": "Brutal", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "2001",
+  			"children": [
+  				{
+  					"name": "Buffalo Soldiers",
+  					"children": [
+  						{"name": "Blue Monday", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "2002",
+  			"children": [
+  				{
+  					"name": "24 Hour Party People: Music from the Motion Picture",
+  					"children": [
+  						{"name": "Blue Monday", "size": 7},
+  						{"name": "Here to Stay", "size": 7},
+  						{"name": "New Dawn Fades (with Moby)", "size": 7},
+  						{"name": "Temptation", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "2003",
+  			"children": [
+  				{
+  					"name": "War Child: Hope",
+  					"children": [
+  						{"name": "Vietnam", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "2004",
+  			"children": [
+  				{
+  					"name": "D.E.B.S.: Original Soundtrack",
+  					"children": [
+  						{"name": "Temptation", "size": 7}
+  					]
+  				},
+  				{
+  					"name": "Left of the Dial: Dispatches from the '80s Underground",
+  					"children": [
+  						{"name": "Temptation", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "2006",
+  			"children": [
+  				{
+  					"name": "Marie Antoinette: Original Soundtrack",
+  					"children": [
+  						{"name": "Ceremony", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "2007",
+  			"children": [
+  				{
+  					"name": "Control",
+  					"children": [
+  						{"name": "Exit", "size": 7},
+  						{"name": "Get Out", "size": 7},
+  						{"name": "Hypnosis", "size": 7}
+  					]
+  				}
+  			]
+  		},
+  		{
+  			"name": "2009",
+  			"children": [
+  				{
+  					"name": "Bronsson: Original Soundtrack",
+  					"children": [
+  						{"name": "Exit", "size": 7},
+  						{"name": "Your Silent Face", "size": 7},
+  						{"name": "Hypnosis", "size": 7}
+  					]
+  				}
+  			]
+  		}
+  	]
+	}
+	]
+}
