@@ -19,6 +19,7 @@ path.chord {
   </head>
   <body>
   	<h1>New Order - Singles</h1>
+  	<div id="chart"></div>
 	<p>Built with <a href="http://mbostock.github.com/d3/">D3.js</a>.</p>
 	<p>Source: <a href="http://en.wikipedia.org/wiki/New_Order_discography">New Order discography - Wikipedia</a>.</p>
     <script type="text/javascript">
@@ -37,7 +38,7 @@ var arc = d3.svg.arc()
     .innerRadius(r0)
     .outerRadius(r0 + 20);
 
-var svg = d3.select("body").append("svg:svg")
+var svg = d3.select("#chart").append("svg:svg")
     .attr("width", r1 * 2)
     .attr("height", r1 * 2)
   .append("svg:g")
