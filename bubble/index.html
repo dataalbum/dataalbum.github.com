@@ -9,6 +9,7 @@ text {
 </style>
 <body>
 	<h1>New Order - Discography</h1>
+	<div id="chart"></div>
 	<p>Source: <a href="http://en.wikipedia.org/wiki/New_Order_discography">New Order discography - Wikipedia</a>.</p>
 	<p>Built with <a href="http://mbostock.github.com/d3/">D3.js</a>.</p>
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -23,7 +24,7 @@ var bubble = d3.layout.pack()
     .size([diameter, diameter])
     .padding(1.5);
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#chart").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
     .attr("class", "bubble");
