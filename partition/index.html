@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -56,7 +55,7 @@ var vis = d3.select("#chart").append("div")
 var partition = d3.layout.partition()
     .value(function(d) { return d.size; });
 
-d3.json("test_data/singles_tree.json", function(root) {
+d3.json("singles_tree.json", function(root) {
   var g = vis.selectAll("g")
       .data(partition.nodes(root))
     .enter().append("svg:g")
