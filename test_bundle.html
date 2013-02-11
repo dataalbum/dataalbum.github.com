@@ -51,7 +51,6 @@ var svg = d3.select("#chart").append("svg")
 d3.json("album.json", function(error, classes) {
   var nodes = cluster.nodes(packages.root(classes)),
       links = packages.imports(nodes);
-      alert(error);
 
   svg.selectAll(".link")
       .data(bundle(links))
@@ -91,6 +90,7 @@ var packages = {
         }
       }
       return node;
+            alert(node);
     }
 
     classes.forEach(function(d) {
