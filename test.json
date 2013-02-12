@@ -1,6 +1,3 @@
 [
-{"name":"1955","imports":[]},
-{"name":"Frank Sinatra","imports":[]},
-{"name":"Capitol","imports":[]},
-{"name":"UK / USA","imports":[]}
+{"name":"Paul's Boutique","imports":["1955","Frank Sinatra","Capitol","UK / USA"]}
 ]
