@@ -19,7 +19,7 @@ path.chord {
   </head>
   <body>
     <h1>1001 Albums You Must Hear Before You Die - 2007</h1>
-	<div id="chart"></div>
+	<div id="chart">Loading...</div>
 	<p>Source: <a href="http://1001beforeyoudie.com/">1001beforeyoudie</a>.</p>
 	<p>Built with <a href="http://mbostock.github.com/d3/">D3.js</a>.</p>
     <script type="text/javascript">
@@ -44,7 +44,7 @@ var svg = d3.select("#chart").append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(" + r1 + "," + r1 + ")");
 
-d3.json("test2.json", function(imports) {
+d3.json("albums.json", function(imports) {
   var indexByName = {},
       nameByIndex = {},
       matrix = [],
