@@ -62,29 +62,29 @@ var margin = {top: 30, right: 40, bottom: 20, left: 200},
  
 var dimensions = [
   {
-    name: "name",
+    name: "Year",
     scale: d3.scale.ordinal().rangePoints([0, height]),
+    type: Number
+  },
+  {
+    name: "Album",
+    scale: d3.scale.linear().range([0, height]),
     type: String
   },
   {
-    name: "Acc. 40º 150%",
-    scale: d3.scale.linear().range([0, height]),
-    type: Number
-  },
-  {
-    name: "Scale",
+    name: "Artist",
     scale: d3.scale.linear().range([height, 0]),
-    type: Number
+    type: String
   },
   {
-    name: "Areal",
+    name: "Label",
     scale: d3.scale.sqrt().range([height, 0]),
-    type: Number
+    type: String
   },
   {
-    name: "Angular",
+    name: "Nationality",
     scale: d3.scale.linear().range([height, 0]),
-    type: Number
+    type: String
   }
 ];
  
