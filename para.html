@@ -110,7 +110,7 @@ var dimension = svg.selectAll(".dimension")
     .attr("class", "dimension")
     .attr("transform", function(d) { return "translate(" + x(d.name) + ")"; });
  
-d3.tsv("test.tsv", function(data) {
+d3.tsv("Test.tsv", function(data) {
   dimensions.forEach(function(dimension) {
     dimension.scale.domain(dimension.type === Number
         ? d3.extent(data, function(d) { return +d[dimension.name]; })
