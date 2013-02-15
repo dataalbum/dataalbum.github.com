@@ -40,7 +40,7 @@ var svg = d3.select("#chart").append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(" + r1 + "," + r1 + ")");
 
-d3.json("albums.json", function(imports) {
+d3.json("album_short.json", function(imports) {
   var indexByName = {},
       nameByIndex = {},
       matrix = [],
