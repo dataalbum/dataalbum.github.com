@@ -1,0 +1,36 @@
+{
+	"name": "New Order",
+	"children": [
+	{
+  		"name": "Singles", 
+  		"children": [ 
+  		{
+    		"name": "1981",
+    		"children": [
+        		{"name": "Ceremony", "size": 7},
+        		{"name": "Procession", "size": 7},
+        		{"name": "Everything's Gone Green", "size": 7}
+			]
+   		},
+   		{
+  			"name": "1982",
+  			"children": [
+  				{"name": "Temptation", "size": 7}
+  			]
+  		},
+  		{
+  			"name": "1983",
+  			"children": [
+  				{"name": "Blue Monday", "size": 7},
+  				{"name": "Confusion", "size": 7}
+  			]
+  		},
+  		{
+  			"name": "1984",
+  			"children": [
+  				{"name": "Thieves Like Us", "size": 7},
+  				{"name": "Murder", "size": 7}
+  			]
+  		}
+]
+}
