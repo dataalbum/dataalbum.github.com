@@ -1,128 +1,174 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>Factory Records Discography (Bundle)</title>
+<meta charset="utf-8">
+<title>Map Projections</title>
 <style>
-
-.node {
-  font: 4px sans-serif;
-  fill: grey;
-
+ 
+svg {
+  font: 10px sans-serif;
 }
-
-.link {
-  stroke: magenta;
-  stroke-opacity: .4;
+ 
+.background path {
   fill: none;
+  stroke: none;
+  stroke-width: 20px;
+  pointer-events: stroke;
 }
-
+ 
+.foreground path {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+ 
+.axis .title {
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+ 
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+ 
+.label {
+  -webkit-transition: fill 125ms linear;
+}
+ 
+.active .label:not(.inactive) {
+  font-weight: bold;
+}
+ 
+.label.inactive {
+  fill: #ccc;
+}
+ 
+.foreground path.inactive {
+  stroke: #ccc;
+  stroke-opacity: .5;
+  stroke-width: 1px;
+}
+ 
 </style>
-</head>
 <body>
-<body>
-<p style=color:grey>Factory Records Discography</p>
-<div id="chart"></div>
-<p style="color:grey">Source: <a href="http://en.wikipedia.org/wiki/Factory_Records_discography">Factory Records discography - Wikipedia</a>.</p>
-<p style="color:grey">Built with <a href="http://mbostock.github.com/d3/">D3.js</a>.</p>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.v2.min.js"></script>
 <script>
-
-var diameter = 960,
-    radius = diameter / 2,
-    innerRadius = radius - 120;
-
-var cluster = d3.layout.cluster()
-    .size([360, innerRadius])
-    .sort(null)
-    .value(function(d) { return d.size; });
-
-var bundle = d3.layout.bundle();
-
-var line = d3.svg.line.radial()
-    .interpolate("bundle")
-    .tension(.85)
-    .radius(function(d) { return d.y; })
-    .angle(function(d) { return d.x / 180 * Math.PI; });
-
-var svg = d3.select("#chart").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter)
-  .append("g")
-    .attr("transform", "translate(" + radius + "," + radius + ")");
-
-d3.json("fac.json", function(error, classes) {
-  var nodes = cluster.nodes(packages.root(classes)),
-      links = packages.imports(nodes);
-
-  svg.selectAll(".link")
-      .data(bundle(links))
-    .enter().append("path")
-      .attr("class", "link")
-      .attr("d", line);
-
-  svg.selectAll(".node")
-      .data(nodes.filter(function(n) { return !n.children; }))
-    .enter().append("g")
-      .attr("class", "node")
-      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
-    .append("text")
-      .attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
-      .attr("dy", ".31em")
-      .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-      .attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
-      .text(function(d) { return d.key; });
-});
-
-d3.select(self.frameElement).style("height", diameter + "px");
-
-var packages = {
-
-  // Lazily construct the package hierarchy from class names.
-  root: function(classes) {
-    var map = {};
-
-    function find(name, data) {
-      var node = map[name], i;
-      if (!node) {
-        node = map[name] = data || {name: name, children: []};
-        if (name.length) {
-          node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
-          node.parent.children.push(node);
-          node.key = name.substring(i + 1);
-        }
-      }
-      return node;
-    }
-
-    classes.forEach(function(d) {
-      find(d.name, d);
-    });
-
-    return map[""];
+ 
+var margin = {top: 30, right: 40, bottom: 20, left: 200},
+    width = 1200 - margin.left - margin.right,
+    height = 5000 - margin.top - margin.bottom;
+ 
+var dimensions = [
+  {
+    name: "No.",
+    scale: d3.scale.ordinal().rangePoints([0, height]),
+    type: String
   },
-
-  // Return a list of imports for the given array of nodes.
-  imports: function(nodes) {
-    var map = {},
-        imports = [];
-
-    // Compute a map from name to node.
-    nodes.forEach(function(d) {
-      map[d.name] = d;
-    });
-
-    // For each import, construct a link from the source to target node.
-    nodes.forEach(function(d) {
-      if (d.imports) d.imports.forEach(function(i) {
-        imports.push({source: map[d.name], target: map[i]});
-      });
-    });
-
-    return imports;
+  {
+    name: "Artist",
+    scale: d3.scale.ordinal().rangePoints([0, height]),
+    type: String
+  },
+  {
+    name: "Title",
+    scale: d3.scale.ordinal().rangePoints([0, height]),
+    type: String
+  },
+  {
+    name: "Designer",
+    scale: d3.scale.ordinal().rangePoints([height, 0]),
+    type: String
+  },
+  {
+    name: "Format",
+    scale: d3.scale.ordinal().rangePoints([height, 0]),
+    type: String
+  },
+];
+ 
+var x = d3.scale.ordinal()
+    .domain(dimensions.map(function(d) { return d.name; }))
+    .rangePoints([0, width]);
+ 
+var line = d3.svg.line()
+    .defined(function(d) { return !isNaN(d[1]); });
+ 
+var yAxis = d3.svg.axis()
+    .orient("left");
+ 
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+ 
+var dimension = svg.selectAll(".dimension")
+    .data(dimensions)
+  .enter().append("g")
+    .attr("class", "dimension")
+    .attr("transform", function(d) { return "translate(" + x(d.name) + ")"; });
+ 
+d3.tsv("fac.tsv", function(data) {
+  dimensions.forEach(function(dimension) {
+    dimension.scale.domain(dimension.type === Number
+        ? d3.extent(data, function(d) { return +d[dimension.name]; })
+        : data.map(function(d) { return d[dimension.name]; }).sort());
+  });
+ 
+  svg.append("g")
+      .attr("class", "background")
+    .selectAll("path")
+      .data(data)
+    .enter().append("path")
+      .attr("d", draw);
+ 
+  svg.append("g")
+      .attr("class", "foreground")
+    .selectAll("path")
+      .data(data)
+    .enter().append("path")
+      .attr("d", draw);
+ 
+  dimension.append("g")
+      .attr("class", "axis")
+      .each(function(d) { d3.select(this).call(yAxis.scale(d.scale)); })
+    .append("text")
+      .attr("class", "title")
+      .attr("text-anchor", "middle")
+      .attr("y", -9)
+      .text(function(d) { return d.name; });
+ 
+  // Rebind the axis data to simplify mouseover.
+  svg.select(".axis").selectAll("text:not(.title)")
+      .attr("class", "label")
+      .data(data, function(d) { return d.name || d; });
+ 
+  var projection = svg.selectAll(".axis text,.background path,.foreground path")
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
+ 
+  function mouseover(d) {
+    svg.classed("active", true);
+    projection.classed("inactive", function(p) { return p !== d; });
+    projection.filter(function(p) { return p === d; }).each(moveToFront);
   }
-};
-
+ 
+  function mouseout(d) {
+    svg.classed("active", false);
+    projection.classed("inactive", false);
+  }
+ 
+  function moveToFront() {
+    this.parentNode.appendChild(this);
+  }
+});
+ 
+function draw(d) {
+  return line(dimensions.map(function(dimension) {
+    return [x(dimension.name), dimension.scale(d[dimension.name])];
+  }));
+}
+ 
 </script>
-</body>
-</html>
