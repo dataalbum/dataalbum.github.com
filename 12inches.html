@@ -33,10 +33,13 @@ var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")rotate(45)");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 svg.append("g")
     .attr("class", "x axis")
     .call(xAxis);
 
+        vis.selectAll(".xaxis text")  // select all the text elements for the xaxis
+          .attr("transform", function(d) {
+             return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
 </script>
