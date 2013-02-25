@@ -4,20 +4,21 @@
 
 text {
   font: 10px sans-serif;
+  fill: white;
 }
 
 </style>
 <body bgcolor="black">
 	<p1 style="color:white">New Order - Discography</p1>
 	<div id="chart"></div>
-	<p style="color:white>Source: <a href="http://en.wikipedia.org/wiki/New_Order_discography">New Order discography - Wikipedia</a>.</p>
+	<p style="color:white">Source: <a href="http://en.wikipedia.org/wiki/New_Order_discography">New Order discography - Wikipedia</a>.</p>
 	<p style="color:white">Built with <a href="http://mbostock.github.com/d3/">D3.js</a>.</p>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 
 var diameter = 960,
     format = d3.format(",d"),
-    color = d3.scale.category20c();
+    color = d3.scale.ordinal();//category20c();
 
 var bubble = d3.layout.pack()
     .sort(null)
