@@ -117,7 +117,7 @@ d3.tsv("fac.tsv", function(data) {
   dimensions.forEach(function(dimension) {
     dimension.scale.domain(dimension.type === Number
         ? d3.extent(data, function(d) { return +d[dimension.name]; })
-        : data.map(function(d) { return d[dimension.name]; }).sort());
+        : data.map(function(d) { return d[dimension.name]; }));//.sort());
   });
  
   svg.append("g")
