@@ -141,7 +141,7 @@ d3.tsv("fac.tsv", function(data) {
       .attr("text-anchor", "middle")
       .attr("y", -9)
       .text(function(d) { return d.name; });
- 
+ /*
   // Rebind the axis data to simplify mouseover.
   svg.select(".axis").selectAll("text:not(.title)")
       .attr("class", "label")
@@ -164,7 +164,7 @@ d3.tsv("fac.tsv", function(data) {
  
   function moveToFront() {
     this.parentNode.appendChild(this);
-  }
+  }*/
 });
  
 function draw(d) {
