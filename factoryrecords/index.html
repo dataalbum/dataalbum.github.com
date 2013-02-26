@@ -115,9 +115,9 @@ var dimension = svg.selectAll(".dimension")
  
 d3.tsv("fac.tsv", function(data) {
   dimensions.forEach(function(dimension) {
-    dimension.scale.domain(dimension.type === Number
+    dimension.scale.domain(dimension.type === String
         ? d3.extent(data, function(d) { return +d[dimension.name]; })
-        : data.map(function(d) { return d[dimension.name]; }).sort(function(a,b){return a-b}));
+        : data.map(function(d) { return d[dimension.name]; }).sort());
   });
  
   svg.append("g")
