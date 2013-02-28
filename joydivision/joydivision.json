@@ -1,0 +1,89 @@
+[
+    {
+    "name":"root.Format.Studio Album",
+    "imports":
+    [
+      "root.Studio Album.Unknown Pleasure",
+      "root.Studio Album.Closer"
+    ]
+    },
+    {
+    "name":"root.Format.Single",
+    "imports":
+    [
+		"root.Single.Transmission",
+		"root.Single.Licht und Blindheit",
+		"root.Single.Komakino",
+		"root.Single.Love Will Tear Us Apart",
+		"root.Single.Atmosphere / She's Lost Control",
+		"root.Single.Love Will Tear Us Apart (first re-release)",
+		"root.Single.Atmosphere",
+		"root.Single.Love Will Tear Us Apart (second re-release)"
+	]
+    },
+    {
+    "name":"root.Format.EP",
+    "imports":
+    [
+		"root.EP.An Ideal for Living",
+		"root.EP.The Peel Sessions (1986)",
+		"root.EP.The Peel Sessions (1987)"
+	
+	]
+    },
+    {
+    "name":"root.Format.Various artists EP",
+    "imports":
+    [
+		"root.Various artists EP.Short Circuit",
+		"root.Various artists EP.A Factory Sample",
+		"root.Various artists EP.Earcom 2: Contradiction"
+	]
+    },
+    {
+    "name":"root.Format.Compilation Album",
+    "imports":
+    [
+		"root.Compilation Album.Still",
+		"root.Compilation Album.Substance",
+		"root.Compilation Album.The Peel Sessions",
+		"root.Compilation Album.Warsaw",
+		"root.Compilation Album.Permanent",
+		"root.Compilation Album.Heart and Soul",
+		"root.Compilation Album.Joy Division The Complete BBC Recordings",
+		"root.Compilation Album.Martin Hannett's Personal Mixes",
+		"root.Compilation Album.Let the Movie Begin",
+		"root.Compilation Album.The Best of Joy Division",
+		"root.Compilation Album.+− Singles_1978–80",
+		"root.Compilation Album.Total: From Joy Division to New Order"
+	]
+    },
+    {"name":"root.Studio Album.Unknown Pleasure","imports":[]},
+    {"name":"root.Studio Album.Closer","imports":[]},
+    {"name":"root.Single.Transmission","imports":[]},
+	{"name":"root.Single.Licht und Blindheit","imports":[]},
+	{"name":"root.Single.Komakino","imports":[]},
+	{"name":"root.Single.Love Will Tear Us Apart","imports":[]},
+	{"name":"root.Single.Atmosphere / She's Lost Control","imports":[]},
+	{"name":"root.Single.Love Will Tear Us Apart (first re-release)","imports":[]},
+	{"name":"root.Single.Atmosphere","imports":[]},
+	{"name":"root.Single.Love Will Tear Us Apart (second re-release)","imports":[]},
+	{"name":"root.EP.An Ideal for Living","imports":[]},
+	{"name":"root.EP.The Peel Sessions (1986)","imports":[]},
+	{"name":"root.EP.The Peel Sessions (1987)","imports":[]},
+	{"name":"root.Various artists EP.Short Circuit","imports":[]},
+	{"name":"root.Various artists EP.A Factory Sample","imports":[]},
+	{"name":"root.Various artists EP.Earcom 2: Contradiction","imports":[]},
+	{"name":"root.Compilation Album.Still","imports":[]},
+	{"name":"root.Compilation Album.Substance","imports":[]},
+	{"name":"root.Compilation Album.The Peel Sessions","imports":[]},
+	{"name":"root.Compilation Album.Warsaw","imports":[]},
+	{"name":"root.Compilation Album.Permanent","imports":[]},
+	{"name":"root.Compilation Album.Heart and Soul","imports":[]},
+	{"name":"root.Compilation Album.Joy Division The Complete BBC Recordings","imports":[]},
+	{"name":"root.Compilation Album.Martin Hannett's Personal Mixes","imports":[]},
+	{"name":"root.Compilation Album.Let the Movie Begin","imports":[]},
+	{"name":"root.Compilation Album.The Best of Joy Division","imports":[]},
+	{"name":"root.Compilation Album.+− Singles_1978–80","imports":[]},
+	{"name":"root.Compilation Album.Total: From Joy Division to New Order","imports":[]}
+]
