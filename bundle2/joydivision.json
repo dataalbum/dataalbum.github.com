@@ -1,7 +1,7 @@
 [
-{"name":"root.format.Studio Albums","imports":["Unknown Pleasures","Closer"]},
-{"name":"root.format.Compilation Albums","imports":["Still","Substance","The Peel Sessions","Warsaw","Permanent","Heart and Soul","Joy Division The Complete BBC Recordings","Martin Hannett's Personal Mixes","Let the Movie Begin","The Best of Joy Division","+− Singles 1978–80","Total: From Joy Division to New Order"]},
-{"name":"root.format.EP","imports":["An Ideal for Living","The Peel Sessions (1986)","The Peel Sessions (1987)"]},
+{"name":"root.format.Studio Albums","imports":["root.Studio Album.Unknown Pleasures","root.Studio Album.Closer"]},
+{"name":"root.format.Compilation Albums","imports":["root.Compilation Album.Still","root.Compilation Album.Substance","root.Compilation Album.The Peel Sessions","root.Compilation Album.Warsaw","root.Compilation Album.Permanent","root.Compilation Album.Heart and Soul","root.Compilation Album.Joy Division The Complete BBC Recordings","root.Compilation Album.Martin Hannett's Personal Mixes","root.Compilation Album.Let the Movie Begin","root.Compilation Album.The Best of Joy Division","root.Compilation Album.+− Singles 1978–80","root.Compilation Album.Total: From Joy Division to New Order"]},
+{"name":"root.format.EP","imports":["root.EP.An Ideal for Living","root.EP.The Peel Sessions (1986)","root.EP.The Peel Sessions (1987)"]},
 {"name":"root.format.Singles","imports":["Transmission","Licht und Blindheit","Komakino","Love Will Tear Us Apart","Atmosphere / She's Lost Control","Love Will Tear Us Apart (first re-release)","Atmosphere","Love Will Tear Us Apart (second re-release)"]},
 {"name":"root.format.Various artists EP","imports":["Short Circuit","A Factory Sample","Earcom 2: Contradiction"]},
 {"name":"root.Studio Album.Unknown Pleasures","imports":["Studio Albums"]},
