@@ -13,7 +13,7 @@ svg {
 
     </style>
   </head>
-  <body bgcolor="black">
+  <body bgcolor="lightgrey">
   	<p style="color:white">New Order - Singles</p>
   	<div id="chart"></div>
 	<p style="color:white">Source: <a href="http://en.wikipedia.org/wiki/New_Order_discography">New Order discography - Wikipedia</a>.</p>
@@ -24,7 +24,7 @@ var w = window.innerWidth - 1,
     h = window.innerHeight - 1,
     r = Math.min(w, h) / 2,
     color = d3.scale.ordinal()
-    .range(["black", "white", "yellow", "red", "blue", "green"]);
+    .range(["black", "white", "yellow", "red", "blue", "green","pink","orange"]);
 
 var vis = d3.select("#chart").append("svg:svg")
     .attr("width", w)
