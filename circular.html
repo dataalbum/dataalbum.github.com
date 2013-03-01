@@ -25,12 +25,12 @@ var svg = d3.select("body").append("svg:svg")
     .attr("width", 960)
     .attr("height", 500)
   .append("svg:g")
-    .attr("transform", "translate(480, 250)");
+    //.attr("transform", "translate(480, 250)");
 
 var g = svg.selectAll("g")
     .data(d3.range(0, 360, 2))
   .enter().append("svg:g")
-    //.attr("transform", function(d) { return "rotate(" + d + ")"; });
+    .attr("transform", function(d) { return "rotate(" + d + ")"; });
 
 var path = g.selectAll("path")
     .data(function(p) {
