@@ -61,17 +61,6 @@ var path = g.selectAll("path")
     .delay(function(d) { return d.z * 1500; })
     .attr("fill-opacity", 1);
 
-    </script>
-    <input type="range" min="0" max="358" step="2">
-    <script type="text/javascript">
-
-d3.select("input").on("change", function() {
-  var value = this.value;
-  d3.selectAll("path")
-      .attr("fill-opacity", function(d) {
-        return Math.max(0, 1 - Math.sqrt(Math.abs(d.x - value) / 80));
-      });
-});
 
     </script>
   </body>
