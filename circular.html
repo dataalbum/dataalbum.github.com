@@ -28,7 +28,7 @@ var svg = d3.select("body").append("svg:svg")
     .attr("width", w)
     .attr("height", h)
   .append("svg:g")
-    .attr("transform", "translate(" + w + / 2"," + h + / 2")");
+    .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
 
 var g = svg.selectAll("g")
     .data(d3.range(0, 360, 2))
