@@ -12,6 +12,9 @@ body {
   </head>
   <body>
     <script type="text/javascript">
+    	
+var w = window.innerWidth - 1,
+    h = window.innerHeight - 1;
 
 var radius = d3.scale.linear()
     .domain([0, 9])
@@ -22,8 +25,8 @@ var fill = d3.scale.linear()
     .range(["black", "white"]);
 
 var svg = d3.select("body").append("svg:svg")
-    .attr("width", window.innerWidth - 1)//960)
-    .attr("height", window.innerHeight - 1)//500)
+    .attr("width", w)//960)
+    .attr("height", h)//500)
   .append("svg:g")
     .attr("transform", "translate(480, 250)");
 
