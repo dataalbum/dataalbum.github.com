@@ -59,9 +59,9 @@ path.arc {
     <script>
 
 var w = 960,//740,
-    //h = 700,
+    h = 700,
     rx = w / 2,
-    ry = rx - 120,//h / 2,
+    ry = h / 2,
     m0,
     rotate = 0
     pi = Math.PI;
@@ -69,7 +69,7 @@ var w = 960,//740,
 var splines = [];
 
 var cluster = d3.layout.cluster()
-    .size([360, ry) //- 180])
+    .size([360, ry - 180])
     .sort(function(a, b) { return d3.ascending(a.key, b.key); });
 
 var bundle = d3.layout.bundle();
