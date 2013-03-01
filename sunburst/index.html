@@ -24,7 +24,7 @@ var w = window.innerWidth - 1,
     h = window.innerHeight - 1,
     r = Math.min(w, h) / 2,
     color = d3.scale.ordinal()
-    .range(["black", "white"]);
+    .range(["black", "white", "yellow", "red", "blue", "green"]);
 
 var vis = d3.select("#chart").append("svg:svg")
     .attr("width", w)
