@@ -21,9 +21,12 @@ var fill = d3.scale.linear()
     .domain([0, 1])
     .range(["black", "white"]);
 
+var w = window.innerWidth - 1,
+    h = window.innerHeight - 1;
+
 var svg = d3.select("body").append("svg:svg")
-    .attr("width", 960)
-    .attr("height", 500)
+    .attr("width", w)//960)
+    .attr("height", h)//500)
   .append("svg:g")
     .attr("transform", "translate(480, 250)");
 
