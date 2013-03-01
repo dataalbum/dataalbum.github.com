@@ -25,10 +25,10 @@ var w = window.innerWidth - 1,
     h = window.innerHeight - 1;
 
 var svg = d3.select("body").append("svg:svg")
-    .attr("width", w)//960)
-    .attr("height", h)//500)
+    .attr("width", w)
+    .attr("height", h)
   .append("svg:g")
-    .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");//"translate(480, 250)");
+    .attr("transform", "translate(" + w + "," + h + ")");
 
 var g = svg.selectAll("g")
     .data(d3.range(0, 360, 2))
