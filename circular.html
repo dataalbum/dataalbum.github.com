@@ -22,10 +22,10 @@ var fill = d3.scale.linear()
     .range(["black", "white"]);
 
 var svg = d3.select("body").append("svg:svg")
-    .attr("width", 960)
-    .attr("height", 500)
+    .attr("width", window.innerWidth - 1)//960)
+    .attr("height", window.innerHeight - 1)//500)
   .append("svg:g")
-    //.attr("transform", "translate(480, 250)");
+    .attr("transform", "translate(480, 250)");
 
 var g = svg.selectAll("g")
     .data(d3.range(0, 360, 2))
