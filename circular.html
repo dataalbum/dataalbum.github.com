@@ -12,11 +12,6 @@ body {
   </head>
   <body>
     <script type="text/javascript">
-    	
-var w = window.innerWidth - 1,
-    h = window.innerHeight - 1,
-    r = Math.min(w, h) / 2,
-    color = d3.scale.category20c();
 
 var radius = d3.scale.linear()
     .domain([0, 9])
@@ -27,10 +22,10 @@ var fill = d3.scale.linear()
     .range(["black", "white"]);
 
 var svg = d3.select("body").append("svg:svg")
-    .attr("width", w)//960)
-    .attr("height", h)//500)
+    .attr("width", 960)
+    .attr("height", 500)
   .append("svg:g")
-    .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");//"translate(480, 250)");
+    .attr("transform", "translate(480, 250)");
 
 var g = svg.selectAll("g")
     .data(d3.range(0, 360, 2))
