@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="text/javascript" src="https://github.com/mbostock/d3/raw/v1.3.0/d3.js"></script>
-    <style type="text/css">
-
 body {
   background: #333;
 }
@@ -11,7 +8,7 @@ body {
     </style>
   </head>
   <body>
-    <script type="text/javascript">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
 
 var radius = d3.scale.linear()
     .domain([0, 9])
@@ -37,7 +34,7 @@ var g = svg.selectAll("g")
 
 var path = g.selectAll("path")
     .data(function(p) {
-      return d3.range(10).map(function(d) {
+      return d3.range(20).map(function(d) {
         return {
           x: p, // outer dimension (angle)
           y: d, // inner dimension (radius)
@@ -48,7 +45,7 @@ var path = g.selectAll("path")
   .enter().append("svg:path")
     .attr("d", d3.svg.arc()
     .innerRadius(function(d) { return radius(d.y); })
-    .outerRadius(function(d) { return radius(d.y - 5); })
+    .outerRadius(function(d) { return radius(d.y - 10); })
     .startAngle(0)
     .endAngle(Math.PI / 90))
     .attr("fill", function(d) { return fill(d.z); })
