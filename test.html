@@ -24,7 +24,14 @@ var w = 960,
         .append("svg:g")                //make a group to hold our pie chart
     .attr("transform", "translate(" + w / 4 + "," + h / 2 + ")");
             //.attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
- 
+ /////
+vis.append("svg:circle")
+    .attr("cx", 480)
+    .attr("cy", 250)
+    .attr("r", 100)
+    .style("fill", "brown")
+    .style("fill-opacity", ".5");
+ /////
     var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
         .outerRadius(r);
  
@@ -51,18 +58,12 @@ var w = 960,
             .attr("text-anchor", "middle")                          //center the text on it's origin
             .text(function(d, i) { return data[i].label; });        //get the label from our original data array
         
-var vis = d3.select("body")
+/*var vis = d3.select("body")
     .append("svg:svg")
     .attr("width", w)
-    .attr("height", h);
+    .attr("height", h);*/
  
-vis.append("svg:circle")
-    .attr("cx", 480)
-    .attr("cy", 250)
-    .attr("r", 100)
-    .style("fill", "brown")
-    .style("fill-opacity", ".5");
- 
+
     </script> 
   </body> 
 </html>
