@@ -22,7 +22,7 @@ var w = 960,
             .attr("width", 480)           //set the width and height of our visualization (these will be attributes of the <svg> tag
             .attr("height", 250)
         .append("svg:g")                //make a group to hold our pie chart
-            //.attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
+            .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
  
     var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
         .outerRadius(r);
