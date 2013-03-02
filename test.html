@@ -50,9 +50,10 @@ var w = 960,
             .attr("text-anchor", "middle")                          //center the text on it's origin
             .text(function(d, i) { return data[i].label; });        //get the label from our original data array
         
-/*var svg = d3.select("body").append("svg:svg")
+var svg = d3.select("body")
+    .append("svg:svg")
     .attr("width", w)
-    .attr("height", h);*/
+    .attr("height", h);
  
 svg.append("svg:circle")
     //.attr("cx", 480)
