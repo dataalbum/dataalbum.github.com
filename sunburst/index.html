@@ -31,9 +31,20 @@ var vis = d3.select("#chart").append("svg:svg")
     .attr("height", h)
   .append("svg:g")
     .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
-//////
-    var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
-        .outerRadius(r);
+
+var partition = d3.layout.partition()
+    .sort(null)
+    .size([2 * Math.PI, r * r])
+    .children(function(d) { return isNaN(d.value) ? d3.entries(d.value) : null; })
+    .value(function(d) { return d.value; });
+
+var arc = d3.svg.arc()
+    .startAngle(function(d) { return d.x; })
+    .endAngle(function(d) { return d.x + d.dx; })
+    .innerRadius(function(d) { return Math.sqrt(d.y); })
+    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+
+////
  
     var pie = d3.layout.pie()           //this will create arc data for us given a list of values
         .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
@@ -57,19 +68,7 @@ var vis = d3.select("#chart").append("svg:svg")
             })
             .attr("text-anchor", "middle")                          //center the text on it's origin
             .text(function(d, i) { return data[i].label; });        //get the label from our original data array
-/////        
-var partition = d3.layout.partition()
-    .sort(null)
-    .size([2 * Math.PI, r * r])
-    .children(function(d) { return isNaN(d.value) ? d3.entries(d.value) : null; })
-    .value(function(d) { return d.value; });
-
-var arc = d3.svg.arc()
-    .startAngle(function(d) { return d.x; })
-    .endAngle(function(d) { return d.x + d.dx; })
-    .innerRadius(function(d) { return Math.sqrt(d.y); })
-    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
-
+ ////       
 d3.json("singles_sunburst.json", function(json) {
 
   var g = vis.data(d3.entries(json)).selectAll("g")
