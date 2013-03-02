@@ -40,14 +40,14 @@ var path = g.selectAll("path")
       return d3.range(10).map(function(d) {
         return {
           x: p, // outer dimension (angle)
-          y: d, // inner dimension (radius)
+          y: 0//d, // inner dimension (radius)
           z: Math.random()
         };
       });
     })
   .enter().append("svg:path")
     .attr("d", d3.svg.arc()
-    .innerRadius(function(d) { return radius(0); })
+    .innerRadius(function(d) { return radius(d.y); })
     .outerRadius(function(d) { return radius(d.y + 1); })
     .startAngle(0)
     .endAngle(Math.PI / 90))
