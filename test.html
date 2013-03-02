@@ -19,8 +19,8 @@ var w = 960,
     var vis = d3.select("body")
         .append("svg:svg")              //create the SVG element inside the <body>
         .data([data])                   //associate our data with the document
-            .attr("width", 480)           //set the width and height of our visualization (these will be attributes of the <svg> tag
-            .attr("height", 250)
+            .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+            .attr("height", h)
         .append("svg:g")                //make a group to hold our pie chart
     .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
             //.attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
