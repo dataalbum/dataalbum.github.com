@@ -76,7 +76,7 @@ var wp = 960,
             {"label":"", "value":25},
             {"label":"", "value":25}];
     
-    var visp = d3.select("body")
+    var visp = d3.select("#chart")
         .append("svg:svg")              //create the SVG element inside the <body>
         .data([datap])                   //associate our data with the document
             .attr("width", wp)           //set the width and height of our visualization (these will be attributes of the <svg> tag
