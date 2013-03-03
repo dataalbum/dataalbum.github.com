@@ -1,0 +1,27 @@
+{
+  "New Order - Singles": {
+    "1981": {
+        "Ceremony": 1,
+        "Procession": 1,
+        "Everything's Gone Green":1
+    },
+    "1982": {
+        "Temptation": 1
+    },
+	"1983": {
+        "Blue Monday": 1,
+        "Confusion": 1
+    },
+    "1984": {
+        "Thieves Like Us": 1,
+        "Murder": 1
+    },
+    "1985": {
+        "Low-Life": {
+        	"The Perfect Kiss": 1,
+        	"Sub-culture": 1,
+        	"Everything's Gone Green":1
+        }
+    }
+}
+}
