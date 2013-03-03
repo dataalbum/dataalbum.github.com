@@ -65,14 +65,34 @@ d3.json("singles_sunburst.json", function(json) {
       //.attr("text-anchor", "middle")
       .text(function(d) { return d.data.key; });
 });
-////
+/////
+var w = 960,
+    h = 500;
+    r = 100,                            //radius
+    color = d3.scale.category20c();     //builtin range of colors
+ 
+    datap = [{"label":"", "value":25}, 
+            {"label":"", "value":25}, 
+            {"label":"", "value":25},
+            {"label":"", "value":25}];
+    
+    var visp = d3.select("body")
+        .append("svg:svg")              //create the SVG element inside the <body>
+        .data([datap])                   //associate our data with the document
+            .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+            .attr("height", h)
+        .append("svg:g")                //make a group to hold our pie chart
+    .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+            //.attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
+
+
     var arcp = d3.svg.arc()              //this will create <path> elements for us using arc data
         .outerRadius(r);
 
 var pie = d3.layout.pie()           //this will create arc data for us given a list of values
         .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
  
-    var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
+    var arcs = visp.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
         .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties) 
         .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
             .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
