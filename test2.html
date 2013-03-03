@@ -68,6 +68,18 @@ d3.json("flare.json", function(error, root) {
       .style("background", function(d) { return d.children ? color(d.name) : null; })
       .text(function(d) { return d.children ? null : d.name; });
 
+
+
+  g.append("svg:path")
+      .attr("d", arc)
+      .attr("stroke", "#fff")
+      .attr("fill", function(d) { return color((d.children ? d : d.parent).data.key); })
+      .attr("fill-rule", "evenodd");
+
+
+
+
+
   d3.selectAll("input").on("change", function change() {
     var value = this.value === "count"
         ? function() { return 1; }
