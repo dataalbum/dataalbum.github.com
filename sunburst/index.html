@@ -66,9 +66,9 @@ d3.json("singles_sunburst.json", function(json) {
       .text(function(d) { return d.data.key; });
 });
 /////
-var w = 960,
-    h = 500;
-    r = 100,                            //radius
+var wp = 960,
+    hp = 500;
+    rp = 100,                            //radius
     colorp = d3.scale.category20c();     //builtin range of colors
  
     datap = [{"label":"", "value":25}, 
@@ -79,10 +79,10 @@ var w = 960,
     var visp = d3.select("body")
         .append("svg:svg")              //create the SVG element inside the <body>
         .data([datap])                   //associate our data with the document
-            .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
-            .attr("height", h)
+            .attr("width", wp)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+            .attr("height", hp)
         .append("svg:g")                //make a group to hold our pie chart
-    .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+    .attr("transform", "translate(" + wp / 2 + "," + hp / 2 + ")");
             //.attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
 
 
