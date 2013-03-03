@@ -74,7 +74,7 @@ d3.json("flare.json", function(error, root) {
   g.append("svg:path")
       .attr("d", arc)
       .attr("stroke", "#fff")
-      .attr("fill", function(d) { return color((d.children ? d : d.parent).data.key); })
+      .attr("fill", function(d)  return d.children ? color(d.name) : null; })//{ return color((d.children ? d : d.parent).data.key); })
       .attr("fill-rule", "evenodd");
 
 
