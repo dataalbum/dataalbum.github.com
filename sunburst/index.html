@@ -49,7 +49,7 @@ d3.json("test.json", function(json) {
   var g = vis.data(d3.entries(json)).selectAll("g")
       .data(partition)
 	.enter().append("svg:g")
-      .attr("display", function(d) { return d.depth ? null : "none"; }); // hide inner ring 
+     // .attr("display", function(d) { return d.depth ? null : "none"; }); // hide inner ring 
 
   g.append("svg:path")
       .attr("d", arc)
