@@ -87,7 +87,7 @@ var wp = 960,
 
 
     var arcp = d3.svg.arc()              //this will create <path> elements for us using arc data
-        .outerRadius(r);
+        .outerRadius(rp);
 
 var pie = d3.layout.pie()           //this will create arc data for us given a list of values
         .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
