@@ -66,7 +66,7 @@ d3.json("singles_sunburst.json", function(json) {
       .text(function(d) { return d.data.key; });
 });
 ////
-    var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
+    var arcp = d3.svg.arc()              //this will create <path> elements for us using arc data
         .outerRadius(r);
 
 var pie = d3.layout.pie()           //this will create arc data for us given a list of values
@@ -80,7 +80,7 @@ var pie = d3.layout.pie()           //this will create arc data for us given a l
  
         arcs.append("svg:path")
                 .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
-                .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+                .attr("d", arcp);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
 
     </script>
   </body>
