@@ -67,6 +67,7 @@ d3.json("flare.json", function(error, root) {
       .call(position)
       .style("background", function(d) { return d.children ? color(d.name) : null; })
       .text(function(d) { return d.children ? null : d.name; });
+	.enter().append("svg:g")
 
 
 
