@@ -69,7 +69,7 @@ d3.json("singles_sunburst.json", function(json) {
 var w = 960,
     h = 500;
     r = 100,                            //radius
-    color = d3.scale.category20c();     //builtin range of colors
+    colorp = d3.scale.category20c();     //builtin range of colors
  
     datap = [{"label":"", "value":25}, 
             {"label":"", "value":25}, 
@@ -99,7 +99,7 @@ var pie = d3.layout.pie()           //this will create arc data for us given a l
                 .attr("class", "slice");    //allow us to style things in the slices (like text)
  
         arcs.append("svg:path")
-                .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
+                .attr("fill", function(d, i) { return colorp(i); } ) //set the color for each slice to be chosen from the color function defined above
                 .attr("d", arcp);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
 
     </script>
