@@ -62,11 +62,11 @@ var arc = d3.svg.arc()
 d3.json("flare.json", function(error, root) {
   var node = div.datum(root).selectAll(".node")
       .data(treemap.nodes)
-    .enter().append("div")
+    /*.enter().append("div")
       .attr("class", "node")
       .call(position)
       .style("background", function(d) { return d.children ? color(d.name) : null; })
-      .text(function(d) { return d.children ? null : d.name; });
+      .text(function(d) { return d.children ? null : d.name; });*/
 	.enter().append("svg:g")
 
 
