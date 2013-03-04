@@ -69,7 +69,7 @@ d3.json("singles2.json", function(error, classes) {
         //we have to make sure to set these before calling arc.centroid
         d.radius = radius + 50; // Set Outer Coordinate
         d.innerRadius = radius + 45; // Set Inner Coordinate
-        return "translate(" + arc.centroid(d) + ")";
+        return "translate(" + line.centroid(d) + ")";
       })
 
       .attr("text-anchor", "middle")
