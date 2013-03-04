@@ -64,7 +64,7 @@ d3.json("singles2.json", function(error, classes) {
     .enter().append("g")
       .attr("class", "node")
       //.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
-      .attr("transform", function(d) { return "rotate(" + (d.x) + ")translate(" + d.y + ")"; })
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
     .append("text")
       .attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
       .attr("dy", ".31em")
