@@ -67,8 +67,8 @@ d3.json("singles2.json", function(error, classes) {
     .append("text")
       .attr("text-anchor", "middle")
     //  .attr("y", -9)
-     // .attr("transform", function(d) { return d.x < 180 ? "rotate(90)" : "rotate(90)"; })
-      .attr("transform", function(d) { return "translate(" + d.y + ")"; })
+      //.attr("transform", function(d) { return d.x < 180 ? "rotate(90)" : "rotate(90)"; })
+      .attr("transform", function(d)  { return d.x < 180 ? "rotate(d.x)" : "rotate(d.y)"; })
 
 
 /*
