@@ -63,7 +63,7 @@ d3.json("singles2.json", function(error, classes) {
       .data(nodes.filter(function(n) { return !n.children; }))
     .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { return "rotate(" + (d.x - 180) + ")translate(" + d.y + ")"; })
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
     .append("text")
       .attr("text-anchor", "middle")
     //  .attr("y", -9)
