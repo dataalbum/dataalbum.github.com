@@ -65,7 +65,6 @@ d3.json("singles2.json", function(error, classes) {
       .attr("class", "node")
       .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
     .append("text")
-      .attr("transform", function(d) { //set the label's origin to the center of the arc
       .attr("text-anchor", "middle")
     //  .attr("y", -9)
       //.attr("transform", function(d) { return d.x < 180 ? "rotate(90)" : "rotate(90)"; })
