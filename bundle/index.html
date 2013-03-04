@@ -70,7 +70,7 @@ d3.json("singles2.json", function(error, classes) {
     .attr("dx", 12)
     .attr("dy", ".35em")
     //.attr("transform", function(d) { return "rotate(" + (90) + ")"; })
-    .attr("transform", function(d) { return "translate(" + line.centroid(d) + ")"; })
+    .attr("transform", function(d) { return "translate(" + 180 * Math.PI + ")"; })
 
 /*
 
