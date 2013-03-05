@@ -32,11 +32,11 @@ var fill = d3.scale.ordinal()
 var stroke = d3.scale.linear()
     .domain([0, 1e4])
     .range(["brown", "steelblue"]);
- 
+/* 
 var treemap = d3.layout.treemap()
     .size([width, height])
     .value(function(d) { return d.size; });
- 
+*/ 
 var bundle = d3.layout.bundle();
  
 var div = d3.select("body").append("div")
