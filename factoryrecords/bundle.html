@@ -39,7 +39,7 @@ var cluster = d3.layout.cluster()
 
 var bundle = d3.layout.bundle();
 
-var line = d3.svg.line()
+var line = d3.svg.line.radial()
     .interpolate("bundle")
     .tension(.9)
     .radius(function(d) { return d.y; })
