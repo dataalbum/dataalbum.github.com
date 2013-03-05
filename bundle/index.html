@@ -63,14 +63,14 @@ d3.json("singles2.json", function(error, classes) {
       .data(nodes.filter(function(n) { return !n.children; }))
     .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+      .attr("transform", function(d) { return "rotate(" + d.x + ")translate(" + d.y + ")"; })
 
 
 .append("text")
     .attr("dx", 12)
     .attr("dy", ".35em")
     //.attr("transform", function(d) { return "rotate(" + (90) + ")"; })
-    .attr("transform", function(d) { return "translate(100,0)rotate(" + 90 + ")"; })
+    //.attr("transform", function(d) { return "translate(100,0)rotate(" + 90 + ")"; })
 
 /*
 
