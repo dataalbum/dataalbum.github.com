@@ -42,11 +42,9 @@ var bundle = d3.layout.bundle();
 var line = d3.svg.line()
     .interpolate("bundle")
     .tension(.9)
-   // .radius(function(d) { return d.y; })
-  //  .angle(function(d) { return d.x / 180 * Math.PI; });
-    .x(function(d) { return d.x + d.dx / 2; })
-    .y(function(d) { return d.y + d.dy / 2; });
-
+    .radius(function(d) { return d.y; })
+    .angle(function(d) { return d.x / 180 * Math.PI; });
+  
 var svg = d3.select("#chart").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
