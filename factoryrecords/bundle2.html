@@ -32,6 +32,10 @@ var fill = d3.scale.ordinal()
 var stroke = d3.scale.linear()
     .domain([0, 1e4])
     .range(["brown", "steelblue"]);
+
+var cluster = d3.layout.cluster()
+    .size([height, width - 160]);
+
 /* 
 var treemap = d3.layout.treemap()
     .size([width, height])
@@ -51,7 +55,7 @@ var line = d3.svg.line()
     .y(function(d) { return d.y + d.dy / 2; });
  
 d3.json("fac.json", function(error, classes) {
-  var nodes = treemap.nodes(packages.root(classes)),
+  var nodes = cluster.nodes(packages.root(classes)),
       links = packages.imports(nodes);
  
   div.selectAll(".cell")
