@@ -47,7 +47,7 @@ var div = d3.select("body").append("div")
 
 var line = d3.svg.line()
     .interpolate("bundle")
-    .tension(5)
+    .tension(.8)
     .x(function(d) { return d.x + d.dx / 2; })
     .y(function(d) { return d.y + d.dy / 2; });
 
