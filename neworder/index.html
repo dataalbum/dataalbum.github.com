@@ -65,7 +65,7 @@ d3.json("singles_tree.json", function(error, root) {
   node.append("text")
       .attr("dy", ".31em")
       .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-      .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
+      .attr("transform", function(d) { return d.x < 180 ? "translate(20)" : "rotate(180)translate(-20)"; })
       .text(function(d) { return d.name; });
 });
 
