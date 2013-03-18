@@ -49,7 +49,7 @@ var svg = d3.select("#chart").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("test_data/fi.json", function(error, fi) {
+d3.json("fi.json", function(error, fi) {
   svg.selectAll(".subunit")
       .data(topojson.object(fi, fi.objects.subunits).geometries)
     .enter().append("path")
