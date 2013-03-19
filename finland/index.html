@@ -1,7 +1,7 @@
 <!DOCTYPE html>
  <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>Suomen maakunnat.</title>
+    <title>Regions of Finland.</title>
 <style>
 
 .subunit.FIN { fill: #cdd; }
@@ -19,30 +19,23 @@ text {
 </style>
 </head>
 <body>
-<<<<<<< HEAD
-	<h1>Suomen maakunnat.</h1>
-	<p>Kartta on tehty <a href="http://d3js.org">D3.js</a> -kirjaston ja <a href="https://github.com/mbostock/topojson">TopoJSON</a> -topologia koodauksen avulla.
-	<div id="chart"></div>
-	<p>Data on muutettu <a href="http://dataist.wordpress.com/2012/12/16/finnish-regional-geodata-as-geojson-and-kml/">Regions (maakunnat) - GeoJSON</a> -topologia koodauksesta <a href="https://github.com/mbostock/topojson/wiki/Command-Line-Reference"> TopoJSON-ohjeiden</a> avulla.</p>
-=======
 	<h1>Suomen kartta (Mercatorin projektio).</h1>
 	<p>Kartta on tehty <a href="http://d3js.org">D3.js</a> -kirjaston ja <a href="https://github.com/mbostock/topojson">TopoJSON</a> -topologia koodauksen avulla.
 	<div id="chart"></div>
 	<p>Data on muutettu <a href="http://www.naturalearthdata.com/">Natural Earth</a> -tiedoista <a href="http://bost.ocks.org/mike/map/#converting-data"> Mike Bostockin ohjeiden</a> avulla.</p>
->>>>>>> New map.
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="http://d3js.org/topojson.v0.min.js"></script>
 <script>
 
 var width = 960,
-    height = 600;
+    height = 1160;
 
 var width = 960,
     height = 1160;
 
 var projection = d3.geo.mercator()
-    .center([40, 65])
-    .scale(8000)
+    .center([45, 55])
+    .scale(6000)
     .translate([width / 2, height / 2]);
 
 /*
