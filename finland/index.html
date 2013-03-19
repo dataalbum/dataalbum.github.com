@@ -4,33 +4,32 @@
     <title>Suomen maakunnat.</title>
 <style>
 
-.subunit.a { fill: #ddc; }
-.subunit.b { fill: #cdd; }
-.subunit.c { fill: #cdc; }
-.subunit.d { fill: #dcd; }
-.subunit.e { fill: #dcc; }
-.subunit.f { fill: #ccd; }
-.subunit.g { fill: #ddd; }
-.subunit.h { fill: #ccc; }
-.subunit.i { fill: #cd4; }
-.subunit.j { fill: #dc4; }
-.subunit.k { fill: #bcd; }
-.subunit.l { fill: #bdc; }
-.subunit.m { fill: #bcc; }
-.subunit.n { fill: #bdd; }
-.subunit.o { fill: #ddb; }
-.subunit.p { fill: #ccb; }
-.subunit.q { fill: #bcc; }
-.subunit.r { fill: #ccb; }
-.subunit.s { fill: #cbc; }
+.subunit.FIN { fill: #cdd; }
 
+.place,
+.place-label {
+  fill: #444;
+}
+
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 8px;
+  pointer-events: none;
+}
 </style>
 </head>
 <body>
+<<<<<<< HEAD
 	<h1>Suomen maakunnat.</h1>
 	<p>Kartta on tehty <a href="http://d3js.org">D3.js</a> -kirjaston ja <a href="https://github.com/mbostock/topojson">TopoJSON</a> -topologia koodauksen avulla.
 	<div id="chart"></div>
 	<p>Data on muutettu <a href="http://dataist.wordpress.com/2012/12/16/finnish-regional-geodata-as-geojson-and-kml/">Regions (maakunnat) - GeoJSON</a> -topologia koodauksesta <a href="https://github.com/mbostock/topojson/wiki/Command-Line-Reference"> TopoJSON-ohjeiden</a> avulla.</p>
+=======
+	<h1>Suomen kartta (Mercatorin projektio).</h1>
+	<p>Kartta on tehty <a href="http://d3js.org">D3.js</a> -kirjaston ja <a href="https://github.com/mbostock/topojson">TopoJSON</a> -topologia koodauksen avulla.
+	<div id="chart"></div>
+	<p>Data on muutettu <a href="http://www.naturalearthdata.com/">Natural Earth</a> -tiedoista <a href="http://bost.ocks.org/mike/map/#converting-data"> Mike Bostockin ohjeiden</a> avulla.</p>
+>>>>>>> New map.
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="http://d3js.org/topojson.v0.min.js"></script>
 <script>
@@ -38,24 +37,54 @@
 var width = 960,
     height = 600;
 
+var width = 960,
+    height = 1160;
+
 var projection = d3.geo.mercator()
     .center([40, 65])
     .scale(8000)
     .translate([width / 2, height / 2]);
 
-var path = d3.geo.path()
-    .projection(projection);
+/*
+var projection = d3.geo.albers()
+    .center([0, 55.4])
+    .rotate([4.4, 0])
+    .parallels([50, 60])
+    .scale(1200 * 5)
+    .translate([width / 2, height / 2]);
+*/
 
-var svg = d3.select("#chart").append("svg")
+var path = d3.geo.path()
+    .projection(projection)
+    .pointRadius(2);
+
+var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("fi.json", function(error, fi) {
+d3.json("fi_ax_all.json", function(error, fi) {
   svg.selectAll(".subunit")
       .data(topojson.object(fi, fi.objects.subunits).geometries)
     .enter().append("path")
       .attr("class", function(d) { return "subunit " + d.id; })
       .attr("d", path);
+
+  svg.append("path")
+      .datum(topojson.object(fi, fi.objects.places))
+      .attr("d", path)
+      .attr("class", "place");
+
+  svg.selectAll(".place-label")
+      .data(topojson.object(fi, fi.objects.places).geometries)
+    .enter().append("text")
+      .attr("class", "place-label")
+      .attr("transform", function(d) { return "translate(" + projection(d.coordinates) + ")"; })
+      //.attr("x", function(d) { return d.coordinates[0] > -1 ? 6 : -6; })
+      .attr("y", -6)
+      .attr("dy", ".35em")
+      //.style("text-anchor", function(d) { return d.coordinates[0] > -1 ? "start" : "end"; })
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.properties.name; });
 });
 
 </script>
