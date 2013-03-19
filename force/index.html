@@ -42,7 +42,7 @@ links.forEach(function(link) {
 var width = window.innerWidth - 1,//960,
     height = window.innerHeight - 1;//500;
 
-var force = d3.layout.force()
+var force = d3.layout.force().alpha(0)
     .nodes(d3.values(nodes))
     .links(links)
     .size([width, height])
