@@ -30,15 +30,16 @@
 	<h1>Suomen maakunnat.</h1>
 	<p>Kartta on tehty <a href="http://d3js.org">D3.js</a> -kirjaston ja <a href="https://github.com/mbostock/topojson">TopoJSON</a> -topologia koodauksen avulla.<br>Data converted from <a href="http://dataist.wordpress.com/2012/12/16/finnish-regional-geodata-as-geojson-and-kml/">Regions (maakunnat) - GeoJSON Dataist's blog</a> accoring to <a href="https://github.com/mbostock/topojson/wiki/Command-Line-Reference"> TopoJSON wiki</a>.</p>
 	<div id="chart"></div>
+	<p>Data converted from <a href="http://dataist.wordpress.com/2012/12/16/finnish-regional-geodata-as-geojson-and-kml/">Regions (maakunnat) - GeoJSON Dataist's blog</a> accoring to <a href="https://github.com/mbostock/topojson/wiki/Command-Line-Reference"> TopoJSON wiki</a>.</p>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="http://d3js.org/topojson.v0.min.js"></script>
 <script>
 
 var width = 960,
-    height = 960;
+    height = 520;
 
 var projection = d3.geo.mercator()
-    .center([40, 60])
+    .center([40, 70])
     .scale(8000)
     .translate([width / 2, height / 2]);
 
