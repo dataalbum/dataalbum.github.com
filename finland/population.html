@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <style>
 
-.subunit {
+.subunits {
   fill: #ccc;
   stroke: #fff;
 }
@@ -40,7 +40,7 @@ queue()
 
 function ready(error, fi, centroid) {
   svg.append("path")
-      .attr("class", "subunit")
+      .attr("class", "subunits")
       .datum(topojson.object(fi, fi.objects.subunits))
       .attr("d", path);
 
