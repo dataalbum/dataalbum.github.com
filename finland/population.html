@@ -40,7 +40,7 @@ queue()
 
 function ready(error, fi, centroid) {
   svg.append("path")
-      .attr("class", "subunits")
+      .attr("class", "subunit")
       .datum(topojson.object(fi, fi.objects.subunits))
       .attr("d", path);
 
