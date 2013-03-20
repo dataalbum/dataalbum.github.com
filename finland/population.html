@@ -37,17 +37,11 @@ queue()
     .defer(d3.json, "fi_ax_all.json")
     .defer(d3.json, "fi_places_population_fixed.json")
     .await(ready);
-    
+
 function ready(error, fi, centroid) {
   svg.append("path")
       .attr("class", "subunits")
       .datum(topojson.object(fi, fi.objects.subunits).geometries)
-      .attr("d", path);
-
-function ready(error, fi, centroid) {
-  svg.append("path")
-      .attr("class", "places")
-      .datum(topojson.object(fi, fi.objects.places).geometries)
       .attr("d", path);
 
   svg.selectAll(".symbol")
