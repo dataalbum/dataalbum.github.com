@@ -19,4 +19,4 @@
 {"type":"Feature","id":"18","geometry":{"type":"Point","coordinates":[4652,6516]},"properties":{"name":"Rovaniemi","population":1000000}},
 {"type":"Feature","id":"19","geometry":{"type":"Point","coordinates":[892,3204]},"properties":{"name":"Vaasa","population":1000000}},
 {"type":"Feature","id":"20","geometry":{"type":"Point","coordinates":[2856,1645]},"properties":{"name":"Tampere","population":1000000}},
-{"type":"Feature","id":"21","geometry":{"type":"Point","coordinates":[3936,357]},"properties":{"name":"Helsinki","population":1000000}}
+{"type":"Feature","id":"21","geometry":{"type":"Point","coordinates":[3936,357]},"properties":{"name":"Helsinki","population":1000000}}]}
