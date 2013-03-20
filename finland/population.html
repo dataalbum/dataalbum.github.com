@@ -47,7 +47,7 @@ svg.selectAll(".subunit")
 function ready(error, fi, centroid) {
   svg.append("path")
       .attr("class", "places")
-      .datum(topojson.object(fi, fi.objects.places))
+      .datum(topojson.object(fi, fi.objects.places).geometries)
       .attr("d", path);
 
   svg.selectAll(".symbol")
