@@ -39,10 +39,10 @@ queue()
     .await(ready);
     
 function ready(error, fi, centroid) {
-    .data(topojson.object(fi, fi.objects.subunits).geometries)
-    .enter().append("path")
-    .attr("class", function(d) { return "subunit " + d.id; })
-    .attr("d", path);
+  svg.append("path")
+      .attr("class", "subunits")
+      .datum(topojson.object(fi, fi.objects.subunits).geometries)
+      .attr("d", path);
 
 function ready(error, fi, centroid) {
   svg.append("path")
