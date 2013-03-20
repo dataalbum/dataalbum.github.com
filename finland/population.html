@@ -20,6 +20,9 @@
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <script>
 
+
+
+/*
 var width = 960,
     height = 500;
 
@@ -28,6 +31,23 @@ var radius = d3.scale.sqrt()
     .range([0, 10]);
 
 var path = d3.geo.path();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+*/
+
+var width = 960,
+    height = 600;
+
+var projection = d3.geo.mercator()
+    .center([40, 65])
+    .scale(8000)
+    .translate([width / 2, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection)
+    .pointRadius(2);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
