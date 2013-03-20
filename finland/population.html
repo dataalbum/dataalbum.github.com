@@ -40,8 +40,13 @@ queue()
 
 function ready(error, fi, centroid) {
   svg.append("path")
-      .attr("class", "subunits")
-      .datum(topojson.object(fi, fi.objects.subunits).geometries)
+      .datum(topojson.object(fi, fi.objects.subunits))
+      .attr("class", "subunit")
+      .attr("d", path);
+  
+  svg.append("path")
+      .datum(topojson.object(fi, fi.objects.places))
+      .attr("class", "places")
       .attr("d", path);
 
   svg.selectAll(".symbol")
