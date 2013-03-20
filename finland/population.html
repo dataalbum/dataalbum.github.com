@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <style>
 
-.subunits {
+.subunit.FIN {
   fill: #ccc;
   stroke: #fff;
 }
@@ -39,9 +39,10 @@ queue()
     .await(ready);
 
 function ready(error, fi, centroid) {
-  svg.append("path")
-      .attr("class", "subunits")
-      .datum(topojson.object(fi, fi.objects.subunits))
+  svg.selectAll(".subunit")
+      .data(topojson.object(fi, fi.objects.subunits).geometries)
+    .enter().append("path")
+      .attr("class", function(d) { return "subunit " + d.id; })
       .attr("d", path);
 
   svg.selectAll(".symbol")
