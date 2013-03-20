@@ -27,7 +27,12 @@ var radius = d3.scale.sqrt()
     .domain([0, 1e6])
     .range([0, 10]);
 
-var path = d3.geo.path();
+var projection = d3.geo.mercator()
+    .scale(6000)
+    .translate([width / 2, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
