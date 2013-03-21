@@ -1,0 +1,12 @@
+{"type":"FeatureCollection","features":[
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[24.9375, 60.170833]},"properties":{"name":"Helsinki","population":6050220}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[24.655556, 60.205556]},"properties":{"name":"Espoo","population":2571950}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[23.760833, 61.498056]},"properties":{"name":"Tampere","population":2176030}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[25.040278, 60.294444]},"properties":{"name":"Vantaa","population":2054790}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[25.466667, 65.016667]},"properties":{"name":"Oulu","population":1910500}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[22.266667, 60.451389]},"properties":{"name":"Turku","population":1803500}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[25.744444, 62.240278]},"properties":{"name":"Jyväskylä","population":1335570}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[27.678333, 62.8925]},"properties":{"name":"Kuopio","population":1052360}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[25.655556, 60.983333]},"properties":{"name":"Lahti","population":1030730}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[26.704167, 60.868056]},"properties":{"name":"Kouvola","population":884070}}
+]}
