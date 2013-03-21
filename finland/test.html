@@ -27,8 +27,8 @@ var svg = d3.select("body").append("svg")
 d3.json("us.json", function(error, us) {
   console.log(us);
   svg.append("path")
-      .attr("class", "states")
-      .datum(topojson.object(us, us.objects.states))
+      .datum(topojson.object(us, us.objects.land))
+      .attr("class", "land")
       .attr("d", path);
 });
 
