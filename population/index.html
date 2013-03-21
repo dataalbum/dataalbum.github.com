@@ -49,7 +49,7 @@ var svg = d3.select("#chart").append("svg")
     .attr("height", height);
 
 queue()
-    .defer(d3.json, "fi_ax_all.json")
+    .defer(d3.json, "fi.json")
     .defer(d3.json, "fi_population_geo.json")
     .await(ready);
 
