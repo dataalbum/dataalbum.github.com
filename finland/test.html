@@ -23,8 +23,10 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 d3.json("fi_ax_all.json", function(error, fi) {
-.data(topojson.object(fi, fi.objects.subunits).geometries)
-  .enter().append("path")
+    svg.selectAll(".subunit")
+    .data(topojson.object(fi, fi.objects.subunits).geometries)
+    .enter().append("path")
+    .attr("class", function(d) { return "subunit " + d.id; })
     .attr("d", path);
 });
 
