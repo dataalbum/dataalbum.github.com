@@ -13,7 +13,7 @@ path {
 <script src="http://d3js.org/topojson.v0.min.js"></script>
 <script>
 
-var width = 9600,
+var width = 960,
     height = 5000;
 
 var path = d3.geo.path();
@@ -23,12 +23,8 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 d3.json("fi_ax_all.json", function(error, topology) {
-      //svg.append("path")
-      //.datum(topojson.object(topology, topology.objects.geometries))
-      svg.selectAll(".subunit")
-    .data(topojson.object(topology, topology.objects.subunits).geometries)
-  .enter().append("path")
-    .attr("class", function(d) { return "subunit " + d.id; })
+    svg.append("path")
+      .datum(topojson.object(topology, topology.objects.places_all))
       .attr("d", path);
 });
 
