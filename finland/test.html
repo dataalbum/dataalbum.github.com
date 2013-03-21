@@ -23,9 +23,9 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 d3.json("fi_ax_all.json", function(error, topology) {
-  svg.append("path")
-      .datum(topojson.object(topology, topology.objects.subunits.geometries))
-      .attr("d", path);
+.data(topojson.object(uk, uk.objects.subunits).geometries)
+  .enter().append("path")
+    .attr("d", path);
 });
 
 </script>
