@@ -27,7 +27,7 @@ var svg = d3.select("body").append("svg")
 d3.json("fi.json", function(error, us) {
   console.log(us);
   svg.selectAll("path")
-      .data(topojson.object(us, us.objects.country).geometries)
+      .data(topojson.object(us, us.objects))
     .enter().append("path")
       .attr("d", path);
 });
