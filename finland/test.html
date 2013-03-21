@@ -24,11 +24,11 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("fi_ax_all.json", function(error, us) {
+d3.json("fi.json", function(error, us) {
   console.log(us);
   svg.append("path")
-      .datum(topojson.object(us, us.objects.subunits).geometries)
-      .attr("class", "subunits")
+      .datum(topojson.object(us, us.objects.country))
+      .attr("class", "country")
       .attr("d", path);
 });
 
