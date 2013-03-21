@@ -22,9 +22,10 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("fi_ax_all.json", function(error, topology) {
-    svg.append("path")
-      .datum(topojson.object(topology, topology.objects.subunits).geometries)
+d3.json("fi_ax_all.json", function(error, us) {
+  svg.append("path")
+      .attr("class", "subunits")
+      .datum(topojson.object(us, us.objects.subunits))
       .attr("d", path);
 });
 
