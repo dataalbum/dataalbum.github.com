@@ -25,6 +25,7 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 d3.json("fi_ax_all.json", function(error, us) {
+  console.log(us);
   svg.append("path")
       .attr("class", "subunits")
       .datum(topojson.object(us, us.objects.subunits))
