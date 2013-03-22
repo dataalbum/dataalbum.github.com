@@ -4,25 +4,29 @@
     <title>Suomen maakunnat.</title>
 <style>
 
-.subunit.a { fill: #ddc; }
-.subunit.b { fill: #cdd; }
-.subunit.c { fill: #cdc; }
-.subunit.d { fill: #dcd; }
-.subunit.e { fill: #dcc; }
-.subunit.f { fill: #ccd; }
-.subunit.g { fill: #ddd; }
-.subunit.h { fill: #ccc; }
-.subunit.i { fill: #cd4; }
-.subunit.j { fill: #dc4; }
-.subunit.k { fill: #bcd; }
-.subunit.l { fill: #bdc; }
-.subunit.m { fill: #bcc; }
-.subunit.n { fill: #bdd; }
-.subunit.o { fill: #ddb; }
-.subunit.p { fill: #ccb; }
-.subunit.q { fill: #bcc; }
-.subunit.r { fill: #ccb; }
-.subunit.s { fill: #cbc; }
+.subunit {
+  fill: #bbb;
+}
+
+.maakunta.a { fill: #ddc; fill-opacity: .3; stroke: #fff;}
+.maakunta.b { fill: #cdd; fill-opacity: .3; stroke: #fff;}
+.maakunta.c { fill: #cdc; fill-opacity: .3; stroke: #fff;}
+.maakunta.d { fill: #dcd; fill-opacity: .3; stroke: #fff;}
+.maakunta.e { fill: #dcc; fill-opacity: .3; stroke: #fff;}
+.maakunta.f { fill: #ccd; fill-opacity: .3; stroke: #fff;}
+.maakunta.g { fill: #ddd; fill-opacity: .3; stroke: #fff;}
+.maakunta.h { fill: #ccc; fill-opacity: .3; stroke: #fff;}
+.maakunta.i { fill: #cd4; fill-opacity: .3; stroke: #fff;}
+.maakunta.j { fill: #dc4; fill-opacity: .3; stroke: #fff;}
+.maakunta.k { fill: #bcd; fill-opacity: .3; stroke: #fff;}
+.maakunta.l { fill: #bdc; fill-opacity: .3; stroke: #fff;}
+.maakunta.m { fill: #bcc; fill-opacity: .3; stroke: #fff;}
+.maakunta.n { fill: #bdd; fill-opacity: .3; stroke: #fff;}
+.maakunta.o { fill: #ddb; fill-opacity: .3; stroke: #fff;}
+.maakunta.p { fill: #ccb; fill-opacity: .3; stroke: #fff;}
+.maakunta.q { fill: #bcc; fill-opacity: .3; stroke: #fff;}
+.maakunta.r { fill: #ccb; fill-opacity: .3; stroke: #fff;}
+.maakunta.s { fill: #cbc; fill-opacity: .3; stroke: #fff;}
 
 </style>
 </head>
@@ -33,15 +37,16 @@
 	<p>Data on muutettu <a href="http://dataist.wordpress.com/2012/12/16/finnish-regional-geodata-as-geojson-and-kml/">Regions (maakunnat) - GeoJSON</a> -topologia koodauksesta <a href="https://github.com/mbostock/topojson/wiki/Command-Line-Reference"> TopoJSON-ohjeiden</a> avulla.</p>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="http://d3js.org/topojson.v0.min.js"></script>
+	<script src="http://d3js.org/queue.v1.min.js"></script>
 <script>
 
 var width = 960,
     height = 600;
 
 var projection = d3.geo.mercator()
-    .center([40, 65])
-    .scale(8000)
-    .translate([width / 2, height / 2]);
+    .rotate([0, 0])
+    .center([25, 65.5])
+    .scale(1100);
 
 var path = d3.geo.path()
     .projection(projection);
@@ -50,12 +55,24 @@ var svg = d3.select("#chart").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("fi.json", function(error, fi) {
-  svg.selectAll(".subunit")
-      .data(topojson.object(fi, fi.objects.subunits).geometries)
-    .enter().append("path")
-      .attr("class", function(d) { return "subunit " + d.id; })
-      .attr("d", path);
-});
+queue()
+    .defer(d3.json, "fi.json")
+    .defer(d3.json, "fi_regions.json")
+    .await(ready);
 
+function ready(error, fi, centroid) {
+	console.log(centroid);
+	var subunits = topojson.object(fi, fi.objects.subunits);
+
+  svg.append("path")
+      .datum(subunits)
+      .attr("class", "subunit")
+      .attr("d", path);
+
+  svg.selectAll(".maakunta")
+      .data(topojson.object(centroid, centroid.objects.maakunnat).geometries)
+    .enter().append("path")
+      .attr("class", function(d) { return "maakunta " + d.id; })
+      .attr("d", path);
+}
 </script>
