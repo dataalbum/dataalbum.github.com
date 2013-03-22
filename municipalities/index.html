@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.subunit {
+  fill: #bbb;
+}
+
+.kunta {
+  fill: steelblue;
+  fill-opacity: .3;
+  stroke: #fff;
+}
+
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  text-anchor: middle;
+}
+
+</style>
+<body>
+	<h1>Suomen kunnat.</h1>
+	<p>Kartta on tehty <a href="http://d3js.org">D3.js</a> -kirjaston ja <a href="https://github.com/mbostock/topojson">TopoJSON</a> -topologia koodauksen avulla.
+	<div id="chart"></div>
+	<p>Data on muutettu <a href="http://dataist.wordpress.com/2012/12/16/finnish-regional-geodata-as-geojson-and-kml/">Municipalities (kunnat) - GeoJSON</a> -topologia koodauksesta <a href="https://github.com/mbostock/topojson/wiki/Command-Line-Reference"> TopoJSON-ohjeiden</a> avulla.</p>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script>
+
+var width = 960,
+    height = 500;
+    
+var radius = d3.scale.sqrt()
+    .domain([0, 1e6])
+    .range([0, 10]);
+
+var projection = d3.geo.mercator()
+    .rotate([0, 0])
+    .center([25, 65.5])
+    .scale(1100);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("#chart").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+queue()
+    .defer(d3.json, "fi.json")
+    .defer(d3.json, "fi_kunnat.json")
+    .await(ready);
+
+function ready(error, fi, centroid) {
+	console.log(centroid);
+	var subunits = topojson.object(fi, fi.objects.subunits);
+
+  svg.append("path")
+      .datum(subunits)
+      .attr("class", "subunit")
+      .attr("d", path);
+
+  svg.selectAll(".kunta")
+      .data(topojson.object(centroid, centroid.objects.kunnat).geometries)
+    .enter().append("path")
+      .attr("class", function(d) { return "kunta " + d.id; })
+      .attr("d", path);
+}
+</script>
