@@ -7,7 +7,7 @@
 }
 
 .kunta {
-  fill: steelblue;
+  fill: none;
   fill-opacity: .3;
   stroke: #fff;
 }
@@ -32,9 +32,9 @@ text {
 var width = 960,
     height = 500;
     
-var radius = d3.scale.sqrt()
-    .domain([0, 1e6])
-    .range([0, 10]);
+var fill = d3.scale.log()
+    .domain([10, 500])
+    .range(["brown", "steelblue"]);
 
 var projection = d3.geo.mercator()
     .rotate([0, 0])
@@ -66,6 +66,7 @@ function ready(error, fi, centroid) {
       .data(topojson.object(centroid, centroid.objects.kunnat).geometries)
     .enter().append("path")
       .attr("class", function(d) { return "kunta " + d.id; })
-      .attr("d", path);
+      .attr("d", path)
+      .style("fill", function(d) { return fill(path.area(d));
 }
 </script>
