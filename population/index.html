@@ -30,7 +30,7 @@ text {
 <script>
 
 var width = 960,
-    height = 600;
+    height = 560;
     
 var radius = d3.scale.sqrt()
     .domain([0, 1e6])
@@ -39,7 +39,7 @@ var radius = d3.scale.sqrt()
 var projection = d3.geo.mercator()
     .rotate([0, 0])
     .center([25, 65.5])
-    .scale(1200);
+    .scale(1100);
 
 var path = d3.geo.path()
     .projection(projection);
