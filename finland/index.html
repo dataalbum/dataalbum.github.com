@@ -30,11 +30,18 @@ text {
 var width = 960,
     height = 600;
 
+
+var projection = d3.geo.mercator()
+    .rotate([0, 0])
+    .center([25, 65.5])
+    .scale(1100);
+
+/*
 var projection = d3.geo.mercator()
     .center([40, 65])
     .scale(8000)
     .translate([width / 2, height / 2]);
-/*
+
 var projection = d3.geo.albers()
     .center([0, 55.4])
     .rotate([4.4, 0])
