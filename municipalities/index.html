@@ -67,6 +67,6 @@ function ready(error, fi, centroid) {
     .enter().append("path")
       .attr("class", function(d) { return "kunta " + d.id; })
       .attr("d", path)
-      .style("fill", function(d) { return fill(path.area(d));
+      .style("fill", function(d) { return fill(path.area(d)); });
 }
 </script>
