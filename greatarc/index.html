@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="http://d3js.org/topojson.v0.min.js"></script>
+    <style type="text/css">
+
+.subunit.FIN { fill: #cdd; }
+
+#states path {
+  fill: #ddd;
+  stroke: #fff;
+}
+
+#arcs path {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: .5px;
+  stroke-opacity: 1;
+}
+
+    </style>
+  </head>
+  <body>
+  	<h1>Suomen 10 suurinta kuntaa ja niiden väliset linkit.</h1> 
+	<div id="chart"></div>
+	<p>Kartta on tehty <a href="http://d3js.org">D3.js</a> -kirjaston ja <a href="https://github.com/mbostock/topojson">TopoJSON</a> -topologia koodauksen avulla.</p>
+
+    <script type="text/javascript">
+
+var w = 960,
+    h = 500;
+
+var projection = d3.geo.mercator()
+    .rotate([0, 0])
+    .center([25, 65.5])
+    .scale(1100);
+
+var path = d3.geo.path()
+	.projection(projection);
+
+var arc = d3.geo.greatArc();
+
+var svg = d3.select("#chart").append("svg")
+    .attr("width", w)
+    .attr("height", h);
+
+var fin = svg.append("g")
+    .attr("id", "fin");
+
+var arcs = svg.append("g")
+    .attr("id", "arcs");
+
+d3.json("fi.json", function(error, fi) {
+  fin.selectAll(".subunit")
+      .data(topojson.object(fi, fi.objects.subunits).geometries)
+    .enter().append("path")
+      .attr("class", function(d) { return "subunit " + d.id; })
+      .attr("d", path);
+});
+
+d3.json("fi_population_geo.json", function(collection) {
+  console.log(collection);
+  var links = [];
+
+  // Create a link between each state centroid.
+  collection.features.forEach(function(a) {
+    collection.features.forEach(function(b) {
+      if (a !== b) {
+        links.push({
+          source: a.geometry.coordinates,
+          target: b.geometry.coordinates
+        });
+      }
+    });
+  });
+console.log(links);
+  arcs.selectAll("path")
+      .data(links)
+    .enter().append("path")
+      .attr("d", function(d) { return path(arc(d)); });
+});
+
+    </script>
+  </body>
+</html>
