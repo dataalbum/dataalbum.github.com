@@ -79,7 +79,19 @@ console.log(links);
   arcs.selectAll("path")
       .data(links)
     .enter().append("path")
-      .attr("d", function(d) { return path(arc(d)); });
+     // .attr("d", function(d) { return path(arc(d)); });
+      .attr("d", function(d) { 
+            var source = projection(d.source); 
+            var target = projection(d.target); 
+            var dx = target[0] - source[0], 
+                dy = target[1] - source[1], 
+                dr = Math.sqrt(dx * dx + dy * dy); 
+                return "M" + source[0] + "," + source[1] + "A" + dr + "," + dr + "0 0,1 " + target[0] + "," + target[1]; 
+        }); 
+
+
+
+
 });
 
     </script>
