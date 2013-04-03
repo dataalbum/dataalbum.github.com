@@ -37,7 +37,7 @@ var path = d3.geo.path()
   var arcs = svg.append("g")
   .attr("id", "arcs");
 
-  d3.json("d3/world-countries.json", function(collection) {
+  d3.json("world-countries.json", function(collection) {
       states.selectAll("path")
       .data(collection.features)
       .enter().append("svg:path")
