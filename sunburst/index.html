@@ -42,7 +42,7 @@ var arc = d3.svg.arc()
     .startAngle(function(d) { return d.x; })
     .endAngle(function(d) { return d.x + d.dx; })
     //.innerRadius(function(d) { return Math.sqrt(d.y); })
-    .innerRadius(0)
+    .innerRadius(.1)
     .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
 
 d3.json("singles_sunburst.json", function(json) {
