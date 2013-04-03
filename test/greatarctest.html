@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <h2>
+    </h2>
+    <script type="text/javascript" src="d3.v2.min.js"></script>
+    <script type="text/javascript">
+
+      var w = 1280,
+      h = 800;
+
+var origin = [-10, 30];
+
+  var projection = d3.geo.mercator()
+.scale(1000)
+  ;
+
+var path = d3.geo.path()
+  .projection(projection);
+
+
+  var svg = d3.select("body").insert("svg:svg", "h2")
+  .attr("width", w)
+  .attr("height", h);
+
+  var states = svg.append("svg:g")
+  .attr("id", "states");
+
+  var circles = svg.append("svg:g")
+  .attr("id", "circles");
+
+  var cells = svg.append("svg:g")
+  .attr("id", "cells");
+
+  var arcs = svg.append("g")
+  .attr("id", "arcs");
+
+  d3.json("d3/world-countries.json", function(collection) {
+      states.selectAll("path")
+      .data(collection.features)
+      .enter().append("svg:path")
+      .attr("d", path)
+      .style("fill", "SteelBlue")
+      ;
+      });
+
+var arc = d3.geo.greatArc()
+  .precision(1);
+
+  var links = [{
+    'source': [-118.24368, 34.05223],
+      'target': [114.15769, 22.28552]
+  }];
+
+  arcs.selectAll("path")
+.data(links)
+  .enter().append("path")
+  .style("stroke-width", 2)
+  .style("stroke", "orange")
+  .style("fill", "none")
+  .attr("d", function(d) { return path(arc(d)); });
+
+</script>
+  </body>
+</html>
