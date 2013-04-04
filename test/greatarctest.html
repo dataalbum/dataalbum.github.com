@@ -51,10 +51,16 @@ var path = d3.geo.path()
 var arc = d3.geo.greatArc()
   .precision(1);
 
-  var links = [{
-    'source': [-118.24368, 34.05223],
+  var links = [
+    {
+      'source': [-118.24368, 34.05223],
       'target': [25.466667, 65.016667]
-  }];
+    },
+    {
+      'source': [24.9375, 60.170833],
+      'target': [25.466667, 65.016667]
+    }
+    ];
 
   arcs.selectAll("path")
 .data(links)
