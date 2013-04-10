@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+	background-color: black;
+}
+
+p {
+	color: white;
+}
+
+.subunit {
+  fill: #082030;
+}
+
+.road {
+  fill: none;
+  stroke: steelblue;
+  fill-opacity: .5;
+  stroke-width: .5px;
+}
+
+</style>
+<body>
+	<p>Suomen tiet.</p>
+	<div id="chart">Loading...</div><br>
+	<p>Lähde: <a href="http://www.naturalearthdata.com/">Natural Earth</a> ja <a href="http://www.mapcruzin.com/free-finland-arcgis-maps-shapefiles.htm">MapCruzin</a>.</p>
+	<p>Kartta on tehty <a href="http://d3js.org">D3.js</a> -kirjaston ja <a href="https://github.com/mbostock/topojson">TopoJSON</a> -topologia koodauksen avulla.
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script>
+
+var width = 960,
+    height = 560;
+
+var projection = d3.geo.mercator()
+    .rotate([0, 0])
+    .center([37, 65.9])
+    .scale(1300);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("#chart").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+
+var arcs = svg.append("g")
+    .attr("id", "arcs");
+
+    
+queue()
+    .defer(d3.json, "fi.json")
+    .defer(d3.json, "finland_roads_topo.json")
+    .await(ready);
+
+function ready(error, fi, firoad) {
+
+  svg.append("path")
+      .datum(topojson.object(fi, fi.objects.subunits))
+      .attr("class", "subunit")
+      .attr("d", path);
+      
+    svg.append("path")
+      .datum(topojson.object(firoad, firoad.objects.finland_roads_geo))
+      .attr("class", "road")
+      .attr("d", path);
+}
+
+</script>
