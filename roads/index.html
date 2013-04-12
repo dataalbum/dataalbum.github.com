@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-
+body {
+	background-color: black;
+}
 
 p {
 	color: white;
@@ -34,8 +36,8 @@ var width = 960,
 
 var projection = d3.geo.mercator()
     .rotate([0, 0])
-    .center([37, 65.9])
-    .scale(5500);
+    .center([25, 65.5])
+    .scale(1100);
 
 var path = d3.geo.path()
     .projection(projection);
@@ -51,7 +53,7 @@ var arcs = svg.append("g")
     
 queue()
     .defer(d3.json, "fi.json")
-    //.defer(d3.json, "roads_filtered_topo.json")
+    .defer(d3.json, "roads_filtered_topo.json")
     .await(ready);
 
 function ready(error, fi, firoad) {
@@ -60,12 +62,11 @@ console.log(fi)
       .datum(topojson.object(fi, fi.objects.subunits))
       .attr("class", "subunit")
       .attr("d", path);
-/*      
+      
     svg.append("path")
       .datum(topojson.object(firoad, firoad.objects.roads_filtered))
       .attr("class", "road")
       .attr("d", path);
-*/
 }
 
 </script>
