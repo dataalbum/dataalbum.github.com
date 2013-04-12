@@ -53,7 +53,7 @@ var arcs = svg.append("g")
     
 queue()
     .defer(d3.json, "fi.json")
-    .defer(d3.json, "roads_filtered_topo.json")
+    //.defer(d3.json, "roads_filtered_topo.json")
     .await(ready);
 
 function ready(error, fi, firoad) {
@@ -62,11 +62,12 @@ function ready(error, fi, firoad) {
       .datum(topojson.object(fi, fi.objects.subunits))
       .attr("class", "subunit")
       .attr("d", path);
-      
+/*      
     svg.append("path")
       .datum(topojson.object(firoad, firoad.objects.roads_filtered))
       .attr("class", "road")
       .attr("d", path);
+*/
 }
 
 </script>
