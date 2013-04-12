@@ -57,7 +57,7 @@ queue()
     .await(ready);
 
 function ready(error, fi, firoad) {
-
+console.log(fi)
   svg.append("path")
       .datum(topojson.object(fi, fi.objects.subunits))
       .attr("class", "subunit")
