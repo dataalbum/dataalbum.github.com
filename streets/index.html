@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8">
+
+<style>
+
+.streets {
+    fill: none;
+    stroke: black;
+    fill-opacity: .2;
+    stroke-width: .5px;
+    stroke-linecap: round;
+}
+
+.streets:hover {
+    stroke: #f00;
+    stroke-width: 3px;
+}
+
+text {
+    font-family: sans-serif;
+    font-size: 50px;
+}
+
+    
+</style>
+<style type="text/css"></style></head><body>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org//topojson.v0.min.js"></script>
+
+<script>
+
+var width = 960,
+height = 500;
+
+var projection = d3.geo.mercator()
+    .rotate([0, 0])
+    .center([25.48,65.0105])
+    .scale(850000);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var text = svg.append("text")
+    .attr("y", height/10)
+    .attr("text-anchor", "left")
+    .text("Mouseover Oulu streets");
+
+d3.json("oulu_center.geojson", function(error, geojson) {
+    svg.selectAll("path")
+        .data(geojson.features)
+      .enter().append("path")
+        .attr("class", "streets")
+        .attr("id", function(d){return d.properties.name;})
+        .attr("d", path)
+            .on("mouseover", function(){text.text(this.id);})
+            .on("mouseout", function(){text.text("");});
+});
+</script>
