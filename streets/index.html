@@ -53,7 +53,7 @@ var text = svg.append("text")
     .attr("text-anchor", "left")
     .text("Mouseover streets of Oulu.");
 
-d3.json("oulu_center.geojson", function(error, geojson) {
+d3.json("oulu.geojson", function(error, geojson) {
     svg.selectAll("path")
         .data(geojson.features)
       .enter().append("path")
