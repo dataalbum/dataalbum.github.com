@@ -48,7 +48,7 @@ var svg = d3.select("body").append("svg")
 var text = svg.append("text")
     .attr("y", height/10)
     .attr("text-anchor", "left")
-    .text("Mouseover Oulu streets");
+    .text("Mouseover streets of Oulu.");
 
 d3.json("oulu_center.geojson", function(error, geojson) {
     svg.selectAll("path")
