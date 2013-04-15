@@ -31,13 +31,13 @@ p {
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <script>
 
-var width = 960,
-    height = 560;
+var width = window.innerWidth - 1,
+    height = window.innerHeight - 1;
 
 var projection = d3.geo.mercator()
     .rotate([0, 0])
     .center([25, 65.5])
-    .scale(1100);
+    .scale(800);
 
 var path = d3.geo.path()
     .projection(projection);
