@@ -31,8 +31,8 @@ p {
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <script>
 
-var width = 960,
-    height = 560;
+var width = window.innerWidth - 1,
+    height = window.innerHeight - 1;
 
 var projection = d3.geo.mercator()
     .rotate([0, 0])
