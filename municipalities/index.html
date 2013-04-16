@@ -63,7 +63,7 @@ function ready(error, fi, centroid) {
       .attr("d", path);
 
   svg.selectAll(".kunta")
-      .data(topojson.object(centroid, centroid.objects.kunnat).geometries, function(a, b) { return a !== b && (a.id / 1000 | 0) === (b.id / 1000 | 0); })
+      .data(topojson.object(centroid, centroid.objects.kunnat).geometries)
     .enter().append("path")
       .attr("class", function(d) { return "kunta " + d.id; })
       .attr("d", path)
