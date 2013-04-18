@@ -8,6 +8,10 @@ body {
 	background-color: black;
 }
 
+p {
+	color: white;
+}
+
 .graticule {
   fill: none;
   stroke: #777;
@@ -29,6 +33,12 @@ text {
 </style>
 </head>
 <body>
+
+	<div id="map"></div>
+        <p>Source: <a href="http://www.naturalearthdata.com/">Natural Earth</a> and <a href="http://download.geonames.org/export/zip/">Free Postal Code Data</a></p>
+	<p>Built with <a href="http://mbostock.github.com/d3/">D3.js</a>.</p>
+
+
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
 	<script src="http://d3js.org/topojson.v0.min.js"></script>
@@ -56,7 +66,7 @@ var path = d3.geo.path()
     .projection(projection)
     .pointRadius(2);
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#map").append("svg")
     .attr("width", width)
     .attr("height", height);
 
