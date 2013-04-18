@@ -50,6 +50,7 @@ var text = svg.append("text")
     .attr("text-anchor", "left")
     .text("Mouseover streets of Oulu.");
 
+//source:http://www.mapcruzin.com/free-finland-arcgis-maps-shapefiles.htm
 d3.json("oulu.geojson", function(error, geojson) {
     svg.selectAll("path")
         .data(geojson.features)
