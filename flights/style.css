@@ -65,6 +65,10 @@ h3 {
   font-size: 18px;
 }
 
+p {
+  color: white;
+}
+
 .invert {
   background: #1f1f1f;
   color: #dcdccc;
