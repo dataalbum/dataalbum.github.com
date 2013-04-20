@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+	background-color: black;
+}
+
+.stroke {
+  fill: none;
+  stroke: white;
+  stroke-width: 1px;
+    stroke-opacity: .8;
+}
+
+.water {
+  fill: black;
+}
+
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+
+.land {
+  fill: #222;
+}
+
+.boundary {
+  fill: none;
+  stroke: black;
+  stroke-width: .5px;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+<script>
+
+var width = window.innerWidth,
+    height = window.innerHeight;
+
+var diameter = 320,
+    radius = diameter/2;
+
+var projection = d3.geo.orthographic()
+    .scale(radius)
+    //.translate([radius, radius])
+    .translate([width / 2, height / 2])
+    .clipAngle(90)
+    .rotate([10,0,0]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var graticule = d3.geo.graticule();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var gradient = svg.append("svg:defs")
+  .append("svg:radialGradient")
+    .attr("id", "gradient")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "100%")
+    .attr("spreadMethod", "pad");
+
+gradient.append("svg:stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "white")
+    .attr("stop-opacity", 1);
+
+gradient.append("svg:stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "black")
+    .attr("stop-opacity", 1);
+//atmosphere
+svg.append("svg:circle")
+    .attr("cx", width / 2)
+    .attr("cy", height /2)
+    .attr("r", 180)
+    .style("fill", "url(#gradient)");
+//water
+svg.append("svg:circle")
+    .attr("cx", width / 2)
+    .attr("cy", height /2)
+    .attr("r", radius)
+    .style("fill", "black");    
+
+svg.append("path")
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("d", path);
+
+d3.json("world-50m.json", function(error, world) {
+  svg.append("path", ".graticule")
+      .datum(topojson.object(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
+  svg.append("path", ".graticule")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path);
+      
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>
