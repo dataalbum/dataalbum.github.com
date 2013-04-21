@@ -19,7 +19,7 @@ body {
 
 .graticule {
   fill: none;
-  stroke: #777;
+  stroke: none;
   stroke-width: .5px;
   stroke-opacity: .5;
 }
@@ -56,7 +56,7 @@ var projection = d3.geo.orthographic()
 var path = d3.geo.path()
     .projection(projection);
 
-//var graticule = d3.geo.graticule();
+var graticule = d3.geo.graticule();
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
