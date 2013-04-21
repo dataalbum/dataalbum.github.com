@@ -30,7 +30,7 @@ body {
 
 .boundary {
   fill: none;
-  stroke: black;
+  stroke: none;
   stroke-width: .5px;
 }
 
@@ -103,12 +103,12 @@ d3.json("world-50m.json", function(error, world) {
       .datum(topojson.object(world, world.objects.land))
       .attr("class", "land")
       .attr("d", path);
-/*
+
   svg.append("path", ".graticule")
       .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
       .attr("class", "boundary")
       .attr("d", path);
-      */
+      
 });
 
 d3.select(self.frameElement).style("height", height + "px");
