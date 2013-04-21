@@ -43,7 +43,7 @@ body {
 var width = window.innerWidth,
     height = window.innerHeight;
 
-var diameter = 960,
+var diameter = 480
     radius = diameter/2;
 
 var projection = d3.geo.orthographic()
@@ -84,7 +84,7 @@ gradient.append("svg:stop")
 svg.append("svg:circle")
     .attr("cx", width / 2)
     .attr("cy", height /2)
-    .attr("r", 600)
+    .attr("r", 300)
     .style("fill", "url(#gradient)");
 //water
 svg.append("svg:circle")
