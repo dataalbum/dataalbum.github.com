@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+ <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Skandinavia.</title>
+<style>
+
+body {
+	background-color: black;
+}
+
+.graticule {
+  fill: none;
+  stroke: none;
+  stroke-width: .8px;
+}
+
+.land {
+	fill: darkblue;
+	fill-opacity: .5; 
+}
+
+.boundary {
+  fill: none;
+  fill-opacity: .8;
+  stroke: #000;
+}
+
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 8px;
+  color: white;
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+	<script src="http://d3js.org/topojson.v0.min.js"></script>
+	<script src="http://d3js.org/queue.v1.min.js"></script>
+<script>
+
+var width = window.innerWidth,
+    height = window.innerHeight;
+
+var diameter = 320,
+    radius = diameter/2;
+
+var projection = d3.geo.orthographic()
+    .scale(1800)
+    .translate([width / 2, 2250])
+    //.translate([width / 2, height / 2])
+    .clipAngle(90)
+    .rotate([-20,10,-10]);
+    
+var graticule = d3.geo.graticule()
+    //.extent([[-93, 27], [-47 + 1e-6, 57 + 1e-6]])
+    .step([3, 3])
+    ;
+
+var path = d3.geo.path()
+    .projection(projection)
+    .pointRadius(2);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var gradient = svg.append("svg:defs")
+  .append("svg:radialGradient")
+    .attr("id", "gradient")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "100%")
+    .attr("spreadMethod", "pad");
+
+gradient.append("svg:stop")
+    .attr("offset", "90%")
+    .attr("stop-color", "white")
+    .attr("stop-opacity", 1);
+
+gradient.append("svg:stop")
+    .attr("offset", "99%")
+    .attr("stop-color", "#000033")
+    .attr("stop-opacity", 1);
+
+gradient.append("svg:stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "black")
+    .attr("stop-opacity", 1);
+//atmosphere
+svg.append("svg:circle")
+    .attr("cx", width / 2)
+    .attr("cy", 2250)
+    .attr("r", 1900)
+    .style("fill", "url(#gradient)");
+//water
+svg.append("svg:circle")
+    .attr("cx", width / 2)
+    .attr("cy", 2250)
+    .attr("r", 1800)
+    .style("fill", "black");    
+
+
+svg.append("path")
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("d", path);
+
+queue()
+    .defer(d3.json, "world-50m.json")
+    //.defer(d3.csv, "skandinavia.csv")
+    //.defer(d3.csv, "GB.csv")
+    //.defer(d3.csv, "all.csv")
+    .await(ready);
+
+function ready(error, world, data) {
+console.log(world)
+  svg.insert("path")
+      .datum(topojson.object(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
+  svg.insert("path")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path);
+      
+
+    svg.selectAll("circle")
+       .data(data)
+       .enter()
+       .append("circle")
+       .attr("cx", function(d) {
+               return projection([d.longitude, d.latitude])[0];
+       })
+       .attr("cy", function(d) {
+               return projection([d.longitude, d.latitude])[1];
+       })
+       .attr("r", .5)
+       .style("fill", "yellow")
+       .style("fill-opacity", .2);
+}
+
+</script>
