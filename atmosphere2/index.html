@@ -112,7 +112,7 @@ queue()
     .defer(d3.json, "world-50m.json")
     //.defer(d3.csv, "skandinavia.csv")
     //.defer(d3.csv, "GB.csv")
-    //.defer(d3.csv, "all.csv")
+    .defer(d3.csv, "all.csv")
     .await(ready);
 
 function ready(error, world, data) {
