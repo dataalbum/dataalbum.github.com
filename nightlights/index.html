@@ -71,11 +71,12 @@ d3.json("world-50m.json", function(error, topology) {
       .attr("x", function(d) { return Math.round((d[0] + tiles.translate[0]) * tiles.scale); })
       .attr("y", function(d) { return Math.round((d[1] + tiles.translate[1]) * tiles.scale); });
 
+            console.log(Math.round(tiles.scale)));
+
   svg.append("use")
       .attr("xlink:href", "#land")
       .attr("class", "stroke");
       
-            console.log(Math.round(tiles.scale)))
 });
 
 </script>
