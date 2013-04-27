@@ -10,12 +10,12 @@ p {
 }
 
 .subunit {
-  fill: #082030;
+  fill: black;
 }
 
 .road {
   fill: none;
-  stroke: steelblue;
+  stroke: blue;
   fill-opacity: .5;
   stroke-width: .5px;
 }
@@ -23,7 +23,7 @@ p {
 </style>
 <body>
 	<p>Suomen tiet.</p>
-	<div id="chart"></div><br>
+	<div id="chart">Loading...</div><br>
 	<p>Lähde: <a href="http://www.naturalearthdata.com/">Natural Earth</a> ja <a href="http://www.mapcruzin.com/free-finland-arcgis-maps-shapefiles.htm">MapCruzin</a>.</p>
 	<p>Kartta on tehty <a href="http://d3js.org">D3.js</a> -kirjaston ja <a href="https://github.com/mbostock/topojson">TopoJSON</a> -topologia koodauksen avulla.
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -31,13 +31,13 @@ p {
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <script>
 
-var width = window.innerWidth - 1,
-    height = window.innerHeight - 1;
+var width = 960,
+    height = 560;
 
 var projection = d3.geo.mercator()
     .rotate([0, 0])
-    .center([25, 67.5])
-    .scale(2000);
+    .center([37, 66])
+    .scale(1300);
 
 var path = d3.geo.path()
     .projection(projection);
@@ -50,6 +50,27 @@ var svg = d3.select("#chart").append("svg")
 var arcs = svg.append("g")
     .attr("id", "arcs");
 
+//shadow
+var defs = svg.append("defs");
+
+var filter = defs.append("filter")
+    .attr("id", "glow")
+
+filter.append("feColorMatrix")
+    .attr("type", "matrix")
+    .attr("values", "0 0 0 0 0  0 0 0 0 0  0 0 0 1 0  0 0 0 1 0");
+
+filter.append("feGaussianBlur")
+    .attr("stdDeviation", 4)
+    .attr("result", "coloredBlur");
+
+var feMerge = filter.append("feMerge");
+
+feMerge.append("feMergeNode")
+    .attr("in", "coloredBlur")
+feMerge.append("feMergeNode")
+    .attr("in", "SourceGraphic");
+    //shadow ends
     
 queue()
     .defer(d3.json, "fi.json")
@@ -57,10 +78,11 @@ queue()
     .await(ready);
 
 function ready(error, fi, firoad) {
-console.log(fi)
+
   svg.append("path")
       .datum(topojson.object(fi, fi.objects.subunits))
       .attr("class", "subunit")
+      .style("filter", "url(#glow)")
       .attr("d", path);
       
     svg.append("path")
@@ -68,5 +90,4 @@ console.log(fi)
       .attr("class", "road")
       .attr("d", path);
 }
-
 </script>
