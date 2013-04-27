@@ -42,6 +42,11 @@ var defs = svg.append("defs");
 var filter = defs.append("filter")
     .attr("id", "glow")
 
+//values=
+//    "0 0 0 red 0
+//     0 0 0 green 0 
+//     0 0 0 blue 0 
+//     0 0 0 1 0"
 filter.append("feColorMatrix")
     .attr("type", "matrix")
     .attr("values", "0 0 0 0 0  0 0 0 0.9 0  0 0 0 0.9 0  0 0 0 1 0");
