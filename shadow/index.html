@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+	background-color: black;
+}
+
+div {
+	color: white;
+}
+
+
+.land {
+  fill: black;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+<script>
+
+var width = 960,
+    height = 960;
+
+var projection = d3.geo.mercator()
+    .scale((width + 1) / 2 / Math.PI)
+    .translate([width / 2, height / 2])
+    .precision(.1);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+//shadow
+var defs = svg.append("defs");
+
+var filter = defs.append("filter")
+    .attr("id", "glow")
+
+filter.append("feColorMatrix")
+    .attr("type", "matrix")
+    .attr("values", "0 0 0 0 0  0 0 0 0.9 0  0 0 0 0.9 0  0 0 0 1 0");
+
+filter.append("feGaussianBlur")
+    .attr("stdDeviation", 4)
+    .attr("result", "coloredBlur");
+
+var feMerge = filter.append("feMerge");
+
+feMerge.append("feMergeNode")
+    .attr("in", "coloredBlur")
+feMerge.append("feMergeNode")
+    .attr("in", "SourceGraphic");
+    //shadow ends
+
+d3.json("world-50m.json", function(error, world) {
+  svg.insert("path", ".graticule")
+      .datum(topojson.object(world, world.objects.land))
+      .attr("class", "land")
+      .style("filter", "url(#glow)")
+      .attr("d", path);
+
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>
+<div>Build with <a href="http://d3js.org">D3.js</a> and <a href="https://github.com/mbostock/topojson">TopoJSON</a>. Shadow, see <a href="http://commons.oreilly.com/wiki/index.php/SVG_Essentials/Filters#Creating_a_Glowing_Shadow">SVG Essentials/Filters</a>.</div>
+<div>Source: <a href="http://www.naturalearthdata.com/">Natural Earth</a>.</div>
