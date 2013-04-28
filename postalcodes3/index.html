@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+	background-color: black;
+}
+
+div,p {
+	color: white;
+}
+
+path {
+  fill: none;
+  stroke-linejoin: round;
+}
+.subunit.FIN { 
+	fill: #ddd; 
+}
+
+.states,
+.hexagons path {
+  stroke: #fff;
+}
+
+</style>
+<body>
+<p>Postal codes.</p>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.hexbin.v0.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+<script>
+
+var width = 960,
+    height = 500;
+
+var color = d3.scale.linear()
+    .domain([0, 50])
+    .range(["black", "steelblue"])
+    .interpolate(d3.interpolateLab);
+
+var hexbin = d3.hexbin()
+    .size([width, height])
+    .radius(4);
+
+var radius = d3.scale.sqrt()
+    .domain([0, 20])
+    .range([0, 5]);
+
+var projection = d3.geo.mercator()
+    .translate([width / 2, height / 2])
+    .center([25, 65.5])
+    .scale(1000)
+    .precision(.1);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+queue()
+    .defer(d3.json, "fi_ax_all.json")
+    .defer(d3.tsv, "fi.tsv")
+    .await(ready);
+
+function ready(error, fi, postalcodes) {
+  console.log(fi)
+  console.log(postalcodes)
+  postalcodes.forEach(function(d) {
+    var p = projection(d);
+    d[0] = p[0], d[1] = p[1];
+  });
+
+  svg.selectAll(".subunit")
+      .data(topojson.object(fi, fi.objects.subunits).geometries)
+    .enter().append("path")
+      .attr("class", function(d) { return "subunit " + d.id; })
+      .attr("d", path);
+            
+  svg.append("g")
+      .attr("class", "hexagons")
+    .selectAll("path")
+      .data(hexbin(postalcodes).sort(function(b, a) { return b.length - a.length; }))
+    .enter().append("path")
+      .attr("d", function(d) { return hexbin.hexagon(radius(d.length)); })
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .style("fill", function(d) { return color(d.length); });
+}
+
+</script>
+<div>Build with <a href="http://d3js.org">D3.js</a>, <a href="https://github.com/mbostock/topojson">TopoJSON</a> and <a href="https://github.com/d3/d3-plugins/tree/master/hexbin">Hexagonal Binning</a>.</div>
+<div>Source: <a href="http://www.naturalearthdata.com/">Natural Earth</a> and <a href="http://download.geonames.org/export/zip/">Free Postal Code Data</a>.</div>
