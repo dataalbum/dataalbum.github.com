@@ -108,6 +108,13 @@ svg.append("path")
     .attr("class", "graticule")
     .attr("d", path);
 
+	svg.append("text")
+      .attr("id", "loading")
+      .attr("x", 5)
+      .attr("y", 17)
+      .attr("fill", "white")
+      .text("Loading...");
+	
 queue()
     .defer(d3.json, "world-50m.json")
     //.defer(d3.csv, "skandinavia.csv")
@@ -127,7 +134,8 @@ console.log(world)
       .attr("class", "boundary")
       .attr("d", path);
       
-
+d3.select("#loading").attr("visibility", "hidden");
+	  
     svg.selectAll("circle")
        .data(data)
        .enter()

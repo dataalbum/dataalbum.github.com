@@ -71,13 +71,22 @@ feMerge.append("feMergeNode")
 feMerge.append("feMergeNode")
     .attr("in", "SourceGraphic");
     //shadow ends
-    
+
+    svg.append("text")
+      .attr("id", "loading")
+      .attr("x", 5)
+      .attr("y", 17)
+      .attr("fill", "white")
+      .text("Loading...");
+	    
 queue()
     .defer(d3.json, "fi.json")
     .defer(d3.json, "roads_filtered_topo.json")
     .await(ready);
 
 function ready(error, fi, firoad) {
+
+d3.select("#loading").attr("visibility", "hidden");
 
   svg.append("path")
       .datum(topojson.object(fi, fi.objects.subunits))
