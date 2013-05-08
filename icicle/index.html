@@ -41,6 +41,7 @@ d3.json("singles_tree.json", function(error, root) {
   svg.selectAll(".node")
       .data(nodes)
     .enter().append("rect")
+      .attr("display", function(d) { return d.depth ? null : "none"; }); // hide inner ring 
       .attr("class", "node")
       .attr("x", function(d) { return d.x; })
       .attr("y", function(d) { return d.y; })
