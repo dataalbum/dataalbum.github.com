@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.chart {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+}
+
+.axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+</style>
+<body>
+	<h1>Work Experience</h1>
+	<div id="chart"></div>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+
+var data = [{"id":3,"date":"1995-08-01","date2":"1998-12-31","total":"Trainee | Nokia"},
+			{"id":2,"date":"1999-01-01","date2":"2003-02-29","total":"Specialist | Nokia"},
+			{"id":1,"date":"2003-03-01","date2":"2006-08-31","total":"Senior Specialsit | Nokia"},
+			{"id":4,"date":"2006-09-01","date2":"2008-09-30","total":"Senior Specialist/Lead Developer | Nokia"},
+			{"id":3,"date":"2008-10-01","date2":"2011-12-31","total":"Lead Developer | Nokia"},
+			{"id":2,"date":"2012-01-01","date2":"2013-02-28","total":"Capability Architect | Nokia"},
+			{"id":1,"date":"2013-03-01","date2":"2013-05-24","total":"Capability Architect | TCS"}
+			];
+
+var margin = {top: 40, right: 80, bottom: 40, left:40},
+    width = 960,
+    height = 400;
+
+var color = d3.scale.category20c();
+
+var x = d3.time.scale()
+    .domain([d3.min(data, function(d) { return new Date (d.date) ; }), d3.max(data, function(d) { return new Date (d.date2) ; })])
+    .rangeRound([0, width - margin.left - margin.right]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient('bottom');
+
+var svg = d3.select('#chart').append('svg')
+    .attr('class', 'chart')
+    .attr('width', width)
+    .attr('height', height)
+  .append('g')
+    .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
+var bar = svg.selectAll('.chart')
+    .data(data).enter();
+    
+bar.append('rect')
+    .attr('class', 'bar')
+    .attr('x', function(d) { return x(new Date(d.date)); })
+    .attr('y', 220)
+    .attr('width', function(d) { return x(new Date(d.date2)) - x(new Date(d.date)); })
+    .attr('height', 100)
+    .style('fill', function(d) { return color(d.date)});
+
+bar.append("text")
+	.attr("x", function(d) { return (x(new Date(d.date)) + x(new Date(d.date2))) / 2 ; })
+	.attr("y", function(d) { return d.id * 20 + 50})
+	.attr("dx", 3)
+	.attr("dy", ".35em")
+	.style("text-anchor", "middle")
+	.text(function(d) { return d.total; });   
+
+bar.append("line")
+	.attr("x1", function(d) { return (x(new Date(d.date)) + x(new Date(d.date2))) / 2 ; })
+	.attr("x2", function(d) { return (x(new Date(d.date)) + x(new Date(d.date2))) / 2 ; })
+	.attr("y1", function(d) { return d.id * 20 + 58 ; })
+	.attr("y2", 230) //middle y = 270
+	.attr("stroke", "black");
+
+bar.append("circle")
+	.attr("cx", function(d) { return (x(new Date(d.date)) + x(new Date(d.date2))) / 2 ; })
+	.attr("cy", 230) //middle y = 270
+	.attr("r", 3)
+	.style("fill", "black");
+
+//coordinates
+svg.append('g')
+    .attr('class', 'x axis')
+    .attr('transform', 'translate(0, ' + (height - margin.top - margin.bottom) + ')')
+    .call(xAxis);
+    
+</script>
+<div>Built with <a href="http://mbostock.github.com/d3/">D3.js</a>.</div>
