@@ -1,0 +1,115 @@
+{
+	"name": "?","spouse": "?","born": "","died": "",
+	"children": [
+		{
+		"name": "Antti Laurinpoika Piipponen","spouse": "Anna Miettinen","born": "1683","died": "?",
+		"children": [
+			{
+				"name": "Lauri Antinpoika Piipponen", "spouse": "Anna Josepintytär Pesonen", "born": "1724","died": "1795",
+				"children": [
+					{"name": "Anna","born": "1750","died": "1789"},
+					{"name": "Risto","born": "1752","died": "1820"},
+					{"name": "Seppo","born": "1753","died": "1750"},
+					{"name": "Liisa","born": "1755","died": "1770"},
+					{"name": "Matti","born": "1768","died": "1820"},
+					{"name": "Väinö","born": "1770","died": "1771"},
+					{
+						"name": "Antti Laurinpoika Piipponen","spouse": "Liisa Laurintytär Kauppinen","born": "1772","died": "1820",
+						"children": [
+							{"name": "Anni","born": "1789","died": "1820"},
+							{"name": "Sanni","born": "1793","died": "1844"},
+							{"name": "Tiina","born": "1796","died": "1865"},
+							{
+								"name": "Matti Antinpoika Piipponen","spouse": "Elisabet Antintytär Sivonen","born": "1795","died": "1860",
+								"children": [
+									{"name": "Lauri","born": "1820","died": "1824"},
+									{"name": "Seija","born": "1821","died": "?"},
+									{"name": "Tiina","born": "1824","died": "1824"},
+									{"name": "Risto","born": "1826","died": "?"},
+									{"name": "Anna","born": "1828","died": "1863"},
+									{
+										"name": "Kusti Matinpoika Piipponen","spouse": "Sanna Matintytär Huovinen","born": "1830","died": "?",
+										"children": [
+											{"name": "Lauri","born": "1851","died": "?"},
+											{"name": "Liisa","born": "1854","died": "?"},
+											{"name": "Sanna","born": "1856","died": "?"},
+											{"name": "Kustaa","born": "1860","died": "?"},
+											{"name": "Lasse","born": "1863","died": "?"},
+											{"name": "Tytär","born": "1866","died": "1866"},
+											{
+												"name": "Lassi Kustinpoika Piipponen","spouse": "Linda Karhu","born": "1868","died": "1954",
+												"children": [
+													{
+														"name": "Kalle Piipponen","spouse": "Anna Veikkanen","born": "1905","died": "1990",
+														"children": [
+															{"name": "Seppo","born": "1930","died": "2000"},
+															{"name": "Sirpa","born": "1935","died": ""},
+															{
+																"name": "Martti Piipponen","spouse": "Vilma Alatalo","born": "1940","died": "",
+																"children": [
+																	{
+																		"name":"Seija Piipponen","spouse": "Kari Viikula","born": "1969","died": "",
+																		"children": [
+																			{"name":"Lauri","born": "1993","died": ""},
+																			{"name":"Matias","born": "1995","died": ""}
+																		]
+																	},
+																	{
+																		"name":"Risto Piipponen","spouse": "Senna Vihmala","born": "1969","died": "",
+																		"children": [
+																			{"name":"Mari","born": "1998","died": ""},
+																			{"name":"Timo","born": "2000","died": ""}
+																		]
+																	},
+																	{
+																		"name":"Antti Piipponen","spouse": "Maria Karjalainen","born": "1974","died": "",
+																		"children": [
+																			{"name":"Sampo","born": "2006","died": ""},
+																			{"name":"Juha","born": "2009","died": ""}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{"name": "Kalevi","born": "1904","died": "?"},
+													{"name": "Arno","born": "1905","died": "?"},
+													{"name": "Anni","born": "1910","died": "?"},
+													{"name": "Seppo","born": "1911","died": "?"},
+													{"name": "Martti","born": "1914","died": "?"},
+													{"name": "Ilkka","born": "1916","died": "?"},
+													{"name": "Leena","born": "1920","died": ""}
+												]
+											}
+										]
+									},
+									{"name": "Lauri","born": "1830","died": "?"},
+									{"name": "Anne","born": "1832","died": "?"},
+									{"name": "Matia","born": "1834","died": "?"},
+									{"name": "Liisa","born": "1836","died": "?"},
+									{"name": "Tiina","born": "1838","died": "?"},
+									{"name": "Raimo","born": "1840","died": "?"},
+									{"name": "Juhani","born": "1842","died": "?"},
+									{"name": "Mari","born": "1844","died": "?"},
+									{"name": "Lisbet","born": "1846","died": "?"}
+	 							]
+							},
+							{"name": "Matias","born": "1801","died": "?"},
+							{"name": "Kalle","born": "1804","died": "?"},
+							{"name": "Seija","born": "1808","died": "?"}
+						]
+					},
+					{"name": "Liisa","born": "1767","died": "1835"},
+					{"name": "Leena","born": "1770","died": "1781"},
+					{"name": "Anni","born": "1772","died": "?"}
+				]
+			},
+			{"name": "Lari","born": "1724","died": "1745"},
+			{"name": "Matias","born": "1726","died": "1793"},
+			{"name": "Mari","born": "1731","died": "?"},
+			{"name": "Liisa","born": "1733","died": "?"},
+			{"name": "Seppo","born": "1735","died": "?"}
+		]
+		}
+	]
+}

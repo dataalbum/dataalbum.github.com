@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body{
+	background: #d6dec3;
+}
+
+.node circle {
+  fill: #b16858;
+}
+
+.node {
+  font-family: Helvetica; 
+  font-weight: 100;
+  font-size: 8px;
+  fill: black;
+}
+
+.link {
+  fill: none;
+  stroke: #59a1b1;
+  stroke-width: 4px;
+  stroke-opacity: 0.4; 
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var width = 1200,
+    height = 1200;
+
+var tree = d3.layout.tree()
+    .size([height - 200, width - 100]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.x, d.y]; });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(0,60)");
+
+d3.json("sample.json", function(error, json) {
+  var nodes = tree.nodes(json),
+      links = tree.links(nodes);
+
+  var link = svg.selectAll("path.link")
+      .data(links)
+    .enter().append("path")
+      .attr("class", "link")
+      .attr("d", diagonal);
+
+  var node = svg.selectAll("g.node")
+      .data(nodes)
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+
+  node.append("circle")
+      .attr("r", function(d) { return d.children ? 12 : 3.5; });
+
+  node.append("text")
+      .attr("dy", function(d) { return d.children ? -30 : 20; })
+      .attr("text-anchor", "middle")
+      .attr("font-size", function(d) { return d.children ? 10 : 8; })
+      //.text(function(d) { return d.children ? d.name + " " + d.born + " - " + d.died : d.name; });
+      .text(function(d) { return d.children ? d.name + " + " + d.spouse : d.name; });
+     
+  //born - died
+  node.append("text")
+      .attr("dy", function(d) { return d.children ? -15 : 30; })
+      .attr("text-anchor", "middle")
+      .text(function(d) { return !d.died ? d.born : d.born + " - " + d.died; });
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>
+<div>Build with <a href="http://d3js.org">D3.js</a>.</div>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+
+body{
+	background: #d6dec3;
+}
+
+.node circle {
+  fill: #b16858;
+}
+
+.node {
+  font-family: Helvetica; 
+  font-weight: 100;
+  font-size: 8px;
+  fill: black;
+}
+
+.link {
+  fill: none;
+  stroke: #59a1b1;
+  stroke-width: 4px;
+  stroke-opacity: 0.2; 
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var width = 1200,//2800,
+    height = 740;//1168;
+
+var cluster = d3.layout.cluster()
+    //.size([height + 470, width - 1820]);
+    .size([height + 360, width - 600]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.x, d.y]; });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(0,60)");
+
+d3.json("sample.json", function(error, root) {
+  var nodes = cluster.nodes(root),
+      links = cluster.links(nodes);
+
+  var link = svg.selectAll(".link")
+      .data(links)
+    .enter().append("path")
+      .attr("class", "link")
+      .attr("d", diagonal);
+
+  var node = svg.selectAll(".node")
+      .data(nodes)
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+
+  node.append("circle")
+      .attr("r", function(d) { return d.children ? 8 : 3.5; });
+
+//name
+  node.append("text")
+      .attr("dx", -10)
+      .attr("dx", function(d) { return d.children ? -10 : 8; })
+      .attr("dy", 3)
+      .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
+      .attr("transform", function(d) {return "rotate(45)"; })
+      .text(function(d) { return !d.died ? d.name + " | " + d.born : d.name + " | " + d.born + " - " + d.died; });
+
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>
+<div>Build with <a href="http://d3js.org">D3.js</a>.</div>
