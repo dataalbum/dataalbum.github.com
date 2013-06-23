@@ -30,12 +30,12 @@ body{
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 
-var width = 1200,//2800,
-    height = 740;//1168;
+var width = 960,//2800,
+    height = 960;//1168;
 
 var cluster = d3.layout.cluster()
     //.size([height + 470, width - 1820]);
-    .size([height + 360, width - 600]);
+    .size([height - 60, width - 200]);
 
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.x, d.y]; });
