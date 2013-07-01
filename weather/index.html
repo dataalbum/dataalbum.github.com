@@ -7,6 +7,26 @@
 	body { 
 		font: 12px Helvetica;
 	}
+	
+	#forecast {    
+		position:absolute;
+		top:10px;
+		left:10px;
+		width:640px;
+		height:250px;
+		/*background: rgba(0, 0, 0, 0.2); /*The transparency will only be applied to the background*/
+	
+	}
+	
+	#observation {    
+		position:absolute;
+		top:260px;
+		left:10px;
+		width:640px;
+		height:200px;
+		/*background: rgba(0, 0, 0, 0.2); /*The transparency will only be applied to the background*/
+	}
+
 
 	</style>
 
@@ -52,7 +72,8 @@
 			         	//2nd address component
 						city = results[0].address_components[2].long_name;
          				console.log(city)
-						localForecastTemperature(server_url, city);
+						localObservation(server_url, city);
+						localForecast(server_url, city);
 			        } else {
 			          alert("No results found");
 			        }
@@ -63,35 +84,34 @@
 		  	}
         }
 		
-		function showData(dataset,errors){
+		function showObservation(dataset,errors){
 
 			console.log(dataset)
 			
-			var width = 960,
-    			height = 480;
-			
-			var today = new Date().getTime();
+			var width = 640,
+    			height = 200;
 			
 			var arrData = dataset.locations;
 			console.log(arrData)
+			
+			var last = d3.min(dataset.locations[0].data.temperature.timeValuePairs, function(d) { return d.value; });
+			console.log(last)
 
-			var parseDate = d3.time.format("%A").parse;
-
-			var svg = d3.select('#chart').append('svg')
+			var svg = d3.select('#observation').append('svg')
 			    .attr('width', width)
 			    .attr('height', height);
 
 			var data = svg.selectAll("g")
 				.data(arrData)
 				.enter().append("g")  
-				.attr('transform', function(d, i){return 'translate('+(i*50)+', 68)';});
+				.attr('transform', function(d, i){return 'translate('+(i*50)+', 26)';});
 			
 			var content = data.selectAll("content")
 				.data(function(d) {return d.data.temperature.timeValuePairs;})
 				.enter().append("text")
-				.text(function(d, i){return d.time = d3.time.format("%A %d.%m. %H:%M")(new Date(d.time)) + " | " + d.value;})
+				.text(function(d, i){return d.time = d3.time.format("%a %H:%M")(new Date(d.time)) + " | " + d.value + "°C";})
 				.attr("dx", 0)
-				.attr('dy', function(d, i){return (i+1)*16;});		
+				.attr('dy', function(d, i){return (i+1)*16;});	
 			
 			var info = svg.selectAll(".info")
 				.data(arrData)
@@ -102,17 +122,59 @@
 				.attr("dx", 0)
 				.attr("dy", 20)
 				.style("font-size", "20px")
-				.text(function(d, i){ return "Forecast | " + d.info.name; });
+				.text(function(d, i){ return "Observation | " + d.info.name; });
+
+		};
+
+		function showForecast(dataset,errors){
+
+			console.log(dataset)
+			
+			var width = 640,
+    			height = 300;
+			
+			var arrData = dataset.locations;
+			console.log(arrData)
+
+			var shifted = dataset.locations[0].data.temperature.timeValuePairs.shift();
+			console.log(shifted)
+			console.log(arrData)
+
+			var svg = d3.select('#forecast').append('svg')
+			    .attr('width', width)
+			    .attr('height', height);
+
+			var data = svg.selectAll("g")
+				.data(arrData)
+				.enter().append("g")  
+				.attr('transform', function(d, i){return 'translate('+(i*50)+', 26)';});
+			
+			var content = data.selectAll("content")
+				.data(function(d) {return d.data.temperature.timeValuePairs;})
+				.enter().append("text")
+				.text(function(d, i){return d.time = d3.time.format("%a %H:%M")(new Date(d.time)) + " | " + d3.format('.0f')(d.value) + "°C";})
+				.attr("dx", 0)
+				.attr('dy', function(d, i){return (i+1)*16;});		
+
+			var info = svg.selectAll("info")
+				.data(arrData)
+				.enter();
 			
 			info.append("text")
 				.attr("dx", 0)
-				.attr("dy", 52)
-				.text("Time | degC");
-		
-		}
+				.attr("dy", 20)
+				.style("font-size", "20px")
+				.text(function(d){ return "Forecast | " + d.info.name + " | " + d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C"; });
+/*
+			info.append("text")
+				.attr("dx", 0)
+				.attr("dy", 40)
+				.text(function(d){ return d.data.temperature.timeValuePairs[0].time; });
+*/
+	
+		};
 
-		
-        function localForecastTemperature(url, sites) {
+        function localForecast(url, sites) {
             // See API documentation and comments from parser source code of
             // fi.fmi.metoclient.metolib.WfsRequestParser.getData function for the description
             // of function options parameter object and for the callback parameters objects structures.
@@ -121,7 +183,7 @@
                 storedQueryId : STORED_QUERY_FORECAST,
                 requestParameter : "temperature,pressure,weathersymbol3",
                 begin : new Date(),
-                end : new Date((new Date()).getTime() + 22 * 60 * 60 * 1000),
+                end : new Date((new Date()).getTime() + 11 * 60 * 60 * 1000),
                 timestep : 60 * 60 * 1000,
                 sites : [sites],
                 callback : function(data, errors) {
@@ -130,7 +192,32 @@
                     // Here, we delegate the content for a separate handler function.
                     // See parser documentation from source code comments for more details.
                     //handleCallback(data, errors, "Forecast Oulu temperature");
-                    showData(data, errors);
+                    showForecast(data, errors);
+                }
+            });
+        };
+        
+		function localObservation(url, sites) {
+            // See API documentation and comments from parser source code of
+            // fi.fmi.metoclient.metolib.WfsRequestParser.getData function for the description
+            // of function options parameter object and for the callback parameters objects structures.
+            fi.fmi.metoclient.metolib.WfsRequestParser.getData({
+                url : url,
+                storedQueryId : STORED_QUERY_OBSERVATION,
+                requestParameter : "temperature",
+                // Integer values are used to init dates for older browsers.
+                // (new Date("2013-05-10T08:00:00Z")).getTime()
+                // (new Date("2013-05-12T10:00:00Z")).getTime()
+                begin : new Date(),
+                end : new Date(),
+                timestep : 10 * 60 * 1000,
+                sites : sites,
+                callback : function(data, errors) {
+                    // Handle the data and errors object in a way you choose.
+                    console.log(data)
+                    // Here, we delegate the content for a separate handler function.
+                    // See parser documentation from source code comments for more details.
+                    showObservation(data, errors);
                 }
             });
         };
@@ -144,8 +231,7 @@
 </head>
 <html>
     <body>
-    	<div id="chart"></div>
-    	<div>Data by <a href="http://ilmatieteenlaitos.fi/avoin-data">FMI Open Data</a>.</div>
-    	<div>Build with <a href="http://d3js.org">D3.js</a>.</div>
+    	<div id="forecast"></div>
+    	<div id="observation"></div>
     </body>
 </html>
