@@ -121,7 +121,7 @@
 			info.append("text")
 				.attr("dx", 0)
 				.attr("dy", 20)
-				.style("font-size", "20px")
+				.style("font-size", "large")
 				.text(function(d, i){ return "Observations | " + d.info.name; });
 
 		};
@@ -163,7 +163,7 @@
 			info.append("text")
 				.attr("dx", 0)
 				.attr("dy", 20)
-				.style("font-size", "20px")
+				.style("font-size", "large")
 				.text(function(d){ return "Forecast | " + d.info.name + " | " + d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C"; });
 /*
 			info.append("text")
