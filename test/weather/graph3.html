@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <title>Weather</title>
+	<style>
+
+	body { 
+		font: 12px Helvetica;
+	}
+
+	</style>
+
+    <!-- JavaScript -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+
+    <!-- Parser JavaScript files -->
+    <script type="text/javascript" src="src/utils-1.0.0-min.js"></script>
+    <script type="text/javascript" src="src/wfsrequestparser-1.0.0-min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+
+    <script type="text/javascript">
+        // Stored query ids.
+        var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
+        var STORED_QUERY_FORECAST = "fmi::forecast::hirlam::surface::point::multipointcoverage";
+
+        // URL for server and your api key.
+        var server_url = "http://data.fmi.fi/fmi-apikey/516006c7-30ef-4474-97ea-76f7bf4ae01c/wfs";
+        
+        //get location
+        function getLocation() {
+        	
+  			if (navigator.geolocation) {
+    			navigator.geolocation.getCurrentPosition(codeLatLng, errorFunction);
+			} 
+			
+			function errorFunction(){
+			    alert("Geocoder failed");
+			}
+			
+			function codeLatLng(position) {
+			    var lat = position.coords.latitude;
+			    var lng = position.coords.longitude;
+			    
+				var geocoder = new google.maps.Geocoder();
+			    var latlng = new google.maps.LatLng(lat, lng);
+			    geocoder.geocode({'latLng': latlng}, function(results, status) {
+			      if (status == google.maps.GeocoderStatus.OK) {
+			      console.log(results)
+			        if (results[1]) {
+			         	//2nd address component
+						city = results[0].address_components[2].long_name;
+         				console.log(city)
+						localForecastTemperature(server_url, city);
+			        } else {
+			          alert("No results found");
+			        }
+			      } else {
+			        alert("Geocoder failed due to: " + status);
+			      }
+				});
+		  	}
+        }
+		
+		function showData(dataset,errors){
+
+			console.log(dataset)
+			
+			var width = 960,
+    			height = 1200;
+			var arrData = dataset.locations;
+			
+			var temperatureData = dataset.locations[0].data.temperature.timeValuePairs;
+			var pressureData = dataset.locations[0].data.pressure.timeValuePairs;
+			var merged = dataset.locations[0].data.temperature.timeValuePairs.concat(dataset.locations[0].data.pressure.timeValuePairs);
+			//console.log("concat: " + merged)
+			//console.log(temperatureData)
+			//console.log(pressureData)
+
+			var svg = d3.select('#chart').append('svg')
+			    .attr('width', width)
+			    .attr('height', height);
+
+			var data = svg.selectAll("g")
+				.data(arrData)
+				.enter().append("g")  
+				.attr('transform', function(d, i){return 'translate('+(i*50)+', 68)';});
+			
+			var content = data.selectAll("content")
+				.data(function(d) { return d3.nest().key(function(d) { return d.time; }).entries(d.data.temperature.timeValuePairs.concat(d.data.pressure.timeValuePairs));})
+				.enter().append("text")
+				.text(function(d, i){return d.key = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.key)) + " | " + d.values[0].value + " | " + d.values[1].value;})
+				.attr("dx", 0)
+				.attr('dy', function(d, i){return (i+1)*16;});		
+			
+			var info = svg.selectAll(".info")
+				.data(arrData)
+				.enter().append("g")  
+				.attr('transform', function(d, i){return 'translate('+(i*50)+', 0)';})
+				
+			info.append("text")
+				.attr("dx", 0)
+				.attr("dy", 20)
+				.style("font-size", "20px")
+				.text(function(d, i){ return "Forecast | " + d.info.name; });
+			
+			info.append("text")
+				.attr("dx", 0)
+				.attr("dy", 52)
+				.text("Time | degC");
+		
+		}
+
+		
+        function localForecastTemperature(url, sites) {
+            // See API documentation and comments from parser source code of
+            // fi.fmi.metoclient.metolib.WfsRequestParser.getData function for the description
+            // of function options parameter object and for the callback parameters objects structures.
+            fi.fmi.metoclient.metolib.WfsRequestParser.getData({
+                url : url,
+                storedQueryId : STORED_QUERY_FORECAST,
+                requestParameter : "temperature,pressure,weathersymbol3",
+                begin : new Date(),
+                end : new Date((new Date()).getTime() + 22 * 60 * 60 * 1000),
+                timestep : 60 * 60 * 1000,
+                sites : [sites],
+                callback : function(data, errors) {
+                    // Handle the data and errors object in a way you choose.
+                    console.log(data)
+                    // Here, we delegate the content for a separate handler function.
+                    // See parser documentation from source code comments for more details.
+                    //handleCallback(data, errors, "Forecast Oulu temperature");
+                    showData(data, errors);
+                }
+            });
+        };
+
+        $(function() {
+            // Multiple stations and multiple observations.
+            //localForecastTemperature(TEST_SERVER_URL);
+            getLocation();
+        });
+    </script>
+</head>
+<html>
+    <body>
+    	<div id="chart"></div>
+    	<div>Data by <a href="http://ilmatieteenlaitos.fi/avoin-data">FMI Open Data</a>.</div>
+    	<div>Build with <a href="http://d3js.org">D3.js</a>.</div>
+    </body>
+</html>
