@@ -80,6 +80,8 @@
 			      console.log(results)
 			        if (results[1]) {
 			         	//2nd address component
+			         	alert(results[0].formatted_address);
+
 						city = results[0].address_components[2].long_name;
          				console.log(city)
 						localForecastHeader(server_url, city);
