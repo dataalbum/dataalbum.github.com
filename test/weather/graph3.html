@@ -90,7 +90,7 @@
 			var content = data.selectAll("content")
 				.data(function(d) { return d3.nest().key(function(d) { return d.time; }).entries(d.data.temperature.timeValuePairs.concat(d.data.pressure.timeValuePairs,d.data.weathersymbol3.timeValuePairs));})
 				.enter().append("text")
-				.text(function(d, i){return d.key = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.key)) + " | " + d.values[0].value + " | " + d.values[1].value + " | " + d.values[2].value;})
+				.text(function(d, i){return d.time = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.time)) + " | " + d.values[0].value + " | " + d.values[1].value + " | " + d.values[2].value;})
 				.attr("dx", 0)
 				.attr('dy', function(d, i){return (i+1)*16;});		
 			
