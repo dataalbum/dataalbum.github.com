@@ -10,7 +10,7 @@
 		left:20px;
 		width:640px;
 		height:90px;
-		font: 100% Helvetica;
+		font: 72px Helvetica;
 		/*background: rgba(0, 0, 0, 0.2); /*The transparency will only be applied to the background*/
 	
 	}
@@ -22,7 +22,7 @@
 		left:20px;
 		width:640px;
 		height:300px;
-		font: 100% Helvetica;
+		font: 60px Helvetica;
 		/*background: rgba(0, 0, 0, 0.2); /*The transparency will only be applied to the background*/
 	
 	}
@@ -33,7 +33,7 @@
 		left:20px;
 		width:640px;
 		height:200px;
-		font: 100% Helvetica;
+		font: 60px Helvetica;
 		/*background: rgba(0, 0, 0, 0.2); /*The transparency will only be applied to the background*/
 	}
 
@@ -134,7 +134,7 @@
 			info.append("text")
 				.attr("dx", 0)
 				.attr("dy", 30)
-				.style("font-size", "150%")
+				//.style("font-size", "150%")
 				.text(function(d, i){ return "Observations | " + d.info.name; });
 
 		};
@@ -174,7 +174,7 @@
 				.enter().append("text")
 				.attr("dx", 0)
 				.attr("dy", 30)
-				.style("font-size", "150%")
+				//.style("font-size", "150%")
 				.text(function(d) { return d;});
 
 		};
@@ -208,7 +208,7 @@
 			info.append("text")
 				.attr("dx", 0)
 				.attr("dy", 30)
-				.style("font-size", "250%")
+				//.style("font-size", "250%")
 				.text(function(d){ return d.info.name + " | " + d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C"; });
 
 			info.append("text")
