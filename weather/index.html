@@ -2,14 +2,14 @@
 <head>
     <meta charset="utf-8" />
     <title>Weather</title>
-  <style>
+	<style>
 
 	#forecastHeader {    
 		position:absolute;
 		top:20px;
 		left:20px;
 		width:640px;
-		height:90px;
+		height:120px;
 		font: 100% Helvetica;
 		/*background: rgba(0, 0, 0, 0.2); /*The transparency will only be applied to the background*/
 	
@@ -18,7 +18,7 @@
 	
 	#forecast {    
 		position:absolute;
-		top:110px;
+		top:140px;
 		left:20px;
 		width:640px;
 		height:300px;
@@ -29,7 +29,7 @@
 	
 	#observation {    
 		position:absolute;
-		top:410px;
+		top:440px;
 		left:20px;
 		width:640px;
 		height:200px;
@@ -58,6 +58,42 @@
         // URL for server and your api key.
         var server_url = "http://data.fmi.fi/fmi-apikey/516006c7-30ef-4474-97ea-76f7bf4ae01c/wfs";
         
+		var weatherSymbols = [
+				{"id":1,"name":"selkeää"},
+				{"id":2,"name":"puolipilvistä"},
+				{"id":21,"name":"heikkojasadekuuroja"},
+				{"id":22,"name":"sadekuuroja"},
+				{"id":23,"name":"voimakkaitasadekuuroja"},
+				{"id":3,"name":"pilvistä"},
+				{"id":31,"name":"heikkoavesisadetta"},
+				{"id":32,"name":"vesisadetta"},
+				{"id":33,"name":"voimakastavesisadetta"},
+				{"id":41,"name":"heikkojalumikuuroja"},
+				{"id":42,"name":"lumikuuroja"},
+				{"id":43,"name":"voimakkaitalumikuuroja"},
+				{"id":51,"name":"heikkoalumisadetta"},
+				{"id":52,"name":"lumisadetta"},
+				{"id":53,"name":"voimakastalumisadetta"},
+				{"id":61,"name":"ukkoskuuroja"},
+				{"id":62,"name":"voimakkaitaukkoskuuroja"},
+				{"id":63,"name":"ukkosta"},
+				{"id":64,"name":"voimakastaukkosta"},
+				{"id":71,"name":"heikkojaräntäkuuroja"},
+				{"id":72,"name":"räntäkuuroja"},
+				{"id":73,"name":"voimakkaitaräntäkuuroja"},
+				{"id":81,"name":"heikkoaräntäsadetta"},
+				{"id":82,"name":"räntäsadetta"},
+				{"id":83,"name":"voimakastaräntäsadetta"},
+				{"id":91,"name":"utua"},
+				{"id":92,"name":"sumua"}
+		];
+		//map symbol id to name
+		var symbolMap = {};
+			weatherSymbols.forEach(function(d, i) {
+			//console.log(d)
+			symbolMap[d.id] = d.name;
+		});
+        
         //get location
         function getLocation() {
         	
@@ -80,8 +116,6 @@
 			      console.log(results)
 			        if (results[1]) {
 			         	//2nd address component
-			         	alert(results[0].formatted_address);
-
 						city = results[0].address_components[2].long_name;
          				console.log(city)
 						localForecastHeader(server_url, city);
@@ -142,15 +176,18 @@
 		function showForecast(dataset,errors){
 
 			console.log(dataset)
-			
+    					
 			var width = 640,
     			height = 300;
 			
 			var arrData = dataset.locations;
-			console.log(arrData)
 
-			var shifted = dataset.locations[0].data.temperature.timeValuePairs.shift();
-			console.log(shifted)
+
+			var shiftedTemp = dataset.locations[0].data.temperature.timeValuePairs.shift();
+			var shiftedPress = dataset.locations[0].data.pressure.timeValuePairs.shift();
+			var shiftedSymb = dataset.locations[0].data.weathersymbol3.timeValuePairs.shift();
+			var shiftedWindD = dataset.locations[0].data.winddirection.timeValuePairs.shift();
+			
 			console.log(arrData)
 
 			var svg = d3.select('#forecast').append('svg')
@@ -163,9 +200,10 @@
 				.attr('transform', function(d, i){return 'translate('+(i*50)+', 40)';});
 			
 			var content = data.selectAll("content")
-				.data(function(d) {return d.data.temperature.timeValuePairs;})
+				.data(function(d) { return d3.nest().key(function(d) { 
+					return d.time; }).entries(d.data.temperature.timeValuePairs.concat(d.data.pressure.timeValuePairs,d.data.weathersymbol3.timeValuePairs,d.data.winddirection.timeValuePairs));})
 				.enter().append("text")
-				.text(function(d, i){return d.time = d3.time.format("%a %H:%M")(new Date(d.time)) + " | " + d3.format('.0f')(d.value) + "°C";})
+				.text(function(d, i){return d.values[0].time = d3.time.format("%a %H:%M")(new Date(d.values[0].time)) + " | " + d3.format('.0f')(d.values[0].value) + "°C" + " | " + symbolMap[d.values[2].value] + " | " + d.values[3].value + "°";})
 				.attr("dx", 0)
 				.attr('dy', function(d, i){return (i+1)*20;});		
 
@@ -189,10 +227,12 @@
 			var arrData = dataset.locations;
 			console.log(arrData)
 
-			var shifted = dataset.locations[0].data.temperature.timeValuePairs.shift();
-			console.log(shifted)
-			console.log(arrData)
-
+			var shiftedTemp = dataset.locations[0].data.temperature.timeValuePairs.shift();
+			var shiftedPress = dataset.locations[0].data.pressure.timeValuePairs.shift();
+			var shiftedSymb = dataset.locations[0].data.weathersymbol3.timeValuePairs.shift();
+			
+			console.log(shiftedSymb)
+			
 			var svg = d3.select('#forecastHeader').append('svg')
 			    .attr('width', width)
 			    .attr('height', height);
@@ -204,16 +244,22 @@
 			var info = svg.selectAll("info")
 				.data(arrData)
 				.enter();
-			
+
 			info.append("text")
 				.attr("dx", 0)
 				.attr("dy", 30)
 				.style("font-size", "250%")
-				.text(function(d){ return d.info.name + " | " + d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C"; });
+				.text(function(d){ return d.info.name; });
 
 			info.append("text")
 				.attr("dx", 0)
-				.attr("dy", 60)
+				.attr("dy", 80)
+				.style("font-size", "250%")
+				.text(function(d){ return d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C | " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value]; });
+
+			info.append("text")
+				.attr("dx", 0)
+				.attr("dy", 110)
 				.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });
 		};
 
@@ -247,7 +293,7 @@
             fi.fmi.metoclient.metolib.WfsRequestParser.getData({
                 url : url,
                 storedQueryId : STORED_QUERY_FORECAST,
-                requestParameter : "temperature,pressure,weathersymbol3",
+                requestParameter : "temperature,pressure,weathersymbol3,winddirection",
                 begin : new Date(),
                 end : new Date((new Date()).getTime() + 11 * 60 * 60 * 1000),
                 timestep : 60 * 60 * 1000,
@@ -270,7 +316,7 @@
             fi.fmi.metoclient.metolib.WfsRequestParser.getData({
                 url : url,
                 storedQueryId : STORED_QUERY_OBSERVATION,
-                requestParameter : "temperature",
+                requestParameter : "temperature,pressure",
                 // Integer values are used to init dates for older browsers.
                 // (new Date("2013-05-10T08:00:00Z")).getTime()
                 // (new Date("2013-05-12T10:00:00Z")).getTime()
