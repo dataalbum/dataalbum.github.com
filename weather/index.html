@@ -186,6 +186,7 @@
 			var shiftedTemp = dataset.locations[0].data.temperature.timeValuePairs.shift();
 			var shiftedPress = dataset.locations[0].data.pressure.timeValuePairs.shift();
 			var shiftedSymb = dataset.locations[0].data.weathersymbol3.timeValuePairs.shift();
+			var shiftedWindS = dataset.locations[0].data.windspeedms.timeValuePairs.shift();
 			var shiftedWindD = dataset.locations[0].data.winddirection.timeValuePairs.shift();
 			
 			console.log(arrData)
@@ -201,9 +202,9 @@
 			
 			var content = data.selectAll("content")
 				.data(function(d) { return d3.nest().key(function(d) { 
-					return d.time; }).entries(d.data.temperature.timeValuePairs.concat(d.data.pressure.timeValuePairs,d.data.weathersymbol3.timeValuePairs,d.data.winddirection.timeValuePairs));})
+					return d.time; }).entries(d.data.temperature.timeValuePairs.concat(d.data.pressure.timeValuePairs,d.data.weathersymbol3.timeValuePairs,d.data.windspeedms.timeValuePairs,d.data.winddirection.timeValuePairs));})
 				.enter().append("text")
-				.text(function(d, i){return d.values[0].time = d3.time.format("%a %H:%M")(new Date(d.values[0].time)) + " | " + d3.format('.0f')(d.values[0].value) + "°C" + " | " + symbolMap[d.values[2].value] + " | " + d.values[3].value + "°";})
+				.text(function(d, i){return d.values[0].time = d3.time.format("%a %H:%M")(new Date(d.values[0].time)) + " | " + d3.format('.0f')(d.values[0].value) + "°C" + " | " + symbolMap[d.values[2].value] + " | " + d3.format('.0f')(d.values[3].value) + " m/s | " + d.values[4].value + "°";})
 				.attr("dx", 0)
 				.attr('dy', function(d, i){return (i+1)*20;});		
 
@@ -293,7 +294,7 @@
             fi.fmi.metoclient.metolib.WfsRequestParser.getData({
                 url : url,
                 storedQueryId : STORED_QUERY_FORECAST,
-                requestParameter : "temperature,pressure,weathersymbol3,winddirection",
+                requestParameter : "temperature,pressure,weathersymbol3,windspeedms,winddirection",
                 begin : new Date(),
                 end : new Date((new Date()).getTime() + 11 * 60 * 60 * 1000),
                 timestep : 60 * 60 * 1000,
