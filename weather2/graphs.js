@@ -66,6 +66,7 @@
 			var info = svg.selectAll("h2")
 				.data(arrData)
 				.enter().append("h2")
+				//.attr("text-anchor", "middle")
 				.text(function(d, i){ return "Observations | " + d.info.name; });            
 
 			var list = svg.selectAll("ul")
@@ -133,7 +134,8 @@
 		    var svg = d3.select("#forecast");
 		    
 		    var info = svg.append("h2")
-		    	.text("Forecast | Next 12 hours") 
+		    	//attr("text-anchor", "middle")
+		    	.text("Forecast | Next 12 hours"); 
 		    
 		    var table = svg.append("table")
 		    		.attr("style", "margin-left: 40px"),
@@ -175,8 +177,8 @@
 
 			console.log(dataset)
 			
-			var width = 1280,
-    			height = 120;
+			//var width = 960,
+    			//height = 120;
 			
 			//data processing
 			var arrData = dataset.locations;
@@ -189,28 +191,31 @@
 			console.log(shiftedSymb)
 			
 			//create header
-			var svg = d3.select('#forecastHeader')
-			    .attr('width', width)
-			    .attr('height', height);
+			var svg = d3.select('#forecastHeader');
+			    //.attr('width', width)
+			    //.attr('height', height);
 			
 			var info = svg.selectAll("h1")
 				.data(arrData)
 				.enter();
 
 			info.append("h1")
-				.attr("dx", 0)
-				.attr("dy", 30)
-				//.style("font-size", "250%")
+				//.attr("dx", 0)
+				//.attr("dy", 30)
+				.style("font-size", "70px")
+				//.attr("text-anchor", "middle")
 				.text(function(d){ return d.info.name; });
 
 			info.append("h1")
-				.attr("dx", 0)
-				.attr("dy", 80)
-				//.style("font-size", "250%")
+				//.attr("dx", 0)
+				//.attr("dy", 80)
+				.style("font-size", "70px")
+				//.attr("text-anchor", "middle")
 				.text(function(d){ return d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C | " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value]; });
 
 			info.append("p")
-				.attr("dx", 0)
-				.attr("dy", 110)
+				//.attr("dx", 0)
+				//.attr("dy", 110)
+				//.attr("text-anchor", "middle")
 				.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });
 		};
