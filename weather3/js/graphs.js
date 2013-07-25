@@ -72,6 +72,7 @@
 			var list = svg.selectAll("ul")
 			    .data(lastObs)
 			  .enter().append("ul")
+			  	//.style("font-weight", "bold")
 			    .text(function(d) { return d.values[0].time });
 			
 			var item = list.selectAll("li")
@@ -138,7 +139,7 @@
 		    	.text("Forecast | Next 12 hours"); 
 		    
 		    var table = svg.append("table")
-		    		.attr("style", "margin-left: 40px"),
+		    		.attr("style", "margin-left: 25px"),
 		        thead = table.append("thead"),
 		        tbody = table.append("tbody");
 
@@ -211,7 +212,7 @@
 				//.attr("dy", 80)
 				//.style("font-size", "70px")
 				//.attr("text-anchor", "middle")
-				.text(function(d){ return d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C | " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value]; });
+				.text(function(d){ return d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value]; });
 
 			info.append("p")
 				.attr("class", "lead")
