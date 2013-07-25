@@ -48,7 +48,7 @@
                 d.values[0].value = "Lämpötila: " + d.values[0].value + "°C";
                 d.values[1].value = "Tuulen nopeus: " + d3.format('.0f')(d.values[1].value) + " m/s";
                 d.values[2].value = "Puuska: " + d3.format('.0f')(d.values[2].value) + " m/s";
-                d.values[3].value = "Tuulen suunta : " + d.values[3].value + "°";
+                d.values[3].value = "Tuulen suunta: " + d.values[3].value + "°";
                 d.values[4].value = "Kosteus: " + d.values[4].value + "%";
                 d.values[5].value = "Kastepiste: " + d.values[5].value + "°C";
                 d.values[6].value = "Sademäärä: " + d.values[6].value + " mm";
