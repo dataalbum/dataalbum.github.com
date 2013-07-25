@@ -66,13 +66,11 @@
 			var info = svg.selectAll("h2")
 				.data(arrData)
 				.enter().append("h2")
-				//.attr("text-anchor", "middle")
 				.text(function(d, i){ return "Observations | " + d.info.name; });            
 
 			var list = svg.selectAll("ul")
 			    .data(lastObs)
 			  .enter().append("ul")
-			  	//.style("font-weight", "bold")
 			    .text(function(d) { return d.values[0].time });
 			
 			var item = list.selectAll("li")
@@ -86,10 +84,7 @@
 		function showForecast(dataset,errors){
 
 			console.log(dataset)
-    					
-			//var width = 1280,
-    			//height = 300;
-			
+
 			//data processing
 			//remove the first array/current hour
 			dataset.locations[0].data.temperature.timeValuePairs.shift();
@@ -220,4 +215,9 @@
 				//.attr("dy", 110)
 				//.attr("text-anchor", "middle")
 				.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });
+		};
+
+		function showAddress(address){
+			
+		
 		};
