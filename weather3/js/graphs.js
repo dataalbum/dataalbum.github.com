@@ -217,7 +217,19 @@
 				.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });
 		};
 
-		function showAddress(address){
+		function showGeoLocation(address){
+
+			console.log(address)
+
+			//create address
+			var svg = d3.select("#address");
+			
+			var address = svg.selectAll("h3")
+				.data(address)
+				.enter();
+
+			address.append("h3")
+				.text(function(d){ return d.formatted_address; });
 			
 		
 		};

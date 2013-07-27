@@ -21,9 +21,10 @@
 			        if (results[1]) {
 			         	//2nd address component
 						city = results[0].address_components[2].long_name;
-						address = results[0].formatted_address;
+						address = [results[0]];
 						console.log(address)
          				console.log(city)
+         				showGeoLocation(address);
 						localForecastHeader(server_url, city);
 						localForecast(server_url, city);
 						localObservation(server_url, city);
