@@ -1,0 +1,34 @@
+			function update(data) {
+								
+				//header place
+				var textPlace = header.selectAll("h1")
+					.data(data);
+				
+				textPlace.enter().append("h1");
+				textPlace.text(function(d){ return d.info.name; });
+				
+				//header temperature
+				var textTemperature = header.selectAll("h1")
+					.data(data);
+				
+				textTemperature.enter().append("h1");
+				textTemperature.text(function(d){ return d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C "; });
+
+				//header weather
+				var textWeather = header.selectAll("h3")
+					.data(data);
+				
+				textWeather.enter().append("h3");
+				textWeather.text(function(d){ return symbolMap[d.data.weathersymbol3.timeValuePairs[0].value]; });
+
+				//header timedate
+				var textTime = header.selectAll("p")
+					.data(data);
+
+				textTime.enter().append("p").attr("class", "lead");
+				textTime.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });				
+
+				textPlace.exit().remove();
+				textForecast.exit().remove();
+				textTime.exit().remove();
+			};
