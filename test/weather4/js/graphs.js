@@ -80,7 +80,7 @@
 				var list = svg.selectAll("ul")
 				    .data(obsData);
 				list.enter().append("ul")
-				    .attr("style", "margin-left: 0px");
+				    //.attr("style", "margin-left: 0px");
 				list.text(function(d) { return d.values[0].time });
 				
 				var item = list.selectAll("li")
