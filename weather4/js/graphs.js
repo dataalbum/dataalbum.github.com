@@ -130,7 +130,7 @@
                 d.value0 = d3.format('.0f')(d.values[0].value) + "°C";
                 d.time1 = d3.time.format("%H:%M")(new Date(d.values[1].time));
                 d.value1 = symbolMap[d.values[1].value];
-                d.value2 = d.values[2].value + "°";
+                d.value2 = windDirectionMap[d.values[2].value];
                 d.value3 = d3.format('.0f')(d.values[3].value) + " m/s";
 			});
 			console.log(nestedData)
@@ -138,7 +138,7 @@
 			
 
 			//create table
-			var columns = ["time0", "value0", "value1", "value2", "value3"];
+			var columns = ["time0", "value1", "value0", "value2", "value3"];
 
 		    var svg = d3.select("#forecast");
 		    
@@ -228,20 +228,13 @@
 				textTemperature.text(function(d){ 
 					return symbolMap[d.data.weathersymbol3.timeValuePairs[0].value] + " | " + 
 					d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C "; });
-/*
-				//header weather
-				var textWeather = header.selectAll("h3")
-					.data(data);
-				
-				textWeather.enter().append("h3");
-				textWeather.text(function(d){ return symbolMap[d.data.weathersymbol3.timeValuePairs[0].value]; });
-*/
+
 				//header timedate
 				var textTime = header.selectAll("p")
 					.data(data);
 
 				textTime.enter().append("p").attr("class", "lead");
-				textTime.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });				
+				textTime.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });				
 
 				textPlace.exit().remove();
 				textTemperature.exit().remove();
