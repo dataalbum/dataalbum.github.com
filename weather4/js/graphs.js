@@ -72,9 +72,9 @@
 				textPlace.text(function(d){ return d.info.name; });
 				 */
 					
-				var info = svg.selectAll("h2")
+				var info = svg.selectAll("h3")
 					.data(infoData);
-				info.enter().append("h2")
+				info.enter().append("h3")
 				info.text(function(d, i){ return "Säähavainnot | " + d.info.name; });            
 	
 				var list = svg.selectAll("ul")
@@ -144,9 +144,9 @@
 		    
 			function update(infoData, forecastData) {
 				
-				var info = svg.selectAll("h2")
+				var info = svg.selectAll("h3")
 					.data(infoData);
-				info.enter().append("h2")
+				info.enter().append("h3")
 				info.text(function(d, i){ return "12 tunnin ennuste | " + d.info.name; });   
 				
 			    svg.selectAll('table').data(forecastData).enter().append('table');

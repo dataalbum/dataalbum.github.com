@@ -5,7 +5,7 @@ table, td, th {
 	padding: 1px 4px;
 }
 
-@import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300');
+/*@import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300');*/
 
 body {
 	background: url('../img/green_suburb.jpg') no-repeat center center fixed;
@@ -15,7 +15,7 @@ body {
     background-size: cover;
 	color:#fff;
   	background-color:#333;
-  	font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;
+  	/*font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;*/
 }
 
 a:link, a:visited {

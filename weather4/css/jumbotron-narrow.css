@@ -12,10 +12,11 @@ body {
   padding-right: 15px;
 }
 
-/* Custom page header */
+/* Custom page header //commented
 .header {
   border-bottom: 1px solid #e5e5e5;
 }
+*/
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin-top: 0;
