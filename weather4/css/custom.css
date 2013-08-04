@@ -20,6 +20,11 @@ body {
 
 a:link, a:visited {
 	color:#eee;
+	text-decoration:underline;
+}
+
+input, select, textarea{
+    color: #fff;
 }
 
 .block {
@@ -27,11 +32,19 @@ a:link, a:visited {
     height:370px;
   	padding-left:12px;
   	padding-right:12px;
+  	/*color: black;*/
 }
 
 .block-sm {
     height:180px;
 }
+
+.block-jumbotron {
+	background-color:rgba(0,0,0,0.2);
+  	padding-left:12px;
+  	padding-right:12px;
+}
+
 
 .btn-flat {
   	font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;
