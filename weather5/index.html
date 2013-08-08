@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sää</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
+    
+	<!-- Custom styles for this app -->
+    <link href="css/custom.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container-narrow">
+      <div class="header">
+        <ul class="nav">
+          <li><input class="block-jumbotron" id="manualLocation" type="text" style="border: none" placeholder="Kirjoita paikkakunta"></li>
+        </ul>
+        <h3 class="muted" id="address"></h3>
+	
+      </div>
+
+      <div class="jumbotron block-jumbotron">
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-8 block" id="forecast">
+        </div>
+
+        <div class="col-lg-4 block" id="observation">
+        </div>
+      </div>
+<!--
+      <div class="row marketing">
+        <div class="col-lg-12 block" id="map">
+        </div>
+      </div>
+-->
+      <div class="footer">
+        <p>By <a href="mailto:heikkipiipponen@ovi.com">Heikki Piipponen</a></p>
+      </div>
+
+    </div> <!-- /container -->
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v0.min.js"></script>
+    <script src="js/getForecastObservation.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="js/getlocation.js"></script>
+    <script src="js/graphs.js"></script>
+    <script src="js/weathersymbols.js"></script>
+    <script src="js/winddirections.js"></script>
+    <script src="js/metolib.js"></script>
+
+    <!-- Parser JavaScript files -->
+    <script src="js/utils-1.0.0-min.js"></script>
+    <script src="js/wfsrequestparser-1.0.0-min.js"></script>
+    
+    <script>
+    	// URL for server and your api key.
+        var server_url = "http://data.fmi.fi/fmi-apikey/516006c7-30ef-4474-97ea-76f7bf4ae01c/wfs";
+        
+    	$(function() {
+			getLocation();
+		});
+		
+		$("#manualLocation").keypress(function(event) {
+    		if (event.which == 13) {
+        		//event.preventDefault();
+        		value = $("#manualLocation").val(); 
+        		console.log(value)
+				getForecastObservation(value);
+    		}
+		});
+    </script>
+
+  </body>
+</html>
