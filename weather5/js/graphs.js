@@ -229,17 +229,20 @@
 			//create header
 			
 			//remove exiting svg, if any
+			//remove headerForecast
+			d3.select("svg").remove();
+			//remove map
 			d3.select("svg").remove();
 			
 			//svg area
-			var width = 700,
-				height = 400;
+			var width = 350,
+				height = 350;
 			
 			//map projection
 			var projection = d3.geo.transverseMercator()
 			    .rotate([-25, 0])
-			    .center([20, 62])
-			    .scale(2000);		
+			    .center([20, 61.5])
+			    .scale(1800);		
 			
 			//place coordinates to projection
 			var coords = projection([lng, lat]); //Oulu: 65.016667, 25.466667
@@ -250,7 +253,12 @@
 		    	.projection(projection);
 			
 			//selection and svg
-			var svg = d3.select(".jumbotron").append("svg")
+			var svgHeaderForecast = d3.select("#headerForecast").append("svg")
+				.attr("width", width)
+    			.attr("height", height);
+			
+			//selection and svg
+			var svgMap = d3.select("#map").append("svg")
 				.attr("width", width)
     			.attr("height", height);
 			
@@ -259,14 +267,14 @@
 				//map
 				d3.json("data/finland_topo.json", function(error, fi) {
 			
-					svg.selectAll(".map")
+					svgMap.selectAll("map")
 						.data(topojson.object(fi, fi.objects.finland).geometries)
 					    .enter().append("path")
 					    //.attr("class", function(d) { return "subunit " + d.id; })
 						.attr("d", path)
 						.style("fill", "white")
 					
-					svg.append("circle")
+					svgMap.append("circle")
 						.attr('cx', coords[0])
 					   	.attr('cy', coords[1])
 				       	.attr("r", 5)
@@ -285,38 +293,38 @@
 				});
 				
 				//header place
-				var textPlace = svg.selectAll("place")
+				var textPlace = svgHeaderForecast.selectAll("place")
 					.data(data);
 				
 				textPlace.enter().append("text")
 					.style("font-size", 63)
 					.style("fill", "white")
 					.style("text-anchor", "middle")
-					.attr("x", width - width / 3)
-					.attr("y", 50);
+					.attr("x", width / 2)
+					.attr("y", 60);
 					
 				textPlace.text(function(d){ return d.info.name; });
 
 
 				//header weather symbol				
-				var weatherSymbol = svg.selectAll("symbol")
+				var weatherSymbol = svgHeaderForecast.selectAll("symbol")
 					.data(data);
     				
 				weatherSymbol.enter().append("image")
-					.attr("width", width + width / 3)
+					.attr("width", width)
     				.attr("height", height);
 								    			
     			weatherSymbol.attr("xlink:href", function(d) { return "img/SVG/" + d.data.weathersymbol3.timeValuePairs[0].value + ".svg" ; });
 				
 				//header temperature
-				var textTemperature = svg.selectAll("temp")
+				var textTemperature = svgHeaderForecast.selectAll("temp")
 					.data(data);
 				
 				textTemperature.enter().append("text")
 					.style("font-size", 63)
 					.style("fill", "white")
 					.style("text-anchor", "middle")
-					.attr("x", width  - width / 3)
+					.attr("x", width / 2)
 					.attr("y", height -40);
 
 				textTemperature.text(function(d){ 
@@ -324,14 +332,14 @@
 				
 
 				//header timedate
-				var textTime = svg.selectAll("time")
+				var textTime = svgHeaderForecast.selectAll("time")
 					.data(data);
 
 				textTime.enter().append("text")
 					//.style("font-size", 63)
 					.style("fill", "white")
 					.style("text-anchor", "middle")
-					.attr("x", width  - width / 3)
+					.attr("x", width / 2)
 					.attr("y", height);
 
 				textTime.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });				

@@ -32,7 +32,8 @@ input, select, textarea{
 
 .block {
 	background-color:rgba(0,0,0,0.2);
-    height:370px;
+    /*height:370px;*/
+   	height:400px;
   	padding-left:12px;
   	padding-right:12px;
   	/*color: black;*/
