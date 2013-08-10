@@ -8,7 +8,7 @@ table, td, th {
 /*@import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300');*/
 
 body {
-	background: url('../img/green_suburb.jpg') no-repeat center center fixed;
+	background: url('../img/seasky_medium.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -29,7 +29,8 @@ input, select, textarea{
 
 .block {
 	background-color:rgba(0,0,0,0.2);
-    height:370px;
+    /*height:370px;*/
+   	height:460px;
   	padding-left:12px;
   	padding-right:12px;
   	/*color: black;*/

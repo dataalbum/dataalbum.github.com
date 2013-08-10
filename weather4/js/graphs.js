@@ -129,7 +129,7 @@
                 d.time0 = d3.time.format("%H:%M")(new Date(d.values[0].time));
                 d.value0 = d3.format('.0f')(d.values[0].value) + "°C";
                 d.time1 = d3.time.format("%H:%M")(new Date(d.values[1].time));
-                d.value1 = symbolNameMap[d.values[1].value];
+                d.value1 = d.values[1].value;//symbolNameMap[d.values[1].value];
                 d.value2 = windDirectionMap[d.values[2].value];
                 d.value3 = d3.format('.0f')(d.values[3].value) + " m/s";
 			});
@@ -176,8 +176,16 @@
 			            });
 			        });
 				cells.enter().append("td");
-				cells.text(function(d) { return console.log(d.value),d.value; });
+				cells.attr("class", function(d) { return "climacon " + symbolMap[d.value] ; });
 				
+				//weatherSymbolTemp.text(function(d){ 
+					//return " " + d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C "; });				
+
+				
+				cells.text(function(d) { 
+				            if (d.column == "value1") {return ""}
+            				else { return d.value } 
+				;})
 				cells.exit().remove();
 				
 				return table;
