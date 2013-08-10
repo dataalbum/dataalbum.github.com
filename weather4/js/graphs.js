@@ -129,7 +129,7 @@
                 d.time0 = d3.time.format("%H:%M")(new Date(d.values[0].time));
                 d.value0 = d3.format('.0f')(d.values[0].value) + "°C";
                 d.time1 = d3.time.format("%H:%M")(new Date(d.values[1].time));
-                d.value1 = symbolMap[d.values[1].value];
+                d.value1 = symbolNameMap[d.values[1].value];
                 d.value2 = windDirectionMap[d.values[2].value];
                 d.value3 = d3.format('.0f')(d.values[3].value) + " m/s";
 			});
@@ -209,7 +209,8 @@
 			var header = d3.selectAll(".jumbotron");
 			
 			function update(data) {
-								
+				
+
 				//header place
 				var textPlace = header.selectAll("h2")
 					.data(data);
@@ -220,14 +221,14 @@
 				//textPlace.enter().append("h1");
 				//textPlace.text(function(d){ return d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C"; });
 
-				//header temperature
-				var textTemperature = header.selectAll("h1")
-					.data(data);
-				
-				textTemperature.enter().append("h1");
-				textTemperature.text(function(d){ 
-					return symbolMap[d.data.weathersymbol3.timeValuePairs[0].value] + " | " + 
-					d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C "; });
+				//header weather & temperature
+				//add tooltip
+				var weatherSymbolTemp = header.selectAll("h1")
+				    .data(data);
+				weatherSymbolTemp.enter().append("h1");
+				weatherSymbolTemp.attr("class", function(d) { return "climacon " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value] ; });
+				weatherSymbolTemp.text(function(d){ 
+					return " " + d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C "; });				
 
 				//header timedate
 				var textTime = header.selectAll("p")
@@ -237,7 +238,7 @@
 				textTime.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });				
 
 				textPlace.exit().remove();
-				textTemperature.exit().remove();
+				weatherSymbolTemp.exit().remove();
 				textTime.exit().remove();
 			};
 						
