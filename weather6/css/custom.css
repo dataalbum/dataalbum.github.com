@@ -59,7 +59,9 @@ input, select, textarea{
   	padding-right:12px;
   	/*color: black;*/
 }
-
+.block h3 {
+	text-align: center;
+}
 .block-sm {
     height:180px;
 }
