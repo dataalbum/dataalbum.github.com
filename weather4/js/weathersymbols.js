@@ -1,7 +1,7 @@
 		var weatherSymbols = [
 				{"id":1,"name":"selkeää","symbol":"sun"},
 				{"id":2,"name":"puolipilvistä","symbol":"cloud sun"},
-				{"id":21,"name":"heikkoja sadekuuroja","symbol":"drizzel sun"},
+				{"id":21,"name":"heikkoja sadekuuroja","symbol":"drizzle sun"},
 				{"id":22,"name":"sadekuuroja","symbol":"showers sun"},
 				{"id":23,"name":"voimakkaita sadekuuroja","symbol":"rain sun"},
 				{"id":3,"name":"pilvistä","symbol":"cloud"},
