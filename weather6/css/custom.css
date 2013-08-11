@@ -1,9 +1,15 @@
 ul {
 	list-style: none;
 }
-table, td, th { 
+table { 
+	padding: 1px 10px;
+	margin-left:auto; 
+    margin-right:auto;
+}
+td, th { 
 	padding: 1px 10px;
 }
+
 #map {
 	height: 100%;
 	position: absolute;
