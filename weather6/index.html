@@ -37,7 +37,7 @@
     <div class="container-narrow">
       <div class="header">
         <ul class="nav">
-          <li><input class="block-jumbotron" id="manualLocation" type="text" style="border: none" placeholder="Kirjoita paikkakunta"></li>
+          <li><input class="h3 block-jumbotron" id="manualLocation" type="text" style="border: none" placeholder="Kirjoita paikkakunta"></li>
         </ul>
         <h3 class="muted" id="address"></h3>
 	
@@ -70,33 +70,30 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
-    <!-- Map js files -->
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <!--<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
-    <script src="http://maps.stamen.com/js/tile.stamen.js?v1.2.3"</script>-->
-    <script src="js/getlocation.js"></script>
-	<script src="js/map.js"></script>
-    
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="http://underscorejs.org/underscore-min.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="js/getForecastObservation.js"></script>
-    <script src="js/graphs.js"></script>
-    <script src="js/weathersymbols.js"></script>
-    <script src="js/winddirections.js"></script>
-    <script src="js/metolib.js"></script>
-    
-    <!-- Parser JavaScript files -->
-    <script src="js/utils-1.0.0-min.js"></script>
-    <script src="js/wfsrequestparser-1.0.0-min.js"></script>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="js/graphs.js"></script>
+    <script type="text/javascript" src="js/getForecastObservation.js"></script>
+    <script type="text/javascript" src="js/metolib.js"></script>	
+    <script type="text/javascript" src="js/utils-1.0.0-min.js"></script>
+    <script type="text/javascript" src="js/wfsrequestparser-1.0.0-min.js"></script>
+    <script type="text/javascript" src="js/weathersymbols.js"></script>
+    <script type="text/javascript" src="js/winddirections.js"></script>
+    <script type="text/javascript" src="js/getlocation.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.12&sensor=false"></script>
+	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.3"</script>
+    <script type="text/javascript" src="js/map.js"></script>
+            
         
-    <script>
+    <script type="text/javascript" >
     	// URL for server and your api key.
         var server_url = "http://data.fmi.fi/fmi-apikey/516006c7-30ef-4474-97ea-76f7bf4ae01c/wfs";
         
     	$(function() {
-			getLocation();
+			geoLocation();
 		});
 		
 		$("#manualLocation").keypress(function(event) {
@@ -104,7 +101,7 @@
         		//event.preventDefault();
         		value = $("#manualLocation").val(); 
         		console.log(value)
-				getForecastObservation(value);
+				getPlace(value);
     		}
 		});
     </script>

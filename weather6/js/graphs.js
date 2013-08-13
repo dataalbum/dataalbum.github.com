@@ -6,7 +6,7 @@
 			var lat = dataset.locations[0].info.position[0],
 				lng = dataset.locations[0].info.position[1];
 
-			showMap(lat, lng);			
+			//showMap(lat, lng);			
 			//data processing
 			var arrData = dataset.locations;
 			console.log(arrData)
