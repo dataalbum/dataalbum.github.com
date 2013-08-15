@@ -38,17 +38,19 @@
 				});
 				
 				//initial map
+		  		
 		  		// replace "toner" here with "terrain" or "watercolor"
 				var layer = "watercolor";
 				var map = new google.maps.Map(document.getElementById("map"), {
     				center: new google.maps.LatLng(lat, lng),
     				zoom: 6,
-    				mapTypeId: layer,
-    				mapTypeControlOptions: {
+    				//mapTypeId: layer,
+			        mapTypeId: 'terrain'
+    				/*mapTypeControlOptions: {
         				mapTypeIds: [layer]
-    				}
+    				}*/
 				});
-				map.mapTypes.set(layer, new google.maps.StamenMapType(layer));
+				//map.mapTypes.set(layer, new google.maps.StamenMapType(layer));
 				
 				var marker = new google.maps.Marker({
 					position: latlng,

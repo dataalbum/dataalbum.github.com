@@ -1,4 +1,5 @@
 		var windDirections = [
+				{"deg":0,"name":"pohjoisesta","symbol":"icon-arrow-down"},
 				{"deg":10,"name":"pohjoisesta","symbol":"icon-arrow-down"},
 				{"deg":20,"name":"pohjoisesta","symbol":"icon-arrow-down"},
 				{"deg":30,"name":"koilisesta","symbol":"icon-arrow-down-left"},
