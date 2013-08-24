@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+html,body { 
+	font: 12px Arial;
+	background-color: steelblue;
+	fill: white;
+	color: white;
+	height: 100%;
+    margin: 0px;
+}
+
+path { 
+    stroke: steelblue;
+    fill: none;
+}
+
+.line1 {
+	stroke: white;
+	stroke-width: 10;
+}
+
+.line2 {
+	stroke: white;
+	stroke-width: 10;
+	opacity: 0.8;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: white;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+	fill: white;
+	font-size: 11px
+}
+
+.area {
+   fill: white;
+    stroke-width: 0;
+    opacity: 0.4;
+    
+}
+
+circle {
+	fill: steelblue;
+	stroke: white;
+	stroke-width: 2;
+}
+
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 60px;                  
+  height: 40px;                 
+  padding: 2px;             
+  font: 12px sans-serif;
+  color: steelblue;
+  background: white;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
+}
+
+#forecastChart {
+	overflow: hidden;
+    width:100%;
+    height:100%;
+}
+
+</style>
+<head>
+	    <!-- Climacons Font -->
+    <link href="css/climacons-font.css" rel="stylesheet">
+
+    <!-- Icomoon Font -->
+    <link href="css/icomoon-font.css" rel="stylesheet">
+</head>
+<body>
+<!-- 	<div id="mainForecast"></div> -->
+	<div id="forecastChart"></div>
+	<div id="observationChart"></div>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://underscorejs.org/underscore-min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="getlocation.js"></script>
+<script src="metolib.js"></script>
+<script src="weathersymbols.js"></script>
+
+<!-- Parser JavaScript files -->
+<script type="text/javascript" src="utils-1.0.0-min.js"></script>
+<script type="text/javascript" src="wfsrequestparser-1.0.0-min.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<script>
+
+var server_url = "http://data.fmi.fi/fmi-apikey/516006c7-30ef-4474-97ea-76f7bf4ae01c/wfs";
+        
+$(function() {
+	geoLocation();
+});
+		
+$("#manualLocation").keypress(function(event) {
+	if (event.which == 13) {
+    	//event.preventDefault();
+		value = $("#manualLocation").val(); 
+		console.log(value)
+		getPlace(value);
+    }
+});
+
+function showForecastHeader(dataset,errors){
+
+	console.log(dataset)
+			
+	//data processing
+	var arrData = dataset.locations;
+	console.log(arrData)
+
+	var shiftedTemp = dataset.locations[0].data.temperature.timeValuePairs.shift();
+	var shiftedPress = dataset.locations[0].data.pressure.timeValuePairs.shift();
+	var shiftedSymb = dataset.locations[0].data.weathersymbol3.timeValuePairs.shift();
+			
+	console.log(shiftedSymb)
+			
+	//create header
+	var header = d3.selectAll("#mainForecast");
+			
+	function update(data) {
+				
+
+		//header place
+		var textPlace = header.selectAll("h2")
+			.data(data);
+					
+		textPlace.enter().append("h2");
+		textPlace.text(function(d){ return d.info.name; });
+	
+	
+		//header weather & temperature
+		var weatherSymbolTemp = header.selectAll("h1")
+			.data(data);
+		
+		weatherSymbolTemp.enter().append("h1");
+		weatherSymbolTemp.attr("class", function(d) { return "climacon " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value] ; });
+		weatherSymbolTemp.text(function(d){ 
+			return " " + d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C "; });				
+	
+		//header timedate
+		var textTime = header.selectAll("p")
+			.data(data);
+	
+		textTime.enter().append("p").attr("class", "lead");
+		textTime.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });				
+	
+		textPlace.exit().remove();
+		weatherSymbolTemp.exit().remove();
+		textTime.exit().remove();
+	};
+	update(arrData);
+};
+
+function showForecastChart(dataset,errors){
+
+	console.log(dataset)
+
+	//data processing
+	var data = processData(dataset);
+	
+	console.log(data)	
+
+	//line chart
+	// Set the dimensions of the canvas / graph
+	var	margin = {top: 20, right: 50, bottom: 100, left: 50},//var	margin = {top: 30, right: 20, bottom: 30, left: 50},
+		prevWidth = 0,
+		prevHeight = 0;
+	 
+	var updateTransistionMS = 750; // milliseconds
+	
+	// Parse the date / time
+	var	parseDate = d3.time.format("%d-%b-%y").parse;
+	var formatTime = d3.time.format("%H:%M");
+	var formatTemperature = d3.format('.0f');
+	
+	// Set the ranges and scale the range of the data
+	var	x = d3.time.scale()
+		.range([0, prevWidth])
+		.domain(d3.extent(data, function(d) { return d.time; }));
+	
+	var	y1 = d3.scale.linear()
+		.range([prevHeight, 0])
+		.domain(d3.extent(data, function(d) { return d.temperature; }));
+	
+	var	y2 = d3.scale.linear()
+		.range([prevHeight, 0])
+		.domain(d3.extent(data, function(d) { return d.precipitation; }));
+	
+	// Define the axes
+	var	xAxis = d3.svg.axis().scale(x)
+		.orient("bottom")
+		.tickFormat(formatTime)
+		.ticks(d3.time.hours, 3);
+	 
+	var	yAxisLeft = d3.svg.axis().scale(y1)
+		.orient("right").ticks(5);
+		
+	var	yAxisRight = d3.svg.axis().scale(y2)
+		.orient("left").ticks(5);
+
+	//Define the area
+	var area = d3.svg.area()
+		.interpolate("basis")
+	    .x(function(d) { return x(d.time); })
+	    .y0(prevHeight) //area below
+	    .y1(function(d) { return y2(d.precipitation); });
+
+	// Define the line for temperature
+	var	valueline1 = d3.svg.line()
+		.interpolate("cardinal")
+		.x(function(d) { return x(d.time); })
+		.y(function(d) { return y1(d.temperature); });
+
+	// Define the line for precipitation
+	var	valueline2 = d3.svg.line()
+		.interpolate("basis")
+		.x(function(d) { return x(d.time); })
+		.y(function(d) { return y2(d.precipitation); });
+		
+	//var div = d3.select("#forecastChart").append("div")
+    	//.style("opacity", 0);
+
+	// Adds the svg canvas
+	var	forecast = d3.select("#forecastChart")
+		.append("svg")
+		.attr("class", "chart")
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	
+	// create the x axis container
+	forecast.append("g")
+		.attr("class", "x axis");
+
+	// create the y axis container
+	forecast.append("g")
+		.attr("class", "yLeft axis");
+
+	// create the y axis container
+	forecast.append("g")
+		.attr("class", "yRight axis");
+	
+
+	// Scale the range of the data
+	//x.domain(d3.extent(data, function(d) { return d.time; }));
+	//y1.domain([0, d3.max(data, function(d) { return d.temperature; })]);
+	//y1.domain(d3.extent(data, function(d) { return d.temperature; }));
+	//y1.domain([-35, 35]);
+	//y2.domain(d3.extent(data, function(d) { return d.precipitation; }));
+
+	updateChart(true);
+
+	// called for initial update and updates for resize
+	function updateChart(init) {
+
+	    console.log(init)
+	    // get the height and width subtracting the padding
+	    var chartWidth = document.getElementById('forecastChart')
+			.getBoundingClientRect().width - margin.left - margin.right;
+	    
+	    var chartHeight = document.getElementById('forecastChart')
+			.getBoundingClientRect().height - margin.top - margin.bottom;
+	
+	    // only update if chart size has changed
+		if ((prevWidth != chartWidth) || 
+			(prevHeight != chartHeight)) {
+			prevWidth = chartWidth;
+			prevHeight = chartHeight;
+	
+			//set the width and height of the SVG element
+			forecast.attr("width", chartWidth + margin.left + margin.right)
+				.attr("height", chartHeight + margin.top + margin.bottom);
+	
+			// ranges are based on the width and height available so reset
+			x.range([0, chartWidth]);
+			y1.range([chartHeight, 0]);
+			y2.range([chartHeight, 0]);
+			area.y0(chartHeight);
+	      
+			if (init) {
+				console.log(init)
+		        // if first run then just display axis with no transition
+		        forecast.select(".x") //g?
+		        	.attr("class", "x axis")
+		        	.attr("transform", "translate(0," + chartHeight + ")")
+		        	.call(xAxis);
+		
+		        forecast.select(".yLeft") //g?
+		        	.attr("class", "yLeft axis")
+		        	.call(yAxisLeft);
+
+		        forecast.select(".yRight") //g?
+		        	.attr("class", "yRight axis")
+		        	.attr("transform", "translate(" + chartWidth + ",0)")
+		        	.call(yAxisRight);
+			}
+			else {
+				// for subsequent updates use a transistion to animate the axis to the new position
+		        var t = forecast.transition().duration(updateTransistionMS);
+		
+		        t.select(".x")
+		        	.attr("class", "x axis")
+		        	.attr("transform", "translate(0," + chartHeight + ")")
+		        	.call(xAxis); 
+				
+				// Add the Y Axis left
+		        t.select(".yLeft")
+					.attr("class", "yLeft axis")
+		        	.call(yAxisLeft);
+		        
+		        // Add the Y Axis Right
+				t.select(".yRight")
+					.attr("class", "yRight axis")
+					.attr("transform", "translate(" + chartWidth + ",0)")
+					.call(yAxisRight);
+			}
+
+				
+			 //Draw the area
+			var areas = forecast.selectAll(".area")
+				.data([data]);
+			
+			// transistion to new position if already exists
+      		areas.transition()
+      			.duration(updateTransistionMS)
+      			.attr("d", area);
+
+      		// add area if not already existing
+      		areas.enter().append("path")
+      			.attr("class", "area")
+      			.attr("d", area);
+			
+			// Add the valueline path. Precipitation.
+			var lines2 = forecast.selectAll(".line2")
+				.data([data]); // needs to be an array (size of 1 for our data) of arrays
+			
+				// transistion to new position if already exists
+			lines2.transition()
+				.duration(updateTransistionMS)
+				.attr("d", valueline2);
+			
+			// add line if not already existing
+			lines2.enter().append("path")
+				.attr("class", "line2")
+				.attr("d", valueline2);
+			
+			// Add the valueline path. Temperature.
+			var lines1 = forecast.selectAll(".line1")
+				.data([data]); // needs to be an array (size of 1 for our data) of arrays
+			
+			// transistion to new position if already exists
+			lines1.transition()
+				.duration(updateTransistionMS)
+				.attr("d", valueline1);
+			
+			// add line if not already existing
+			lines1.enter().append("path")
+				.attr("class", "line1")
+				.attr("d", valueline1);			
+
+			// Add the scatter plot and bind up the data to an array of circles
+			var circle = forecast.selectAll("circle")
+		        .data(data);
+			
+			// if already existing then transistion each circle to its new position
+		    circle.transition()
+		        .duration(updateTransistionMS)
+		        .attr("cx", function(d) { return x(d.time); })
+		        .attr("cy", function(d) { return y1(d.temperature); });
+
+			// if new circle then just display
+			circle.enter().append("circle")
+		        .attr("r", 3.5)
+		        .attr("cx", function(d) { return x(d.time); })
+		        .attr("cy", function(d) { return y1(d.temperature); });
+				/*.on("mouseover", function(d) {
+					d3.select(this).attr("r", 10)      
+		            div.transition()        
+		                .duration(200)      
+		                .style("opacity", 1)
+		            div.attr("class","tooltip climacon " + symbolMap[d.weatherSymbol])
+		            div.html(" " + formatTemperature(d.temperature) + "°C" + "<br/>"  + formatTime(new Date(d.time)))  
+		                .style("left", (d3.event.pageX - 80) + "px")     
+		                .style("top", (d3.event.pageY - 28) + "px");    
+		            })                  
+		        .on("mouseout", function(d) {       
+		            d3.select(this).attr("r", 3.5)
+		            div.transition()        
+		                .duration(500)      
+		                .style("opacity", 0);   
+				});*/
+
+
+		}
+	}
+	// look for resize but use timer to only call the update script when a resize stops
+	var resizeTimer;
+	window.onresize = function(event) {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(function()
+		{
+			updateChart(false);
+		}, 100);
+	}
+}
+
+function showObservationChart(dataset,errors){
+
+	console.log(dataset)
+						
+	//data processing
+	var arrData = dataset.locations;
+	console.log(arrData)
+						
+	var temperature = dataset.locations[0].data.t2m.timeValuePairs;
+	var windSpeed = dataset.locations[0].data.ws_10min.timeValuePairs;
+	var windGust = dataset.locations[0].data.wg_10min.timeValuePairs;
+	var windDirection = dataset.locations[0].data.wd_10min.timeValuePairs;
+	var rh = dataset.locations[0].data.rh.timeValuePairs;
+	var td = dataset.locations[0].data.td.timeValuePairs;
+	var r_1h = dataset.locations[0].data.r_1h.timeValuePairs;
+	var r_10min = dataset.locations[0].data.ri_10min.timeValuePairs;
+	var snow = dataset.locations[0].data.snow_aws.timeValuePairs;
+	var pressure = dataset.locations[0].data.p_sea.timeValuePairs;
+	var visibility = dataset.locations[0].data.vis.timeValuePairs;			
+			
+	var concatedData = temperature.concat(
+		windSpeed, //tuulen nopeus, m/s
+		windGust, //gust speed/puuska, m/s
+		windDirection, //tuulensuunta, deg
+		rh, //relative humidity/kosteus, %
+		td, //dew-point temperature/kosteuspiste
+		r_1h, //sademäärä,mm
+		r_10min, //precipitation intensity, mm/h
+		snow, //snow depth, cm
+		pressure, //hPa 
+		visibility); //näkyvyys, m
+	
+	console.log(concatedData)
+			
+	var nestedData = d3.nest()
+		.key(function(d) { return d.time; })
+		.entries(concatedData);
+	
+	console.log(nestedData)
+			
+	nestedData.forEach(function(d) {
+		d.key = +d.key;
+		d.time = +d.values[0].time;
+		d.temperature = +d.values[0].value;// + "°C";
+		//d.windSpeed = +d3.format('.0f')(d.values[1].value);// + " m/s";
+		//d.windGust = +d3.format('.0f')(d.values[2].value);// + " m/s";
+		//d.windDirection = +d.values[3].value;// + "°";
+		//d.humidity = +d.values[4].value;// + "%";
+		//d.dewPoint = +d.values[5].value;// + "°C";
+		//d.precipitation = +d.values[6].value;// + " mm";
+		d.precipitationIntensity = +d.values[7].value;// + " mm/h";
+		//d.snowDepth = +d.values[8].value;// + " cm";
+		//d.pressure = +d.values[9].value;// + " hPa";
+		//d.visibility = +d3.format('.0f')(d.values[10].value / 1000);
+		// + " km";
+	});
+	console.log(nestedData)
+		//line chart
+	// Set the dimensions of the canvas / graph
+	var	margin = {top: 20, right: 50, bottom: 100, left: 50},//var	margin = {top: 30, right: 20, bottom: 30, left: 50},
+		width = 640 - margin.left - margin.right,
+		height = 320 - margin.top - margin.bottom;
+	 
+	// Parse the date / time
+	var	parseDate = d3.time.format("%d-%b-%y").parse;
+	var formatTime = d3.time.format("%H:%M");
+	var formatTemperature = d3.format('.0f');
+	//d3.time.format("%d.%m.%Y %H:%M")
+	
+	// Set the ranges
+	//var	x = d3.time.scale().range([0, width]);
+	var	x = d3.time.scale().range([0, width]);
+	var	y1 = d3.scale.linear().range([height, 0]);
+	var	y2 = d3.scale.linear().range([height, 0]);
+	
+	// Define the axes
+	var	xAxis = d3.svg.axis().scale(x)
+		.orient("bottom")
+		.tickFormat(formatTime)
+		.ticks(d3.time.hours, 3);
+	 
+	var	yAxisLeft = d3.svg.axis().scale(y1)
+		.orient("left").ticks(5);
+		//.tickFormat(tickTemperature);
+		
+	var	yAxisRight = d3.svg.axis().scale(y2)
+		.orient("right");
+	
+	
+	//Define the area
+	var area = d3.svg.area()
+		.interpolate("basis")
+	    .x(function(d) { return x(d.time); })
+	    .y0(height) //area below
+	    //.y0(0) //area above
+	    .y1(function(d) { return y2(d.precipitationIntensity); });
+	 
+	// Define the line for temperature
+	var	valueline1 = d3.svg.line()
+		.interpolate("cardinal")
+		.x(function(d) { return x(d.time); })
+		.y(function(d) { return y1(d.temperature); });
+	
+	// Define the line for precipitation
+	var	valueline2 = d3.svg.line()
+		.interpolate("basis")
+		.x(function(d) { return x(d.time); })
+		.y(function(d) { return y2(d.precipitationIntensity); });
+
+	var div = d3.select("#observationChart").append("div")   
+    	.attr("class", "tooltip")               
+    	.style("opacity", 0);
+	
+	// Adds the svg canvas
+	var	observation = d3.select("#observationChart")
+		.append("svg")
+		.attr("class", "chart")
+		//.attr("viewBox", "0 0 " + width + " " + height )
+		//.attr("preserveAspectRatio", "xMidYMin meet")
+        //.attr("preserveAspectRatio", "none")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");	
+		
+		//function update(data, error){
+
+	// Scale the range of the data
+	x.domain(d3.extent(nestedData, function(d) { return d.time; }));
+	//y1.domain([0, d3.max(nestedData, function(d) { return d.temperature; })]);
+	y1.domain(d3.extent(nestedData, function(d) { return d.temperature; }));
+	//y1.domain([-35, 35]);
+	y2.domain(d3.extent(nestedData, function(d) { return d.precipitationIntensity; }));
+	
+	 //Draw the area
+	observation.append("path")
+		.datum(nestedData)
+		.attr("class", "area")
+		.attr("d", area);
+	
+	// Add the valueline path.
+	observation.append("path")	
+		.attr("class", "line2")
+		.attr("d", valueline2(nestedData));
+
+	// Add the valueline path.
+	observation.append("path")	
+		.attr("class", "line1")
+		.attr("d", valueline1(nestedData));
+
+	// Add the scatter plot
+	observation.selectAll("dot")
+        .data(nestedData)
+    	.enter().append("circle")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.time); })
+        .attr("cy", function(d) { return y1(d.temperature); })
+		.on("mouseover", function(d) {
+			d3.select(this).attr("r", 10)      
+            div.transition()        
+                .duration(200)      
+                .style("opacity", .9)
+            div.html(formatTime(new Date(d.time)) + "<br/>"  + d.temperature + "°C")  
+                .style("left", (d3.event.pageX - 80) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");    
+            })                  
+        .on("mouseout", function(d) {       
+            d3.select(this).attr("r", 3.5)
+            div.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
+        });
+
+	// Add the X Axis
+	observation.append("g")
+		.attr("class", "x axis")
+		.attr("transform", "translate(0," + height + ")")
+		.call(xAxis);
+		
+	// Add the Y Axis Left
+	observation.append("g")
+		.attr("class", "y axis")
+		.call(yAxisLeft);
+	
+	// Add the Y Axis Right
+	observation.append("g")
+		.attr("class", "y axis")
+		.attr("transform", "translate(" + width + ",0)")
+		.call(yAxisRight);
+		//};
+		//update(nestedData);
+};
+
+function processData(dataset) {
+	
+	
+	//forecast chart data
+	//remove the first array/current hour
+	
+	var weatherData = dataset.locations[0].data;
+	
+	for (parameter in weatherData) {
+		console.log(parameter)
+		console.log(weatherData[parameter].timeValuePairs.shift())//inside of parameter		
+	}
+	dataset.locations[0].data.temperature.timeValuePairs.shift();
+	dataset.locations[0].data.weathersymbol3.timeValuePairs.shift();
+	dataset.locations[0].data.windspeedms.timeValuePairs.shift();
+	dataset.locations[0].data.winddirection.timeValuePairs.shift();
+	dataset.locations[0].data.precipitation1h.timeValuePairs.shift();
+	
+	//shifted parameters
+	var shiftedTemperature = dataset.locations[0].data.temperature.timeValuePairs;
+	var shiftedWeatherSymbol3 = dataset.locations[0].data.weathersymbol3.timeValuePairs;
+	var shiftedWindDirection = dataset.locations[0].data.winddirection.timeValuePairs;
+	var shiftedWindSpeed = dataset.locations[0].data.windspeedms.timeValuePairs;	
+	var shiftedPrecipitation = dataset.locations[0].data.precipitation1h.timeValuePairs;
+	//merge parameters
+	var concatedData = shiftedTemperature.concat(
+		shiftedWeatherSymbol3,
+		shiftedWindDirection,
+		shiftedWindSpeed,
+		shiftedPrecipitation);
+
+	//console.log(concatedData)
+	
+	var nestedData = d3.nest()
+		.key(function(d) { return d.time; })
+		.entries(concatedData);
+		//console.log(nestedData)
+	
+	nestedData.forEach(function(d) {
+		//d.key = +d.key;
+        //d.time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.values[0].time));
+        d.time = +d.values[0].time;
+        d.temperature = +d3.format('.0f')(d.values[0].value);// + "°C";
+        d.weatherSymbol = +d.values[1].value;//symbolNameMap[d.values[1].value];
+		//d.windDirection = +d.values[2].value;//windDirectionMap[d.values[2].value];
+        //d.windSpeed = d3.format('.0f')(d.values[3].value) + " m/s";
+        d.precipitation = +d.values[4].value;
+	});
+	console.log(nestedData)
+	
+	return nestedData;
+
+}
+
+</script>
+</body>
