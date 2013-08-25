@@ -272,8 +272,7 @@ function showForecastChart(dataset,errors){
 	    var chartWidth = document.getElementById('forecastChart')
 			.getBoundingClientRect().width - margin.left - margin.right;
 	    
-	    var chartHeight = document.getElementById('forecastChart')
-			.getBoundingClientRect().height - margin.top - margin.bottom;
+	    var chartHeight = chartWidth / 2 - margin.top - margin.bottom;
 	
 	    // only update if chart size has changed
 		if ((prevWidth != chartWidth) || 
