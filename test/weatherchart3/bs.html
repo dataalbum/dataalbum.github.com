@@ -249,8 +249,7 @@
 					.getBoundingClientRect().width - margin.left - margin.right;
 				console.log(chartWidth)
 			    
-			    var chartHeight = document.getElementById('forecastChart')
-					.getBoundingClientRect().height - margin.top - margin.bottom;
+			    var chartHeight = chartWidth / 2 - margin.top - margin.bottom;
 				console.log(chartHeight)
 			    // only update if chart size has changed
 				if ((prevWidth != chartWidth) || 
