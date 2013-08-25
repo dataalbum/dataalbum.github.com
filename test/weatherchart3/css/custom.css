@@ -1,5 +1,4 @@
 
-
 path { 
     stroke: steelblue;
     fill: none;
@@ -12,7 +11,7 @@ path {
 
 .line2 {
 	stroke: white;
-	stroke-width: 10;
+	stroke-width: 2;
 	opacity: 0.8;
 }
 
