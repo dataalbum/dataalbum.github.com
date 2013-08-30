@@ -161,6 +161,8 @@
 		    d3.select('#forecastChart2 svg')
 		        .datum(data2)
 		      .transition().duration(500).call(chart);
+
+nv.utils.windowResize(chart.update);
 			
 			forecastChart2 = chart;
 		    
