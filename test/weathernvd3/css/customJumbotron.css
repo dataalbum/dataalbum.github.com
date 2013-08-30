@@ -1,0 +1,22 @@
+/*
+.nvd3.nv-lineChart .nv-x.nv-axis line {
+  stroke: none;
+  fill: none;
+}
+*/
+.tick line {
+  opacity: 0 !important;
+}
+
+.nv-y text{ 
+	display: none; 
+}
+/*
+.lines2Wrap .nv-series-0 {
+	display: none;
+}
+
+.y2.axis text {
+	display: none;
+}
+*/

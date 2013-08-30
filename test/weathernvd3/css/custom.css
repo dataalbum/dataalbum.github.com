@@ -8,6 +8,19 @@
   opacity: 0 !important;
 }
 
+.nv-y text{ 
+	display: none; 
+}
+/*
+.lines2Wrap .nv-series-0 {
+	display: none;
+}
+
+.y2.axis text {
+	display: none;
+}
+*/
+
 
 /*@import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300');*/
 
@@ -19,7 +32,7 @@ body {
     background-size: cover;
 	color:#fff;
 	fill:#fff;
-  	/*background-color:#333;*/
+  	background-color:#000;
   	/*font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;*/
 }
 
@@ -33,19 +46,19 @@ input, select, textarea{
 }
 
 .block {
-	background-color:rgba(0,0,0,0.6); /*background-color:rgba(0,0,0,0.2);*/
+	background-color:rgba(255,255,255,0.2); /*background-color:rgba(0,0,0,0.2);*/
   	padding-left:12px;
   	padding-right:12px;
 }
 .block h3 {
-	text-align: center;
+	/*text-align: center;*/
 }
 .block-sm {
     height:180px;
 }
 
 .block-jumbotron {
-	background-color:rgba(0,0,0,0.6); /*background-color:rgba(0,0,0,0.2);*/
+	background-color:rgba(255,255,255,0.2); /*background-color:rgba(0,0,0,0.2);*/
   	padding-left:12px;
   	padding-right:12px;
 }

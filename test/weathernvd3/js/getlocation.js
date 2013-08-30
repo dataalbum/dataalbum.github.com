@@ -8,13 +8,13 @@
 			function errorFunction(){
 			    alert("Geocoder failed");
 			}
-		}
+		};
 			function codeLatLng(position) {
 				console.log(position)
 			    var lat = position.coords.latitude;
 			    var lng = position.coords.longitude;
 				geoCode(position.coords.latitude, position.coords.longitude);				
-			}
+			};
 			function geoCode(lat, lng) {
 			    
 				var geocoder = new google.maps.Geocoder();
@@ -28,10 +28,10 @@
 						address = [results[0]];
 						console.log(address)
          				console.log(city)
-         				//console.log(server_url)
+						//getForecastObservation(city);
+						localForecastHeader(server_url, city);
 						localForecastChart(server_url, city);
 						localObservationChart(server_url, city);
-						localForecastHeader(server_url, city);
 			        } else {
 			          alert("No results found");
 			        }
@@ -41,7 +41,7 @@
 				});
 				
 				//initial map
-		  		/*
+		  		
 		  		// replace "toner" here with "terrain" or "watercolor"
 				var layer = "watercolor";
 				var map = new google.maps.Map(document.getElementById("map"), {
@@ -52,7 +52,6 @@
     				/*mapTypeControlOptions: {
         				mapTypeIds: [layer]
     				}*/
-				/*
 				});
 				//map.mapTypes.set(layer, new google.maps.StamenMapType(layer));
 				
@@ -60,9 +59,8 @@
 					position: latlng,
       				map: map,
       				//title: results[1].formatted_address
-				});*/
-		  	
-		  	}
+				});
+		  	};
         
         function getPlace(address) {
 		  //var address = document.getElementById('address').value;
@@ -70,7 +68,7 @@
 		  geocoder.geocode( { 'address': address}, function(results, status) {
 		    if (status == google.maps.GeocoderStatus.OK) {
 		    	console.log(results[0].geometry.location)
-		      geoCode(results[0].geometry.location.jb, results[0].geometry.location.kb);
+		      geoCode(results[0].geometry.location.ob, results[0].geometry.location.pb);
 		  }
 		});
-		}
+		};

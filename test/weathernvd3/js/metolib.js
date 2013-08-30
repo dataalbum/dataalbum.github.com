@@ -58,7 +58,7 @@
                 storedQueryId : STORED_QUERY_FORECAST,
                 requestParameter : "temperature,pressure,weathersymbol3,windspeedms,winddirection,precipitation1h",
                 begin : new Date(),
-                end : new Date((new Date()).getTime() + 40 * 60 * 60 * 1000),
+                end : new Date((new Date()).getTime() + 47 * 60 * 60 * 1000),
                 timestep : 60 * 60 * 1000,
                 sites : [sites],
                 callback : function(data, errors) {
