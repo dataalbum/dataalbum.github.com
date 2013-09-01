@@ -1,6 +1,7 @@
         // Stored query ids.
         var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
         var STORED_QUERY_FORECAST = "fmi::forecast::hirlam::surface::point::multipointcoverage";
+        var STORED_QUERY_FORECAST_CITIES = "fmi::forecast::hirlam::surface::cities::multipointcoverage";
         
         function localForecastHeader(url, sites) {
         	console.log(sites)
@@ -45,6 +46,29 @@
                     // See parser documentation from source code comments for more details.
                     //handleCallback(data, errors, "Forecast Oulu temperature");
                     showForecast(data, errors);
+                }
+            });
+        };
+
+        function localForecastMap(url) {
+            // See API documentation and comments from parser source code of
+            // fi.fmi.metoclient.metolib.WfsRequestParser.getData function for the description
+            // of function options parameter object and for the callback parameters objects structures.
+            fi.fmi.metoclient.metolib.WfsRequestParser.getData({
+                url : url,
+                storedQueryId : STORED_QUERY_FORECAST_CITIES,
+                requestParameter : "temperature,pressure,weathersymbol3,windspeedms,winddirection,precipitation1h",
+                begin : new Date(),
+                end : new Date((new Date()).getTime() + 1 * 60 * 60 * 1000),
+                timestep : 60 * 60 * 1000,
+                sites : [],
+                callback : function(data, errors) {
+                    // Handle the data and errors object in a way you choose.
+                    console.log(data)
+                    // Here, we delegate the content for a separate handler function.
+                    // See parser documentation from source code comments for more details.
+                    //handleCallback(data, errors, "Forecast Oulu temperature");
+                    showForecastMap(data, errors);
                 }
             });
         };
