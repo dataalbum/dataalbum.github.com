@@ -12,7 +12,7 @@ function showForecastMap(dataset) {
 	var projection = d3.geo.transverseMercator()
 	    .rotate([-25, 0, 0])
 	    .center([lng - 25, lat])
-	    .scale(8000)
+	    .scale(14000)
 	    //.translate([width / 2, height / 2 - 110])
 	    ;
 

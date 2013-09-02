@@ -80,7 +80,7 @@
             fi.fmi.metoclient.metolib.WfsRequestParser.getData({
                 url : url,
                 storedQueryId : STORED_QUERY_FORECAST,
-                requestParameter : "temperature,pressure,weathersymbol3,windspeedms,winddirection,precipitation1h",
+                requestParameter : "temperature,pressure,weathersymbol3,windspeedms,winddirection,precipitation1h,totalcloudcover",
                 begin : new Date(),
                 end : new Date((new Date()).getTime() + 47 * 60 * 60 * 1000),
                 timestep : 60 * 60 * 1000,

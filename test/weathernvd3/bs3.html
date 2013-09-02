@@ -27,6 +27,9 @@
 
 	<!-- Custom styles for this app -->
     <link href="css/customJumbotron.css" rel="stylesheet">
+    
+    <!-- Leaflet styles -->
+    <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -78,16 +81,18 @@
           <svg style="height:240px"></svg>
        </div>
       </div>
-
+	</div> <!-- /container -->
+	
+    <div class="container-liquid">
       <div class="row">
-        <div class="col-lg-12">
-          <h2>Ennustekartta</h2>
-          <div id="map"></div>
+      	<h2>Ennustekartta</h2>
+        <div class="col-lg-12 map-block" id="map">
        </div>
       </div>
-
+	</div>
       <hr>
-
+	
+	<div class="container">
       <footer>
         <p>By <a href="mailto:heikkipiipponen@ovi.com">Heikki Piipponen</a></p>
       </footer>
@@ -106,11 +111,12 @@
 	<script src="js/getlocation.js"></script>
 	<script src="js/metolib.js"></script>
 	<script src="js/weathersymbols.js"></script>
-	<script src="js/forecastmap.js"></script>
+	<script src="js/forecastmap2.js"></script>
 
 	<script src="js/utils-1.0.0-min.js"></script>
 	<script src="js/wfsrequestparser-1.0.0-min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 		
 	<!-- NVD3 javascripts -->
 	<script src="js/nv.d3.js"></script>
@@ -175,25 +181,22 @@
 		    var chart = nv.models.multiChart()
 		        .margin({top: 30, right: 60, bottom: 50, left: 70})
 		        //.x(function(d) { return d })
-		        .color(d3.scale.category10().range());
+		        .color(d3.scale.category10().range())
+		        .showLegend(true);
 			
 			chart.showLegend(false);
 		    
 		    chart.xAxis
 		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" })
-		        .showMaxMin(false)
-		        .axisLabel('Aika');
+		        .showMaxMin(false);
 		
 		    chart.yAxis1
 		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "°C" })
-		        .showMaxMin(false)
-		        .axisLabel('Lämpötila');
+		        .showMaxMin(false);
 		
 		    chart.yAxis2
 		        .tickFormat(function(d) { return d3.format(',.1f')(d) + "mm" })
-		        .showMaxMin(false)
-		        .axisLabel('Sademäärä');
-		    
+		        .showMaxMin(false);
 		    //chart.bars1.forceY([0]);
 		
 		    d3.select('#forecastChart2 svg')
@@ -249,7 +252,7 @@
 		var observationData = [
 		{
 			"key": "Sademäärä",
-			"type": "area",
+			"type": "bar",
 			"values": r_1h,
 			"yAxis": 2
 		},
@@ -261,7 +264,7 @@
 		}
 		]
 		.map(function(series) {
-			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || null } });
+			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } });
 			return series;
 		});
 
@@ -271,12 +274,13 @@
 		    var chart = nv.models.multiChart()
 		        .margin({top: 30, right: 60, bottom: 50, left: 70})
 		        //.x(function(d) { return d })
-		        .color(d3.scale.category10().range());
+		        .color(d3.scale.category10().range())
+		        .showLegend(true);
 			
 			chart.showLegend(false);
 		    
 		    chart.xAxis
-		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" })
+		        .tickFormat(function (d) { return d3.time.format('%H:%M')(new Date(d)) })
 		        .showMaxMin(false);
 		
 		    chart.yAxis1
@@ -293,12 +297,18 @@
 		        .datum(observationData)
 		      .transition().duration(500).call(chart);
 
+			//hide bar if precipitation = 0
+			d3.selectAll("#observationChart2 .bars2Wrap .nv-series-0")
+				.style("display", function(d){ 
+					return d3.sum(r_1h, function(d) { 
+						return d.value }) == 0 ? "none" : "";});
+/*
 			//hide line2 ("#forecastChart2 .lines2Wrap .nv-series-0") if precipitation = 0
 			d3.selectAll("#observationChart2 .stack2Wrap .nv-series-0")
 				.style("display", function(d){ 
 					return d3.sum(r_1h, function(d) { 
 						return d.value }) == 0 ? "none" : "";});
-			
+*/			
 			//hide y2 axis labels if precipitation = 0
 			d3.selectAll("#observationChart2 .y2.axis text")
 				//.style("display", "none");
