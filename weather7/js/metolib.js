@@ -50,7 +50,7 @@
             });
         };
 
-        function localForecastMap(url) {
+        function cityForecastMap(url) {
             // See API documentation and comments from parser source code of
             // fi.fmi.metoclient.metolib.WfsRequestParser.getData function for the description
             // of function options parameter object and for the callback parameters objects structures.
@@ -80,9 +80,9 @@
             fi.fmi.metoclient.metolib.WfsRequestParser.getData({
                 url : url,
                 storedQueryId : STORED_QUERY_FORECAST,
-                requestParameter : "temperature,pressure,weathersymbol3,windspeedms,winddirection,precipitation1h,totalcloudcover",
+                requestParameter : "temperature,pressure,weathersymbol3,windspeedms,winddirection,windgust,humidity,precipitation1h,totalcloudcover",
                 begin : new Date(),
-                end : new Date((new Date()).getTime() + 47 * 60 * 60 * 1000),
+                end : new Date((new Date()).getTime() + 23 * 60 * 60 * 1000),
                 timestep : 60 * 60 * 1000,
                 sites : [sites],
                 callback : function(data, errors) {
@@ -91,7 +91,7 @@
                     // Here, we delegate the content for a separate handler function.
                     // See parser documentation from source code comments for more details.
                     //handleCallback(data, errors, "Forecast Oulu temperature");
-                    showForecastChart(data, errors);
+                    handleForecastCallback(data, errors);
                 }
             });
         };
@@ -116,7 +116,7 @@
                     console.log(data)
                     // Here, we delegate the content for a separate handler function.
                     // See parser documentation from source code comments for more details.
-                    showObservationChart(data, errors);
+                    handleObservationCallback(data, errors);
                     //showObservationTable(data, errors);
                 }
             });

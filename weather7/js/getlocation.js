@@ -29,10 +29,10 @@
 						console.log(address)
          				console.log(city)
 						//getForecastObservation(city);
-						localForecastHeader(server_url, city);
+						//localForecastHeader(server_url, city);
 						localForecastChart(server_url, city);
 						localObservationChart(server_url, city);
-						localForecastMap(server_url, city);
+						cityForecastMap(server_url, city);
 			        } else {
 			          alert("No results found");
 			        }

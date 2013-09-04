@@ -1,5 +1,5 @@
 	  
-function showForecastMap(dataset) {
+function cityForecastMap(dataset) {
 	
 	console.log(dataset)
 	

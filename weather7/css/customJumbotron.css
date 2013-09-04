@@ -33,3 +33,15 @@
 #map { 
 	height: 480px; 
 }
+
+ul {
+	list-style: none;
+}
+table { 
+	padding: 1px 10px;
+	margin-left:auto; 
+    margin-right:auto;
+}
+td, th { 
+	padding: 1px 10px;
+}
