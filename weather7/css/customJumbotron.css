@@ -20,10 +20,66 @@
 	display: none;
 }
 */
+body {
+	background-color: #e3e7de;
+}
+
+.footer-text {
+  	background-color: black;
+  	color: white;
+  	opacity: 0.8; 	
+	margin-bottom: -30px;
+	text-align: center;
+}
+
+.light-text {
+  background-color: #31444b;
+  color: #bbcbc4;
+  border-color: #bbcbc4; 	
+}
+
+.dark-text {
+  background-color: #bbcbc4;
+  color: #31444b;
+  border-color: #31444b; 	
+}
 
 .container-liquid {
   padding: 0 15px;
   margin: 0 auto;
+}
+
+.navbar-dark-text {
+	background-color: #bbcbc4;
+	border-color: #31444b;
+	box-shadow: 0 50px 5px rgba(,0,0,.1);
+	color: #31444b; /*R:49, G:68, B:75*/
+	border: none;
+}
+
+.navbar-light-text {
+	background-color: #31444b;
+	border-color: #bbcbc4;
+	box-shadow: 0 50px 5px rgba(,0,0,.1);
+	color: #bbcbc4; /*R:49, G:68, B:75*/
+	border: none;
+}
+.brand-light-text {
+	color: #bbcbc4 !important;
+}
+
+.jumbotron-dark-text {
+	background-color: #FA5D3C;/*#bbcbc4;*/
+	margin-bottom: -30px;
+	color: #bbcbc4;/*#31444b;*/
+}
+
+.observationHeader {
+	float: left;
+}
+
+.observationValue {
+	float: right;
 }
 
 .map-block {
@@ -31,17 +87,15 @@
 }
 
 #map { 
-	height: 480px; 
+	height: 480px;
+}
+
+.observationTable {
+	border: none;
+	width: 100%
 }
 
 ul {
 	list-style: none;
 }
-table { 
-	padding: 1px 10px;
-	margin-left:auto; 
-    margin-right:auto;
-}
-td, th { 
-	padding: 1px 10px;
-}
+
