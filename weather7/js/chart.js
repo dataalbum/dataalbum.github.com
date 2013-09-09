@@ -1,13 +1,13 @@
 	function handleForecastCallback(dataset) {
-		var forecastChartData = dataset;
-		var forecastMainData = dataset;
-		var forecastTableData = dataset;
-		
 		//var weatherData = dataset.locations[0].data;
-			for (parameter in dataset.locations[0].data) {
+		for (parameter in dataset.locations[0].data) {
 			console.log(parameter)
 			dataset.locations[0].data[parameter].timeValuePairs.shift()//inside of parameter		
 		}
+
+		var forecastChartData = dataset;
+		var forecastMainData = dataset;
+		var forecastTableData = dataset;
 
 		
 		showForecastChart(forecastChartData);
@@ -28,9 +28,19 @@
 		//dataset.locations[0].data.precipitation1h.timeValuePairs.shift();
 		
 		/*
+		 * Forecast header
+		 */
+		var forecastHeader = d3.select("#forecastHeader");
+		var header = forecastHeader.selectAll("h2")
+					.data(dataset.locations);
+				header.enter().append("h2")
+				header.text(function(d){ return "24 tunnin ennuste | " + d.info.name; });  
+		
+		/*
 		 * Forecast
 		 * Data: Temperature, Precipitation
 		 */
+		
 		
 		var forecastData = [
 		{
@@ -595,7 +605,7 @@
 			
 			nestedData.forEach(function(d) {
 				d.key = +d.key;
-                d.time0 = d3.time.format("%H:%M")(new Date(d.values[0].time));
+                d.time0 = d3.time.format("%a %H:%M")(new Date(d.values[0].time));
                 d.value0 = d3.format('.0f')(d.values[0].value) + "°C";
                 d.time1 = d3.time.format("%H:%M")(new Date(d.values[1].time));
                 d.value1 = d.values[1].value;//symbolNameMap[d.values[1].value];
@@ -603,9 +613,16 @@
                 d.value3 = d3.format('.0f')(d.values[3].value) + " m/s";
 			});
 			console.log(nestedData)
-
 			
-
+			//take only every third value
+			var everyThirdData = [];
+		
+			for (var i = 2; i < nestedData.length; i = i+3) {
+		    	everyThirdData.push(nestedData[i]);
+			};
+			
+			console.log(everyThirdData)
+			
 			//create table
 			var columns = ["time0", "value1", "value0", "value2", "value3"];
 
@@ -615,13 +632,8 @@
 				
 				console.log(infoData, forecastData)
 				
-				var info = forecastTable.selectAll("h2")
-					.data(infoData);
-				info.enter().append("h2")
-				info.text(function(d){ return "12 tunnin ennuste | " + d.info.name; });   
-				
 			    forecastTable.selectAll('table').data(forecastData).enter().append('table');
-			    var table = forecastTable.select("table");
+			    var table = forecastTable.select("table").attr("class", "table dark-text");
 			    
 			    //table.selectAll('thead').data(data).enter();//.append('thead');
 			    //var thead = table.append("thead");
@@ -634,8 +646,8 @@
 				
 			    // create a row for each object in the data
 			    var rows = tbody.selectAll("tr").data(forecastData);
-			    rows.enter().append("tr");
-			    //.style("background-color", function(d, i) { return i % 2 ? "" : "#ddd"; });
+			    rows.enter().append("tr")
+			    ;//.style("background-color", function(d, i) { return i % 3 ? "" : "#ddd"; });
 			    
 			    rows.exit().remove(); 
 			
@@ -663,7 +675,7 @@
 				return table;
 				 
 				}		    
-		    update(arrData, nestedData);
+		    update(arrData, everyThirdData);
 		    
 		}
 
@@ -714,49 +726,86 @@
 			lastObs.forEach(function(d) {
 				d.key = +d.key;
                 d.values[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.values[0].time));
-                d.values[0].value = "Lämpötila: " + d.values[0].value + "°C";
-                d.values[1].value = "Tuulen nopeus: " + d3.format('.0f')(d.values[1].value) + " m/s";
-                d.values[2].value = "Puuska: " + d3.format('.0f')(d.values[2].value) + " m/s";
-                d.values[3].value = "Tuulen suunta: " + d.values[3].value + "°";
-                d.values[4].value = "Kosteus: " + d.values[4].value + "%";
-                d.values[5].value = "Kastepiste: " + d.values[5].value + "°C";
-                d.values[6].value = "Sademäärä: " + d.values[6].value + " mm";
-                d.values[7].value = "Sateen intensiteetti: " + d.values[7].value + " mm/h";
-                d.values[8].value = "Lumen syvyys: " + d.values[8].value + " cm";
-                d.values[9].value = "Paine: " + d.values[9].value + " hPa";
-                d.values[10].value = "Näkyvyys: " + d3.format('.0f')(d.values[10].value / 1000) + " km";
+                d.values[0].header = "Lämpötila";
+                d.values[0].value = d.values[0].value + "°C";
+                d.values[1].header = "Tuulen nopeus";
+                d.values[1].value = d3.format('.0f')(d.values[1].value) + " m/s";
+                d.values[2].header = "Puuska";
+                d.values[2].value = d3.format('.0f')(d.values[2].value) + " m/s";
+                d.values[3].header = "Tuulen suunta";
+                d.values[3].value = d.values[3].value + "°";
+                d.values[4].header = "Kosteus";
+                d.values[4].value = d.values[4].value + "%";
+                d.values[5].header = "Kastepiste";
+                d.values[5].value = d.values[5].value + "°C";
+                d.values[6].header = "Sademäärä";
+                d.values[6].value = d.values[6].value + " mm";
+                d.values[7].header = "Sateen intensiteetti";
+                d.values[7].value = d.values[7].value + " mm/h";
+                d.values[8].header = "Lumen syvyys";
+                d.values[8].value = d.values[8].value + " cm";
+                d.values[9].header = "Paine";
+                d.values[9].value = d.values[9].value + " hPa";
+                d.values[10].header = "Näkyvyys";
+                d.values[10].value = d3.format('.0f')(d.values[10].value / 1000) + " km";
 			});
 			console.log(lastObs)
 
+			//observation header
+			var observationHeader = d3.select("#observationHeader");
+			var info = observationHeader.selectAll("h2")
+					.data(arrData);
+				info.enter().append("h2");
+				info.text(function(d){ return "Säähavainnot | " + d.info.name ; });
+				   
+			//create table
+			var columns = ["header", "value"];
 
-			//create list
-			var svg = d3.select("#observationList");
-			
-			function update(infoData, obsData) {
-					
-				var info = svg.selectAll("h2")
-					.data(infoData);
-				info.enter().append("h2")
-				info.text(function(d, i){ return "Säähavainnot | " + d.info.name ; });            
-
-				var info = svg.selectAll("p")
-					.data(obsData);
-				info.enter().append("p")
-				info.text(function(d, i){ return d.values[0].time ; });            
-
-	
-				var list = svg.selectAll("ul")
-				    .data(obsData);
-				list.enter().append("ul")
-				    .attr("style", "margin-left: -40px");
-				//list.text(function(d) { return d.values[0].time });
+		    var observationList = d3.select("#observationList");
+		    
+			function update(infoData, observationData) {
 				
-				var item = list.selectAll("li")
-				      .data(function(d) { return d.values; });
-				item.enter().append("li");
-				item.text(function(d) { return d.value });
-				      //.style("background-color", function(d, i) { return i % 2 ? "" : "#ddd"; });
-			}				      
-			update(arrData, lastObs);
+				console.log(observationData)
+				
+			    observationList.selectAll('table').data(observationData).enter().append('table');
+			    var table = observationList.select("table").attr("class", "observationTable");         
+				
+				//observation time
+				var info = table.selectAll("p")
+					.data(observationData);
+				info.enter().append("p")
+				info.text(function(d){ return d.values[0].time ; }); 
+			    
+			    table.selectAll('tbody').data(observationData).enter().append('tbody');
+			    var tbody = observationList.select("tbody");
+				
+			    // create a row for each object in the data
+			    var rows = tbody.selectAll("tr").data(function(d) { return d.values; });
+			    rows.enter().append("tr");			    
+			    rows.exit().remove(); 
+			
+			    // create a cell in each row for each column
+			    var cells = rows.selectAll("td")
+			        .data(function(row) {
+			            return columns.map(function(column) {
+			                return {column: column, value: row[column]};
+			            });
+			        });
+				cells.enter().append("td");
+				cells.attr("class", function(d) { 
+					if (d.column == "header") { return "observationHeader" ;}
+            		else if (d.column == "value") { return "observationValue" ;}
+            		else { return "" ; } 
+				;});
+				
+				cells.text(function(d) {return d.value ;});
+				cells.exit().remove();
+				
+				return table;
+				
+				}		    
+		    update(arrData, lastObs);
+
+
 		}
 
