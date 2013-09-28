@@ -1,0 +1,174 @@
+<!DOCTYPE html lang="en-UK">
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Leaflet Heatmap demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+			    <!-- Climacons Font -->
+    	<link href="css/climacons-font.css" rel="stylesheet">
+		<!--[if lte IE 8]>
+		    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" />
+		<![endif]-->
+		<style type="text/css" media="screen">
+			body{
+				margin: 0;
+				padding: 0;
+			}
+
+			#map {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			
+			div.circle {
+			    background-color: none;
+			    border-color: none;
+			    border-radius: 3px;
+			    border-style: none;
+			    border-width: 1px;
+			    width:10px;
+			    height:10px;
+			    font-size:20;
+			}
+			.legend {
+				line-height: 18px;
+    			color: #555;
+			}
+			.info {
+			    padding: 6px 8px;
+			    font: 14px/16px Arial, Helvetica, sans-serif;
+			    background: white;
+			    background: rgba(255,255,255,0.8);
+			    box-shadow: 0 1px 7px rgba(0,0,0,0.4);
+			    border-radius: 8px;
+			    text-align: right;
+			}
+			.leaflet-control-layers-expanded {
+				opacity: 0.8;
+			}
+		</style>
+		<script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet-src.js"></script>
+		<script src="js/heatmap.js"></script>
+		<script src="js/heatmap-leaflet.js"></script>
+		<script src="js/QuadTree.js"></script>
+		<!-- <script src="http://underscorejs.org/underscore-min.js"></script> -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.0.0/lodash.underscore.min.js"></script>
+		<script src="js/metolib.js"></script>
+		<script src="js/weathersymbols.js"></script>
+		<script src="js/utils-1.1.5-min.js"></script>
+		<script src="js/wfsrequestparser-1.1.5-min.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+
+
+		<script type="text/javascript" charset="utf-8">
+			var server_url = "http://data.fmi.fi/fmi-apikey/516006c7-30ef-4474-97ea-76f7bf4ae01c/wfs";
+			var sites = ["Tampere","Mikkeli","Kilpisjärvi","Kittilä","Ivalo","Rovaniemi","Oulu","Kuhmo","Vaasa","Viitasaari","Joensuu","Turku","Helsinki","Maarianhamina"];
+
+    
+			$(function() {
+				mainForecast(server_url, sites)
+			});
+
+			function showForecastMap(dataset) {
+				
+				//data processing
+				console.log(dataset);
+
+				var data = [];
+
+				for(var i = 0; i < dataset.locations.length; i++) {
+					console.log(dataset.locations[i].info.position);
+					var obj = {
+						lat: dataset.locations[i].info.position[0],
+						lon: dataset.locations[i].info.position[1],
+						value: dataset.locations[i].data.precipitation1h.timeValuePairs[1].value
+					};
+					data.push(obj);
+				}
+				console.log(data);
+				
+				var fullData = {
+					max: 31,
+					data: data
+				};
+				console.log(fullData);
+				
+				var baseLayer = L.tileLayer(
+					'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+						attribution: 'Weather data by <a href="http://ilmatieteenlaitos.fi/avoin-data">FMI Open Data</a> - Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+						maxZoom: 18
+					}
+				);
+
+				var heatmapLayer = L.TileLayer.heatMap({
+					// radius could be absolute or relative
+					// absolute: radius in meters, relative: radius in pixels
+					//radius: { value: 15000, absolute: true },
+			        radius: { value: 20, absolute: false },
+					//radius: 20,
+					opacity: 0.8
+
+					
+				});
+
+				//heatmapLayer.setData(testData.data);
+				heatmapLayer.setData(fullData.data);
+				
+				var overlayMaps = {
+                    'Sademäärä': heatmapLayer
+                };
+
+                var controls = L.control.layers(null, overlayMaps, {collapsed: false, position: 'bottomright'});
+
+
+				var map = new L.Map('map', {
+					center: new L.LatLng(64.1807083, 25.8032),
+					zoom: 5,
+					layers: [baseLayer, heatmapLayer]
+				});
+				
+                controls.addTo(map);
+
+				for (i = 0; i < dataset.locations.length; i++){
+  					L.marker([dataset.locations[i].info.position[0], dataset.locations[i].info.position[1]], 
+  						{icon: L.divIcon({
+  							className : 'circle climacon ' + symbolMap[dataset.locations[i].data.weathersymbol3.timeValuePairs[1].value],
+    						iconSize: new L.Point(10, 10), 
+    						html: " " + Math.round(dataset.locations[i].data.temperature.timeValuePairs[1].value) + "°C"
+						})
+					}).addTo(map);
+				};
+				
+				var MyControl = L.Control.extend({
+				    options: {
+				        position: 'topright'
+				    },
+				
+				    onAdd: function (map) {
+				        // create the control container with a particular class name
+				        var container = L.DomUtil.create('div', 'info legend');
+				
+				        // ... initialize other DOM elements, add listeners, etc.
+						var html = '<p>Ennuste ' + d3.time.format("%H:%M")(new Date(dataset.locations[0].data.temperature.timeValuePairs[1].time)) + '</p>';
+					        html += '<p>' + d3.time.format("%d.%m.%Y")(new Date(dataset.locations[0].data.temperature.timeValuePairs[1].time)) + '</p>';
+					        container.innerHTML = html;
+				
+				        return container;
+				    }
+				});
+				
+				map.addControl(new MyControl());
+			};
+			
+		</script>
+	</head>
+	<body>
+		<div id="map">
+		</div>
+	</body>
+</html>

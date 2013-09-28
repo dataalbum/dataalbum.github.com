@@ -2,6 +2,7 @@
         var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
         var STORED_QUERY_FORECAST = "fmi::forecast::hirlam::surface::point::multipointcoverage";
         var STORED_QUERY_FORECAST_CITIES = "fmi::forecast::hirlam::surface::cities::multipointcoverage";
+        var STORED_QUERY_FORECAST_OBSSTATIONS = "fmi::forecast::hirlam::surface::obsstations::multipointcoverage";
         
         function localForecastHeader(url, sites) {
         	console.log(sites)
@@ -49,19 +50,19 @@
                 }
             });
         };
-
-        function cityForecastMap(url) {
+        function mainForecast(url, sites) {
             // See API documentation and comments from parser source code of
             // fi.fmi.metoclient.metolib.WfsRequestParser.getData function for the description
             // of function options parameter object and for the callback parameters objects structures.
+            console.log(sites)
             fi.fmi.metoclient.metolib.WfsRequestParser.getData({
                 url : url,
-                storedQueryId : STORED_QUERY_FORECAST_CITIES,
+                storedQueryId : STORED_QUERY_FORECAST,
                 requestParameter : "temperature,pressure,weathersymbol3,windspeedms,winddirection,precipitation1h",
                 begin : new Date(),
-                end : new Date((new Date()).getTime() + 1 * 60 * 60 * 1000),
+                end : new Date((new Date()).getTime() + 11 * 60 * 60 * 1000),
                 timestep : 60 * 60 * 1000,
-                sites : [],
+                sites : sites,
                 callback : function(data, errors) {
                     // Handle the data and errors object in a way you choose.
                     console.log(data)
@@ -72,6 +73,54 @@
                 }
             });
         };
+
+
+        function cityForecastMap(url) {
+            // See API documentation and comments from parser source code of
+            // fi.fmi.metoclient.metolib.WfsRequestParser.getData function for the description
+            // of function options parameter object and for the callback parameters objects structures.
+            fi.fmi.metoclient.metolib.WfsRequestParser.getData({
+                url: url,
+                storedQueryId: STORED_QUERY_FORECAST_CITIES,
+                requestParameter: "temperature,precipitation1h",
+                begin: new Date(),
+                end: new Date((new Date()).getTime() + 1 * 60 * 60 * 1000),
+                timestep: 60 * 60 * 1000,
+                sites: [""],
+                callback: function(data, errors) {
+                    // Handle the data and errors object in a way you choose.
+                    console.log(data)
+                    // Here, we delegate the content for a separate handler function.
+                    // See parser documentation from source code comments for more details.
+                    //handleCallback(data, errors, "Forecast Oulu temperature");
+                    showForecastMap(data, errors);
+                }
+            });
+        };
+
+        function obsStationForecastMap(url) {
+            // See API documentation and comments from parser source code of
+            // fi.fmi.metoclient.metolib.WfsRequestParser.getData function for the description
+            // of function options parameter object and for the callback parameters objects structures.
+            fi.fmi.metoclient.metolib.WfsRequestParser.getData({
+                url : url,
+                storedQueryId : STORED_QUERY_FORECAST_OBSSTATIONS,
+                requestParameter : "temperature",
+                begin : new Date(),
+                end : new Date((new Date()).getTime() + 1 * 60 * 60 * 1000),
+                timestep : 60 * 60 * 1000,
+                sites : [""],
+                callback : function(data, errors) {
+                    // Handle the data and errors object in a way you choose.
+                    console.log(data)
+                    // Here, we delegate the content for a separate handler function.
+                    // See parser documentation from source code comments for more details.
+                    //handleCallback(data, errors, "Forecast Oulu temperature");
+                    showForecastMap(data, errors);
+                }
+            });
+        };
+
 
         function localForecastChart(url, sites) {
             // See API documentation and comments from parser source code of
