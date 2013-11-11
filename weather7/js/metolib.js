@@ -158,7 +158,8 @@
                 // (new Date("2013-05-12T10:00:00Z")).getTime()
                 begin : new Date((new Date()).getTime() - 12 * 60 * 60 * 1000),
                 end : new Date(),
-                timestep : 10 * 60 * 1000,
+                //timestep : 10 * 60 * 1000,
+                timestep : 60 * 1000,
                 sites : sites,
                 callback : function(data, errors) {
                     // Handle the data and errors object in a way you choose.
