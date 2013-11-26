@@ -24,12 +24,21 @@
 	<div id="map"></div>
 
         <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet-src.js"></script>
-
+        <script src="../js/metolib.js"></script>
+        <script src="../js/utils-1.1.5-min.js"></script>
+        <script src="../js/wfsrequestparser-1.1.5-min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.0.0/lodash.underscore.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
 	<script>
+var server_url = "http://data.fmi.fi/fmi-apikey/516006c7-30ef-4474-97ea-76f7bf4ae01c/wfs";
+var sites = ["Tampere","Mikkeli","Kilpisjärvi","Kittilä","Ivalo","Rovaniemi","Oulu","Kuhmo","Vaasa","Viitasaari","Joensuu","Turku","Helsinki","Maarianhamina"];
 
-showObservationMap();
+localObservationMap(server_url, sites);
+//showObservationMap();
 
-function showObservationMap() {
+function showObservationMap(dataset) {
+
+console.log(dataset)
 
 // create a map in the "map" div, set the view to a given place and zoom
 var map = L.map('map').setView([64.1807083, 25.8032], 5);
