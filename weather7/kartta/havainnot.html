@@ -27,6 +27,10 @@
 
 	<script>
 
+showObservationMap();
+
+function showObservationMap() {
+
 // create a map in the "map" div, set the view to a given place and zoom
 var map = L.map('map').setView([64.1807083, 25.8032], 5);
 
@@ -39,7 +43,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 L.marker([64.1807083, 25.8032]).addTo(map)
     .bindPopup('A pretty CSS3 popup. <br> Easily customizable.')
     .openPopup();
-
+};
 	</script>
 </body>
 </html>
