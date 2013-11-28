@@ -3,6 +3,8 @@
         var STORED_QUERY_FORECAST = "fmi::forecast::hirlam::surface::point::multipointcoverage";
         var STORED_QUERY_FORECAST_CITIES = "fmi::forecast::hirlam::surface::cities::multipointcoverage";
         var STORED_QUERY_FORECAST_OBSSTATIONS = "fmi::forecast::hirlam::surface::obsstations::multipointcoverage";
+        var STORED_QUERY_OBSERVATION_OBSSTATIONS = "fmi::forecast::hirlam::surface::obsstations::multipointcoverage";
+
         
         function localForecastHeader(url, sites) {
         	console.log(sites)
@@ -121,6 +123,28 @@
             });
         };
 
+        function obsStationObservationMap(url, sites) {
+            // See API documentation and comments from parser source code of
+            // fi.fmi.metoclient.metolib.WfsRequestParser.getData function for the description
+            // of function options parameter object and for the callback parameters objects structures.
+            fi.fmi.metoclient.metolib.WfsRequestParser.getData({
+                url : url,
+                storedQueryId : STORED_QUERY_OBSERVATION,
+                requestParameter : "t2m,ws_10min,wg_10min,wd_10min,rh,td,r_1h,ri_10min,snow_aws,p_sea,vis",
+                begin : new Date(),
+                end : new Date((new Date()).getTime() + 1 * 60 * 60 * 1000),
+                timestep : 60 * 60 * 1000,
+                sites : sites,
+                callback : function(data, errors) {
+                    // Handle the data and errors object in a way you choose.
+                    console.log(data)
+                    // Here, we delegate the content for a separate handler function.
+                    // See parser documentation from source code comments for more details.
+                    //handleCallback(data, errors, "Forecast Oulu temperature");
+                    showObservationMap(data, errors);
+                }
+            });
+        };
 
         function localForecastChart(url, sites) {
             // See API documentation and comments from parser source code of
