@@ -1,0 +1,141 @@
+[{
+	"name" : "Heikki Piipponen",
+	"contact" : "heikkipiipponen@ovi.com",
+	"title" : "Technical Architect",
+	"objective" : "Work hard to make complex to simple and solve data quality problems with master data.",
+	"aboutme" : "Proud father and husband.",
+	"social" : [
+		{
+			"link" : "http://fi.linkedin.com/in/heikkipiipponen",
+			"name" : "LinkedIn"
+		},
+		{
+			"link" : "https://twitter.com/heikkipiipponen",
+			"name" : "twitter"
+		},
+		{
+			"link" : "https://github.com/dataalbum",
+			"name" : "this.source"
+		}
+	],
+	"summary" : "I have over 15 years of experience in information and communication technology, out of which more than 10 years in IT professional in the field of Master Data Management, Consumer Data, Big Data, BI, Data Warehousing, Digital Marketing, CRM and Contact Centers. During my professional IT career, I have gained good business understanding and strong technical competence on specifying, managing and deploying enterprise IT solutions as well as mobile internet services. My experience is based on working as an architect, lead developer, scrum master, product owner, configuration owner, test manager, integration specialist, system administrator.",
+	"skills" : [
+		"Information Management",
+		"Master Data Management",
+		"Solution architecture",
+		"TOGAF Certified",
+		"Data modelling",
+		"UML modelling",
+		"SOA, ESB, EAI, ETL",
+		"Certificated Scrum Master",
+		"Project management",
+		"Requirement management"
+	],
+	"projects" : [
+		{
+			"name" : "Data Album",
+			"technologies" : "JavaScript, HTML, CSS, D3.js, Web Maps",
+			"description" : "Small, fun graphs to help make the day brighter."
+		}
+	],
+	"experience" : [
+		{
+			"company" : "Tata Consultancy Services",
+			"link" : "",
+			"title" : "Technical Architect",
+			"startDate" : "1/3/2013",
+			"endDate" : "Present",
+			"responsibilities" : "Develop high quality master data management architecture.",
+			"environment" : "webMethods OneData, webMethods Integration Server, Oracle Siebel UCM, Oracle PIM, Oracle database, MS MDS, MS SQL Server, MS Sharepoint, Informatica, SAP PI"
+		},
+		{
+			"company" : "Nokia",
+			"link" : "",
+			"title" : "Capability Architect",
+			"startDate" : "1/1/2012",
+			"endDate" : "1/3/2013",
+			"responsibilities" : "Performed enterprise master data management architecture development across business processes. Defined business information model, data standards, data interfaces and integration methods for guide the development of MDM platform and business applications.",
+			"environment" : "webMethods OneData, webMethods Integration Server, Oracle Siebel UCM, Oracle PIM, Oracle database, MS MDS, MS SQL Server, MS Sharepoint, Informatica, SAP PI"
+		},
+		{
+			"company" : "Nokia",
+			"link" : "",
+			"title" : "Lead Developer",
+			"startDate" : "1/10/2008",
+			"endDate" : "1/1/2012",
+			"responsibilities" : "Defined IT system architectures for several consumer data reporting and analytic projects. Managed requirements, led partner development team and production deployments by using agile software development methods. Some of the project I worked on: Data gathering backend for mobile analytics, Mobile and web NPS feedback gathering backend and analytics, Mobile marketing backend, Social media monitoring and reporting system, Enterprise Big Data.",
+			"environment" : "Linux, Java, PHP, JavaScript, Apache Web Server, Jboss,Teradata, Hadoop, Oracle database, MySQL, RDF, Informatica, QlikView"
+		},
+		{
+			"company" : "Nokia",
+			"link" : "",
+			"title" : "Senior Specialist & Lead Developer",
+			"startDate" : "1/9/2006",
+			"endDate" : "1/10/2008",
+			"responsibilities" : "Configuration management and development for global CRM system. Oversaw partner development and maintenance team, change management, requirement analysis, production deployment and release management.",
+			"environment" : "Siebel, Oracle Business Intelligence EE, Informatica, Unix"
+		},
+		{
+			"company" : "Nokia",
+			"link" : "",
+			"title" : "Senior Specialist",
+			"startDate" : "1/3/2003",
+			"endDate" : "1/9/2006",
+			"responsibilities" : "Managed and implemented testing process for global customer contact center. Designed and implemented system integrations. Maintained and operated computer telephony integrations and servers. Global system deployment in several countries.",
+			"environment" : "Siebel, Quality Center, VoIP, Avaya CTI, Apropos Call Management, Remedy CRM"
+		},
+		{
+			"company" : "Nokia",
+			"link" : "",
+			"title" : "Specialist",
+			"startDate" : "1/1/1999",
+			"endDate" : "1/3/2003",
+			"responsibilities" : "Service level reporting and request management tool development and end user support. Trained global IT support concept worldwide. Service Desk contact center system administrator and duty-officer.",
+			"environment" : "Business Objects, Remedy CRM, Windows Server."
+		},
+		{
+			"company" : "Nokia",
+			"link" : "",
+			"title" : "Trainee",
+			"startDate" : "1/9/1995",
+			"endDate" : "1/1/1999",
+			"responsibilities" : "Trainee, pc support, workstation administrator and Help Desk.",
+			"environment" : "MS Windows"
+		}
+
+
+	],
+	"education" : [
+		{
+			"school" : "Oulun teknillinen oppilaitos",
+			"startDate" : "1995",
+			"endDate" : "1999",
+			"program" : "Bachelor of science, IT and Telecommunication",
+			"thesis" : "The Telephony Interfaces on Action Request System."
+		}
+	],
+	"courses" : [
+		"Custom webMethod OneData Training",
+		"TOGAF 9 Certified",
+		"Cloudera Hadoop Training",
+		"Teradata Basic & SQL",
+		"Certified Scrum Master",
+		"Designing Internet Service Infrastructure",
+		"Selling Your Ideas",
+		"Managing & Leading in a Virtual Team Environment",
+		"Siebel 8 Upgrade seminar",
+		"Oracle BI Presentation Services and Server Administrator10g",
+		"UNA Requirements Development and Design",
+		"Leading People",
+		"Informatica 7 Basics",
+		"Siebel 7.5 Essentials & Core Consultant",
+		"NOCOP Project Management Principles",
+		"Nokia Project Management"
+	],
+	"hobbies" : [
+		"Telemark and alpine skiing",
+		"member of International Ski Instructor Association",
+		"mountain biking",
+		"data visualisation"
+	] 
+}]

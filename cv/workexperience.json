@@ -1,0 +1,247 @@
+[
+    {
+        "name": "Technical Architect, TCS",
+        "imports": [
+            "Architecture",
+            "Project Management",
+            "Master Data Management",
+            "Data Modeling",
+            "Requirement Management",
+            "Agile Development",
+            "EAI",
+            "ETL",
+            "UML"
+        ]
+    },
+    {
+        "name": "Architect, Master Data Management, Nokia",
+        "imports": [
+            "Architecture",
+            "Master Data Management",
+            "Data Modeling",
+            "EAI",
+            "ETL",
+            "UML"
+        ]
+    },
+    {
+        "name": "Lead Developer, Nokia",
+        "imports": [
+            "Architecture",
+            "Project Management",
+            "Data Warehousing",
+            "Business Intelligence",
+            "Big Data",
+            "Digital Marketing",
+            "CRM",
+            "Product Owner",
+            "Agile Development",
+            "Open Source Softwares",
+            "UML",
+            "Data Modeling",
+            "Requirement Management"
+        ]
+    },
+    {
+        "name": "Senior Specialist/Lead Developer, Nokia",
+        "imports": [
+            "CRM",
+            "Project Management",
+            "Configuration Management",
+            "Business Intelligence"
+        ]
+    },
+    {
+        "name": "Senior Specialist, Nokia",
+        "imports": [
+            "Test Management",
+            "Call Center",
+            "Integration Design",
+            "CTI",
+            "System Administration",
+            "Global Deployment",
+            "CRM"
+        ]
+    },
+    {
+        "name": "Specialist, Nokia",
+        "imports": [
+            "System Administration",
+            "Business Intelligence",
+            "Call Center",
+            "Global Deployment",
+            "CTI"
+        ]
+    },
+    {
+        "name": "Trainee, Nokia",
+        "imports": [
+            "Workstation Administration"
+        ]
+    },
+    {
+        "name": "Architecture",
+        "imports": [
+            "Technical Architect, TCS",
+            "Architect, Master Data Management, Nokia",
+            "Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "Project Management",
+        "imports": [
+            "Technical Architect, TCS",
+            "Lead Developer, Nokia",
+            "Senior Specialist/Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "Master Data Management",
+        "imports": [
+            "Technical Architect, TCS",
+            "Architect, Master Data Management, Nokia"
+        ]
+    },
+    {
+        "name": "Data Modeling",
+        "imports": [
+            "Technical Architect, TCS",
+            "Architect, Master Data Management, Nokia",
+            "Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "EAI",
+        "imports": [
+            "Technical Architect, TCS",
+            "Architect, Master Data Management, Nokia"
+        ]
+    },
+    {
+        "name": "ETL",
+        "imports": [
+            "Technical Architect, TCS",
+            "Architect, Master Data Management, Nokia"
+        ]
+    },
+    {
+        "name": "UML",
+        "imports": [
+            "Technical Architect, TCS",
+            "Architect, Master Data Management, Nokia",
+            "Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "Requirement Management",
+        "imports": [
+            "Technical Architect, TCS",
+            "Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "Agile Development",
+        "imports": [
+            "Technical Architect, TCS",
+            "Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "Data Warehousing",
+        "imports": [
+            "Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "Business Intelligence",
+        "imports": [
+            "Lead Developer, Nokia",
+            "Senior Specialist/Lead Developer, Nokia",
+            "Specialist, Nokia"
+        ]
+    },
+    {
+        "name": "Big Data",
+        "imports": [
+            "Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "Digital Marketing",
+        "imports": [
+            "Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "CRM",
+        "imports": [
+            "Lead Developer, Nokia",
+            "Senior Specialist/Lead Developer, Nokia",
+            "Senior Specialist, Nokia"
+        ]
+    },
+    {
+        "name": "Product Owner",
+        "imports": [
+            "Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "Open Source Softwares",
+        "imports": [
+            "Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "Configuration Management",
+        "imports": [
+            "Senior Specialist/Lead Developer, Nokia"
+        ]
+    },
+    {
+        "name": "Test Management",
+        "imports": [
+            "Senior Specialist, Nokia"
+        ]
+    },
+    {
+        "name": "Call Center",
+        "imports": [
+            "Senior Specialist, Nokia",
+            "Specialist, Nokia"
+        ]
+    },
+    {
+        "name": "Integration Design",
+        "imports": [
+            "Senior Specialist, Nokia"
+        ]
+    },
+    {
+        "name": "CTI",
+        "imports": [
+            "Senior Specialist, Nokia",
+            "Specialist, Nokia"
+        ]
+    },
+    {
+        "name": "System Administration",
+        "imports": [
+            "Senior Specialist, Nokia",
+            "Specialist, Nokia"
+        ]
+    },
+    {
+        "name": "Global Deployment",
+        "imports": [
+            "Senior Specialist, Nokia",
+            "Specialist, Nokia"
+        ]
+    },
+    {
+        "name": "Workstation Administration",
+        "imports": [
+            "Trainee, Nokia"
+        ]
+    }
+]
