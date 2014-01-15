@@ -39,10 +39,10 @@ var color = d3.scale.threshold()
     .domain([16, 17, 18, 19, 20])
     .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
         
-var projection = d3.geo.mercator()
-    .rotate([0, 0])
-    .center([25, 65.5])
-    .scale(1100);
+var projection = d3.geo.transverseMercator()
+    .rotate([-25, 0])
+    .center([0, 65.5])
+    .scale(3000);
 
 var path = d3.geo.path()
     .projection(projection);
