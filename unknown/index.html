@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title></title>
+<style>
+
+body {
+  background:#000;
+  font: 10px sans-serif;
+  width:300px;
+  margin:0 auto;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.area {
+  fill: black;
+}
+
+.line {
+  stroke-width:1;/*2*/
+  stroke:#eee;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+
+var margin = {top: -100, right: 0, bottom: 30, left: 2},
+    width = 300 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.time.scale()
+    .domain([0, 1])
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .domain([0, 3])
+    .range([height, 0]);
+
+var area = d3.svg.area()
+    .x(function(d) { return x(d.x); })
+    .y0(height)
+    .y1(function(d) { return y(d.y); })
+    .interpolate('linear');
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d.x); })
+    .y(function(d) { return y(d.y); })
+    .interpolate('linear');
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var data = d3.range(0, 80).map(function(y) {//18
+    return d3.range(0, 40).map(function(x) {
+        return {
+            x: x / 40, //40
+            y0: y / 40, //20
+            y: (y / 40)/*20*/ + Math.sin(x / (Math.PI * 4)) * (Math.random() / 10) //sharpeness, less is more
+        };
+    });
+}).reverse();
+
+function draw(data) {
+
+    var wave = svg.selectAll('g.wave')
+        .data(data)
+        .enter()
+        .append('g')
+        .attr('class', 'wave');
+
+    wave.append('path')
+        .attr("class", "area")
+        .attr("d", area);
+
+    svg.selectAll('path.area').transition().duration(100).attr("d", area);
+
+    wave.append('path')
+        .attr("class", "line");
+
+    svg.selectAll('path.line').transition().duration(1000).attr("d", line);
+
+}
+window.setInterval(function() {
+    for (var y = 0; y < data.length; y++) {
+        for (var x = 0; x < data[y].length; x++) {
+            data[y][x].y = Math.min(
+                data[y][x].y0 + 0.09,
+                Math.max(
+                    data[y][x].y0 - 0.09, data[y][x].y + (Math.random() - 0.5) * Math.sin(x / (Math.PI * 4)) * 0.02));
+        }
+    }
+    draw(data);
+}, 1000);
+
+draw(data);
+
+</script>
