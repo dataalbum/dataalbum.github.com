@@ -1,5 +1,5 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; outline: none;}
-body {height: 100%; font-family: 'Lato', Arial, helvetica, sans-serif; color: white; font-weight: 300; background: #000; text-align: center;}
+body {font-family: 'Lato', Arial, helvetica, sans-serif; color: white; font-weight: 300; background: #000; text-align: center;}
 article, header, nav, section, footer {display: block;}
 ul {list-style: none;}
 img {border: 0; width: 90%; max-width: 1000px; padding: 0 5%;}
@@ -16,7 +16,7 @@ header {margin: 0 0 40px 0;}
 .wrap {background-image: url(../images/oma.jpg);}
 }
 @media (min-width: 400px) {
-.wrap {background-image: url(../images/oma.jpg); background-position: left top;}
+.wrap {background-image: url(../images/oma.jpg); background-position: left top; height: 100%;}
 }
 @media (min-width: 801px) {
 .wrap {background-image: url(../images/oma.jpg); background-position: left top;}
