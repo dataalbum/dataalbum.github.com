@@ -16,10 +16,10 @@ header {margin: 0 0 40px 0;}
 .wrap {background-image: url(../images/oma.jpg);}
 }
 @media (min-width: 400px) {
-.wrap {background-image: url(../images/oma.jpg);}
+.wrap {background-image: url(../images/oma.jpg); background-position: left top;}
 }
 @media (min-width: 801px) {
-.wrap {background-image: url(../images/oma.jpg);}
+.wrap {background-image: url(../images/oma.jpg); background-position: left top;}
 article {max-width: 600px;}
 }
 @media (min-width: 1281px) {
