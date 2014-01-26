@@ -60,7 +60,7 @@ body {
 .navbar-light-text {
 	background-color: #31444b;
 	border-color: #bbcbc4;
-	box-shadow: 0 50px 5px rgba(,0,0,.1);
+	/*box-shadow: 0 50px 5px rgba(,0,0,.1);*/
 	color: #bbcbc4; /*R:49, G:68, B:75*/
 	border: none;
 }
