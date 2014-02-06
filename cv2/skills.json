@@ -1,0 +1,11 @@
+{
+ "name": "skills",
+ "children":
+[
+{"name":"Architecture","size":5},
+{"name":"Master Data Management","size":2},
+{"name":"Business Intelligence","size":6},
+{"name":"Application Development & Integrations","size":10},
+{"name":"Project Management","size":4}
+]
+}

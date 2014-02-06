@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+#timeLineChart {    
+	position:absolute;
+	top:10px;
+	left:10px;
+	width:960px;
+	height: 480px; 
+}
+
+#bubbleChart {    
+	position:absolute;
+	top:490px;
+	left:10px;
+	width:320px;
+	height: 400px; 
+}
+
+#arcChart {    
+	position:absolute;
+	top:490px;
+	left:330px;
+	height: 400px; 
+}
+/*timeLine & bubbles & arc*/
+.title, .chart, .node, text{
+    font-family: sans-serif;
+    font-size: 12px;
+}
+/*timeLine*/
+.axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+/*ARc*/
+.arc path {
+  stroke: #fff;
+}
+
+.central {
+	font: 20px sans-serif;
+}
+
+body {
+	font-family: sans-serif;
+}
+</style>
+<body>
+	<h1>CV 2013</h1>
+	<div id="timeLineChart"></div>
+	<div id="bubbleChart"></div>
+	<div id="arcChart"></div>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+
+function timeLine(){
+	
+var today = new Date().getTime();
+
+var data = [{"id":7,"date":"1995-08-01","date2":"1998-12-31","total":"Trainee | Nokia","description":"Workstation administration and Help Desk."},
+			{"id":6,"date":"1999-01-01","date2":"2003-02-28","total":"Specialist | Nokia","description":"Service level reporting and request management tool development and end user support."},
+			{"id":5,"date":"2003-03-01","date2":"2006-08-31","total":"Senior Specialsit | Nokia","description":"Managed and implemeted testing process for global customer contact center."},
+			{"id":4,"date":"2006-09-01","date2":"2008-09-30","total":"Senior Specialist/Lead Developer | Nokia","description":"Configuration management and development of global CRM system."},
+			{"id":3,"date":"2008-10-01","date2":"2011-12-31","total":"Lead Developer | Nokia","description":"Defined IT system architectures for several consumer data reporting and analytics projects."},
+			{"id":2,"date":"2012-01-01","date2":"2013-02-28","total":"Capability Architect | Nokia","description":"Performed enterprise master data management architecture development across business processes."},
+			{"id":1,"date":"2013-03-01","date2":today,"total":"Technical Architect | TCS","description":"Increase effectiveness of data used for business planning and execution by developing master data management."}
+			];
+console.log(data)
+var margin = {top: 40, right: 80, bottom: 40, left:40},
+    width = 960,
+    height = 480;
+
+var color = d3.scale.category20c();
+
+var x = d3.time.scale()
+    .domain([d3.min(data, function(d) { return new Date (d.date) ; }), d3.max(data, function(d) { return new Date (d.date2) ; })])
+    .rangeRound([0, width - margin.left - margin.right]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient('bottom');
+
+var svg = d3.select('#timeLineChart').append('svg')
+    .attr('class', 'chart')
+    .attr('width', width)
+    .attr('height', height)
+  .append('g')
+    .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
+var bar = svg.selectAll('.chart')
+    .data(data).enter();
+    
+bar.append('rect')
+    .attr('class', 'bar')
+    .attr('x', function(d) { return x(new Date(d.date)); })
+    .attr('y', 150)
+    .attr('width', function(d) { return x(new Date(d.date2)) - x(new Date(d.date)); })
+    .attr('height', 50)
+    .style('fill', function(d) { return color(d.date)});
+
+bar.append("text")
+	.attr("x", function(d) { return (x(new Date(d.date)) + x(new Date(d.date2))) / 2 ; })
+	.attr("y", function(d) { return d.id * 20 })
+	.attr("dx", 3)
+	.attr("dy", ".35em")
+	.style("text-anchor", "middle")
+	.text(function(d) { return d.total; });   
+
+bar.append("line")
+	.attr("x1", function(d) { return (x(new Date(d.date)) + x(new Date(d.date2))) / 2 ; })
+	.attr("x2", function(d) { return (x(new Date(d.date)) + x(new Date(d.date2))) / 2 ; })
+	.attr("y1", function(d) { return d.id * 20 + 8 ; })
+	.attr("y2", 160)
+	.attr("stroke", "black");
+
+bar.append("circle")
+	.attr("cx", function(d) { return (x(new Date(d.date)) + x(new Date(d.date2))) / 2 ; })
+	.attr("cy", 160)
+	.attr("r", 3)
+	.style("fill", "black");
+
+//coordinates
+svg.append('g')
+    .attr('class', 'x axis')
+    .attr('transform', 'translate(0, ' + (height - margin.top - margin.bottom - 200) + ')')
+    .call(xAxis);
+  
+  //title  
+  svg.append("text")
+      .attr("text-anchor", "start")
+      .attr("dy", ".3em")
+      .attr("y", margin.top)
+      .attr("x", margin.left - 70)
+      .text("Experience")
+      .style("font-size", "20px")
+	;
+
+var legend = svg.selectAll(".legend")
+    .data(data).enter()
+	.append("g")
+	.sort(function(a, b) { return d3.descending(a.date, b.date); })
+	.attr("class", "legend")
+	.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+legend.append("rect")
+	.attr("y", 250)
+	.attr("width", 18)
+	.attr("height", 18)
+    .style('fill', function(d) { return color(d.date); });
+
+legend.append("text")
+	.attr("x", 26)
+	.attr("y", 259)
+	.attr("dy", ".35em")
+	.style("text-anchor", "start")
+	.text(function(d) { return d.description; });
+}
+timeLine();
+
+//Bubbles
+
+function bubbles() {
+var diameter = 320,
+    format = d3.format(",d"),
+    color = d3.scale.category20c();
+
+var bubble = d3.layout.pack()
+    .sort(null)
+    .size([diameter, diameter])
+    .padding(1.5);
+
+var svg = d3.select("#bubbleChart").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+    .attr("class", "bubble");
+
+d3.json("skills.json", function(error, root) {
+  
+  console.log(root)
+  
+  var node = svg.selectAll(".node")
+      .data(bubble.nodes(classes(root))
+      .filter(function(d) { return !d.children; }))
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+//  node.append("title")
+//      .text(function(d) { return d.className + ": " + format(d.value); });
+
+  node.append("circle")
+      .attr("r", function(d) { return d.r; })
+      .style("fill", function(d) { return color(d.className); });
+
+  node.append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", ".3em")
+      .text(function(d) { return d.className; })
+      .style("font-size", "28px") // initial guess
+      .style("font-size", function(d) { return (2 * d.r - 8) / this.getComputedTextLength() * 24 + "px"; });
+
+  svg.append("text")
+      .attr("text-anchor", "start")
+      .attr("dy", ".3em")
+      .attr("y", 10)
+      .attr("x", 10)
+      .text("Skills")
+      .style("font-size", "20px")
+	;
+
+});
+
+/*
+  node.append("text")
+      .attr("dy", ".3em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.className.substring(0, d.r / 3); });
+});
+*/
+// Returns a flattened hierarchy containing all leaf nodes under the root.
+function classes(root) {
+  var classes = [];
+
+  function recurse(name, node) {
+    if (node.children) node.children.forEach(function(child) { recurse(node.name, child); });
+    else classes.push({packageName: name, className: node.name, value: node.size});
+  }
+
+  recurse(null, root);
+  return {children: classes};
+}
+
+}
+bubbles();
+
+//Half Donut/Arc
+
+function arc(){
+var width = 960,
+    height = 500,
+    radius = Math.min(width, height) / 2 - 30,
+	labelr = radius + 30; // radius for label anchor
+
+var color = d3.scale.category20c();
+
+var arc = d3.svg.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(radius - 70);
+
+var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.population; })
+    .startAngle(-90 * (Math.PI/180))
+    .endAngle(90 * (Math.PI/180));
+
+var svg = d3.select("#arcChart").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+d3.csv("data.csv", function(error, data) {
+
+  data.forEach(function(d) {
+    d.population = +d.population;
+  });
+
+	var sum = d3.sum(data, function(d) { return d.population; }) / 12;
+	var yearFormat = d3.format('.0f');
+	var year = yearFormat(sum);
+	
+	console.log(year)
+
+	var g = svg.selectAll(".arc")
+      	.data(pie(data)).enter()
+    	.append("g")
+      	.attr("class", "arc");
+      	
+  		g.append("path")
+      	.attr("d", arc)
+      	.style("fill", function(d) { return color(d.data.age); });
+      
+		// ticks
+	var ticks = svg.selectAll("line")
+	    .data(pie(data)).enter();
+	ticks.append("line")
+		.attr("x1", 0)
+	    .attr("x2", 0)
+	    .attr("y1", -radius+21)
+	    .attr("y2", -radius-7)
+	    .attr("stroke", "gray")
+	    .attr("transform", function(d) {
+	      return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
+	    });
+	    
+	ticks.append("circle")
+	   	.attr("transform", function(d) {
+		   var dist=radius-21;
+		   var winkel=(d.startAngle+d.endAngle)/2;
+		   var x=dist*Math.sin(winkel);
+		   var y=-dist*Math.cos(winkel);
+		   return "translate(" + x + "," + y + ")";
+        })
+		.attr("r", 3)
+		.style("fill", "black");
+
+	    
+	    // labels
+	var labels = svg.selectAll("text")
+	    .data(pie(data)).enter()
+	    .append("text");
+	    
+	labels.attr("class", "value")
+	   	.attr("transform", function(d) {
+		   var dist=radius+15;
+		   var winkel=(d.startAngle+d.endAngle)/2;
+		   var x=dist*Math.sin(winkel);
+		   var y=-dist*Math.cos(winkel);
+		   return "translate(" + x + "," + y + ")";
+        })
+	    .attr("dy", "0.35em")
+        //.attr("text-anchor", "middle")
+        .attr("text-anchor", function(d) { return d.startAngle < -0.3 ? "end" : "start"; })
+	    .text(function(d){
+	      return d.data.age;
+	    });
+//central label
+	var central = svg.selectAll(".central")
+	    .data(pie(data)).enter()
+	    .append("text")
+	    .attr("class", "central")
+      	.attr("y", -30)
+      	.attr("dy", ".75em")
+      	.style("text-anchor", "middle")
+      	.text("Areas of Expertise");
+
+});
+
+}
+arc();
+
+</script>
