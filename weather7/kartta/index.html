@@ -67,7 +67,7 @@
 
 		<script type="text/javascript" charset="utf-8">
 			var server_url = "http://data.fmi.fi/fmi-apikey/516006c7-30ef-4474-97ea-76f7bf4ae01c/wfs";
-			var sites = ["Tampere","Mikkeli","Kilpisjärvi","Kittilä","Ivalo","Rovaniemi","Oulu","Kuhmo","Vaasa","Viitasaari","Joensuu","Turku","Helsinki","Maarianhamina"];
+			var sites = ["Tampere","Mikkeli","Kilpisjärvi","Kittilä","Ivalo","Rovaniemi","Kuhmo","Vaasa","Viitasaari","Joensuu","Turku","Helsinki","Oulu"];
 
     
 			$(function() {
@@ -86,7 +86,7 @@
 					var obj = {
 						lat: dataset.locations[i].info.position[0],
 						lon: dataset.locations[i].info.position[1],
-						value: dataset.locations[i].data.precipitation1h.timeValuePairs[1].value
+						value: dataset.locations[i].data.Precipitation1h.timeValuePairs[1].value
 					};
 					data.push(obj);
 				}
@@ -139,7 +139,7 @@
   						{icon: L.divIcon({
   							className : 'circle climacon ' + symbolMap[dataset.locations[i].data.weathersymbol3.timeValuePairs[1].value],
     						iconSize: new L.Point(10, 10), 
-    						html: " " + Math.round(dataset.locations[i].data.temperature.timeValuePairs[1].value) + "°C"
+    						html: " " + Math.round(dataset.locations[i].data.Temperature.timeValuePairs[1].value)
 						})
 					}).addTo(map);
 				};
@@ -154,8 +154,8 @@
 				        var container = L.DomUtil.create('div', 'info legend');
 				
 				        // ... initialize other DOM elements, add listeners, etc.
-						var html = '<p>Ennuste ' + d3.time.format("%H:%M")(new Date(dataset.locations[0].data.temperature.timeValuePairs[1].time)) + '</p>';
-					        html += '<p>' + d3.time.format("%d.%m.%Y")(new Date(dataset.locations[0].data.temperature.timeValuePairs[1].time)) + '</p>';
+						var html = '<p>Ennuste ' + d3.time.format("%H:%M")(new Date(dataset.locations[0].data.Temperature.timeValuePairs[1].time)) + '</p>';
+					        html += '<p>' + d3.time.format("%d.%m.%Y")(new Date(dataset.locations[0].data.Temperature.timeValuePairs[1].time)) + '</p>';
 					        container.innerHTML = html;
 				
 				        return container;

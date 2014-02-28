@@ -86,11 +86,11 @@
 			var arrData = dataset.locations;
 
 
-			var shiftedTemp = dataset.locations[0].data.temperature.timeValuePairs.shift();
+			var shiftedTemp = dataset.locations[0].data.Temperature.timeValuePairs.shift();
 			var shiftedPress = dataset.locations[0].data.pressure.timeValuePairs.shift();
 			var shiftedSymb = dataset.locations[0].data.weathersymbol3.timeValuePairs.shift();
-			var shiftedWindS = dataset.locations[0].data.windspeedms.timeValuePairs.shift();
-			var shiftedWindD = dataset.locations[0].data.winddirection.timeValuePairs.shift();
+			var shiftedWindS = dataset.locations[0].data.WindSpeedMS.timeValuePairs.shift();
+			var shiftedWindD = dataset.locations[0].data.WindDirection.timeValuePairs.shift();
 			
 			console.log(arrData)
 
@@ -105,7 +105,7 @@
 			
 			var content = data.selectAll("content")
 				.data(function(d) { return d3.nest().key(function(d) { 
-					return d.time; }).entries(d.data.temperature.timeValuePairs.concat(d.data.pressure.timeValuePairs,d.data.weathersymbol3.timeValuePairs,d.data.windspeedms.timeValuePairs,d.data.winddirection.timeValuePairs));})
+					return d.time; }).entries(d.data.Temperature.timeValuePairs.concat(d.data.pressure.timeValuePairs,d.data.weathersymbol3.timeValuePairs,d.data.WindSpeedMS.timeValuePairs,d.data.WindDirection.timeValuePairs));})
 				.enter().append("text")
 				.text(function(d, i){
 					return d.values[0].time = d3.time.format("%a %H:%M")(new Date(d.values[0].time)) + " | " + 
@@ -134,7 +134,7 @@
 			var arrData = dataset.locations;
 			console.log(arrData)
 
-			var shiftedTemp = dataset.locations[0].data.temperature.timeValuePairs.shift();
+			var shiftedTemp = dataset.locations[0].data.Temperature.timeValuePairs.shift();
 			var shiftedPress = dataset.locations[0].data.pressure.timeValuePairs.shift();
 			var shiftedSymb = dataset.locations[0].data.weathersymbol3.timeValuePairs.shift();
 			
@@ -162,10 +162,10 @@
 				.attr("dx", 0)
 				.attr("dy", 80)
 				.style("font-size", "250%")
-				.text(function(d){ return d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C | " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value]; });
+				.text(function(d){ return d3.format('.0f')(d.data.Temperature.timeValuePairs[0].value) + "°C | " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value]; });
 
 			info.append("text")
 				.attr("dx", 0)
 				.attr("dy", 110)
-				.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });
+				.text(function(d){ return d.data.Temperature.timeValuePairs[0].time = d3.time.format("%A %d.%m.%Y %H:%M")(new Date(d.data.Temperature.timeValuePairs[0].time)); });
 		};

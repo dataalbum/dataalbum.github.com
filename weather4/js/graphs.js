@@ -100,16 +100,16 @@
 			var arrData = dataset.locations;
 			
 			//remove the first array/current hour
-			dataset.locations[0].data.temperature.timeValuePairs.shift();
+			dataset.locations[0].data.Temperature.timeValuePairs.shift();
 			dataset.locations[0].data.weathersymbol3.timeValuePairs.shift();
-			dataset.locations[0].data.windspeedms.timeValuePairs.shift();
-			dataset.locations[0].data.winddirection.timeValuePairs.shift();
+			dataset.locations[0].data.WindSpeedMS.timeValuePairs.shift();
+			dataset.locations[0].data.WindDirection.timeValuePairs.shift();
 			
 			//shifted parameters
-			var shiftedTemperature = dataset.locations[0].data.temperature.timeValuePairs;
+			var shiftedTemperature = dataset.locations[0].data.Temperature.timeValuePairs;
 			var shiftedWeatherSymbol3 = dataset.locations[0].data.weathersymbol3.timeValuePairs;
-			var shiftedWindDirection = dataset.locations[0].data.winddirection.timeValuePairs;
-			var shiftedWindSpeend = dataset.locations[0].data.windspeedms.timeValuePairs;			
+			var shiftedWindDirection = dataset.locations[0].data.WindDirection.timeValuePairs;
+			var shiftedWindSpeend = dataset.locations[0].data.WindSpeedMS.timeValuePairs;			
 
 			//merge parameters
 			var concatedData = shiftedTemperature.concat(
@@ -207,7 +207,7 @@
 			var arrData = dataset.locations;
 			console.log(arrData)
 
-			var shiftedTemp = dataset.locations[0].data.temperature.timeValuePairs.shift();
+			var shiftedTemp = dataset.locations[0].data.Temperature.timeValuePairs.shift();
 			var shiftedPress = dataset.locations[0].data.pressure.timeValuePairs.shift();
 			var shiftedSymb = dataset.locations[0].data.weathersymbol3.timeValuePairs.shift();
 			
@@ -236,14 +236,14 @@
 				weatherSymbolTemp.enter().append("h1");
 				weatherSymbolTemp.attr("class", function(d) { return "climacon " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value] ; });
 				weatherSymbolTemp.text(function(d){ 
-					return " " + d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C "; });				
+					return " " + d3.format('.0f')(d.data.Temperature.timeValuePairs[0].value) + "°C "; });				
 
 				//header timedate
 				var textTime = header.selectAll("p")
 					.data(data);
 
 				textTime.enter().append("p").attr("class", "lead");
-				textTime.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });				
+				textTime.text(function(d){ return d.data.Temperature.timeValuePairs[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.data.Temperature.timeValuePairs[0].time)); });				
 
 				textPlace.exit().remove();
 				weatherSymbolTemp.exit().remove();

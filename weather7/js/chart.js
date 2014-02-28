@@ -4,7 +4,7 @@
 			console.log(parameter)
 			dataset.locations[0].data[parameter].timeValuePairs.shift()//inside of parameter		
 		}
-
+		console.log(dataset);
 		var forecastChartData = dataset;
 		var forecastMainData = dataset;
 		var forecastTableData = dataset;
@@ -22,7 +22,7 @@
 	
 	function showForecastChart(dataset) {
 		
-		console.log(dataset)
+		console.log(dataset);
 		
 		//dataset.locations[0].data.temperature.timeValuePairs.shift();
 		//dataset.locations[0].data.precipitation1h.timeValuePairs.shift();
@@ -33,7 +33,7 @@
 		var forecastHeader = d3.select("#forecastHeader");
 		var header = forecastHeader.selectAll("h2")
 					.data(dataset.locations);
-				header.enter().append("h2")
+				header.enter().append("h2");
 				header.text(function(d){ return "24 tunnin ennuste | " + d.info.name; });  
 		
 		/*
@@ -46,22 +46,22 @@
 		{
 			"key": "Sademäärä",
 			"type": "bar",
-			"values": dataset.locations[0].data.precipitation1h.timeValuePairs,
+			"values": dataset.locations[0].data.Precipitation1h.timeValuePairs,
 			"yAxis": 2
 		},
 		{
 			"key": "Lämpötila",
 			"type": "line",
-			"values": dataset.locations[0].data.temperature.timeValuePairs,
+			"values": dataset.locations[0].data.Temperature.timeValuePairs,
 			"yAxis": 1
 		}
 		]
 		.map(function(series) {
-			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } });
+			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 }; });
 			return series;
 		});
 
-		console.log(forecastData)
+		console.log(forecastData);
 		
 		/*
 		 * Data: wind, wind cust
@@ -71,22 +71,22 @@
 		{
 			"key": "Tuuli",
 			"type": "line",
-			"values": dataset.locations[0].data.windspeedms.timeValuePairs,
+			"values": dataset.locations[0].data.WindSpeedMS.timeValuePairs,
 			"yAxis": 1
 		},
 		{
 			"key": "Puuska",
 			"type": "line",
-			"values": dataset.locations[0].data.windgust.timeValuePairs,
+			"values": dataset.locations[0].data.WindGust.timeValuePairs,
 			"yAxis": 1
 		}
 		]
 		.map(function(series) {
-			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } });
+			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 }; });
 			return series;
 		});
 		
-		console.log(windForecastData)
+		console.log(windForecastData);
 
 		/*
 		 * Data: humidity
@@ -160,13 +160,13 @@
 			//hide bar if precipitation = 0
 			d3.selectAll("#forecastChart2 .bars2Wrap .nv-series-0")
 				.style("display", function(d){ 
-					return d3.sum(dataset.locations[0].data.precipitation1h.timeValuePairs, function(d) { 
+					return d3.sum(dataset.locations[0].data.Precipitation1h.timeValuePairs, function(d) { 
 						return d.value }) == 0 ? "none" : "";});
 			
 			//hide y2 axis labels if precipitation = 0
 			d3.selectAll("#forecastChart2 .y2.axis text")
 				.style("display", function(d){ 
-					return d3.sum(dataset.locations[0].data.precipitation1h.timeValuePairs, function(d) { 
+					return d3.sum(dataset.locations[0].data.Precipitation1h.timeValuePairs, function(d) { 
 						return d.value }) == 0 ? "none" : "";});
 			
 			nv.utils.windowResize(chart.update);
@@ -554,14 +554,14 @@
 				weatherSymbolTemp.enter().append("h1");
 				weatherSymbolTemp.attr("class", function(d) { return "climacon " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value] ; });
 				weatherSymbolTemp.text(function(d){ 
-					return " " + d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C "; });				
+					return " " + d3.format('.0f')(d.data.Temperature.timeValuePairs[0].value) + "°C "; });				
 
 				//header timedate
 				var textTime = header.selectAll("p")
 					.data(data);
 
 				textTime.enter().append("p").attr("class", "lead");
-				textTime.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });				
+				textTime.text(function(d){ return d.data.Temperature.timeValuePairs[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.data.Temperature.timeValuePairs[0].time)); });				
 
 				textPlace.exit().remove();
 				weatherSymbolTemp.exit().remove();
@@ -585,10 +585,10 @@
 			dataset.locations[0].data.winddirection.timeValuePairs.shift();
 			*/
 			//shifted parameters
-			var temperature = dataset.locations[0].data.temperature.timeValuePairs;
+			var temperature = dataset.locations[0].data.Temperature.timeValuePairs;
 			var weatherSymbol3 = dataset.locations[0].data.weathersymbol3.timeValuePairs;
-			var windDirection = dataset.locations[0].data.winddirection.timeValuePairs;
-			var windSpeend = dataset.locations[0].data.windspeedms.timeValuePairs;			
+			var windDirection = dataset.locations[0].data.WindDirection.timeValuePairs;
+			var windSpeend = dataset.locations[0].data.WindSpeedMS.timeValuePairs;			
 
 			//merge parameters
 			var concatedData = temperature.concat(
