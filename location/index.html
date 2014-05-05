@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Use Bing Maps REST Services with jQuery to build an autocomplete box and find a location dynamically</title>
+    <title>Use Bing Maps REST Services with jQuery</title>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.5.1.js" type="text/javascript"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/jquery-ui.js" type="text/javascript"></script>
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -62,20 +62,13 @@
             .append('RESULT:')
             .append('<ul>')
             .append('<li>addressLine: ' + item.address.addressLine + '</li>')
-            .append('<br />')
-            .append('adminDistrict: ' + item.address.adminDistrict)
-            .append('<br />')
-            .append('adminDistrict2: '+ item.address.adminDistrict2)
-            .append('<br />')
-            .append('countryRegion: '+ item.address.countryRegion)
-            .append('<br />')
-            .append('countryRegionIso2: '+ item.address.countryRegionIso2)
-            .append('<br />')
-            .append('formattedAddress: '+ item.address.formattedAddress)
-            .append('<br />')
-            .append('locality: '+ item.address.locality)
-            .append('<br />')
-            .append('postalCode: '+ item.address.postalCode)
+            .append('<li>adminDistrict: ' + item.address.adminDistrict + '</li>')
+            .append('<li>adminDistrict2: '+ item.address.adminDistrict2 + '</li>')
+            .append('<li>countryRegion: '+ item.address.countryRegion + '</li>')
+            .append('<li>countryRegionIso2: '+ item.address.countryRegionIso2 + '</li>')
+            .append('<li>formattedAddress: '+ item.address.formattedAddress + '</li>')
+            .append('<li>locality: '+ item.address.locality + '</li>')
+            .append('<li>postalCode: '+ item.address.postalCode + '</li>')
             .append('</ul>')
             .append(' (Latitude: ' + item.point.coordinates[0] + ' Longitude: ' + item.point.coordinates[1] + ')');
         }
