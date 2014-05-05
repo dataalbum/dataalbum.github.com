@@ -58,6 +58,8 @@
 
         function displaySelectedItem(item) {
             $("#searchResult").empty()
+            .append('RESULT:')
+            .append('<br />')
             .append('adminDistrict: ' + item.address.adminDistrict)
             .append('<br />')
             .append('adminDistrict2: '+ item.address.adminDistrict2)
@@ -67,7 +69,7 @@
             .append('formattedAddress: '+ item.address.formattedAddress)
             .append('<br />')
             .append('locality: '+ item.address.locality)
-            .append('<br />')
+            .append('<br /><br />')
             .append(' (Latitude: ' + item.point.coordinates[0] + ' Longitude: ' + item.point.coordinates[1] + ')');
         }
     </script>
