@@ -58,7 +58,7 @@
 
         function displaySelectedItem(item) {
             $("#searchResult").empty()
-            .append('Result: ' + item.adminDistrict + ' / ' + item.adminDistrict2 + ' / ' + item.countryRegion + ' / ' + item.formattedAddress + ' / ' + item.locality)
+            .append('Result: ' + item.address.adminDistrict + ' / ' + item.address.adminDistrict2 + ' / ' + item.address.countryRegion + ' / ' + item.address.formattedAddress + ' / ' + item.address.locality)
             .append(' (Latitude: ' + item.point.coordinates[0] + ' Longitude: ' + item.point.coordinates[1] + ')');
         }
     </script>
