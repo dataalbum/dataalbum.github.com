@@ -59,6 +59,7 @@
 
         function displaySelectedItem(item) {
             $("#searchResult table").empty()
+            .append('RESULT')
             .append('<tr><td>addressLine:</td><td>' + item.address.addressLine + '</td></tr>')
             .append('<tr><td>adminDistrict:</td><td>' + item.address.adminDistrict + '</td></tr>')
             .append('<tr><td>adminDistrict2:</td><td>' + item.address.adminDistrict2 + '</td></tr>')
