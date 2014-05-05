@@ -60,17 +60,17 @@
         function displaySelectedItem(item) {
             $("#searchResult").empty()
             .append('RESULT:')
-            .append('<ul>')
-            .append('<li>addressLine:       ' + item.address.addressLine + '</li>')
-            .append('<li>adminDistrict:     ' + item.address.adminDistrict + '</li>')
-            .append('<li>adminDistrict2:    ' + item.address.adminDistrict2 + '</li>')
-            .append('<li>countryRegion:     ' + item.address.countryRegion + '</li>')
+            .append('<tr>')
+            .append('<tr><td>addressLine</td><td>' + item.address.addressLine + '</td></tr>')
+            .append('<li>adminDistrict: ' + item.address.adminDistrict + '</li>')
+            .append('<li>adminDistrict2: ' + item.address.adminDistrict2 + '</li>')
+            .append('<li>countryRegion: ' + item.address.countryRegion + '</li>')
             .append('<li>countryRegionIso2: ' + item.address.countryRegionIso2 + '</li>')
-            .append('<li>formattedAddress:  ' + item.address.formattedAddress + '</li>')
-            .append('<li>locality:          ' + item.address.locality + '</li>')
-            .append('<li>postalCode:        ' + item.address.postalCode + '</li>')
+            .append('<li>formattedAddress: ' + item.address.formattedAddress + '</li>')
+            .append('<li>locality: ' + item.address.locality + '</li>')
+            .append('<li>postalCode: ' + item.address.postalCode + '</li>')
             .append('</ul>')
-            .append(' (< /br>Latitude: ' + item.point.coordinates[0] + ' Longitude: ' + item.point.coordinates[1] + ')');
+            .append(' (Latitude: ' + item.point.coordinates[0] + ' Longitude: ' + item.point.coordinates[1] + ')');
         }
     </script>
 </head>
