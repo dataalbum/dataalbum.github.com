@@ -57,7 +57,9 @@
         });
 
         function displaySelectedItem(item) {
-            $("#searchResult").empty().append('Result: ' + item.name).append(' (Latitude: ' + item.point.coordinates[0] + ' Longitude: ' + item.point.coordinates[1] + ')');
+            $("#searchResult").empty()
+            .append('Result: ' + item.adminDistrict + ' / ' + item.adminDistrict2 ' / ' + countryRegion + ' / ' + formattedAddress + ' / ' + locality)
+            .append(' (Latitude: ' + item.point.coordinates[0] + ' Longitude: ' + item.point.coordinates[1] + ')');
         }
     </script>
 </head>
