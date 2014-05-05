@@ -30,6 +30,7 @@
                         jsonp: "jsonp",
                         success: function (data) {
                             var result = data.resourceSets[0];
+                            console.log(result)
                             if (result) {
                                 if (result.estimatedTotal > 0) {
                                     response($.map(result.resources, function (item) {
