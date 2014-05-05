@@ -59,14 +59,14 @@
 
         function displaySelectedItem(item) {
             $("#searchResult table").empty()
-            .append('<tr><td>addressLine</td><td>' + item.address.addressLine + '</td></tr>')
-            .append('<tr><td>adminDistrict</td><td>' + item.address.adminDistrict + '</td></tr>')
-            .append('<tr><td>adminDistrict2</td><td>' + item.address.adminDistrict2 + '</td></tr>')
-            .append('<tr><td>countryRegion</td><td>' + item.address.countryRegion + '</td></tr>')
-            .append('<tr><td>countryRegionIso2</td><td>' + item.address.countryRegionIso2 + '</td></tr>')
-            .append('<tr><td>formattedAddress</td><td>' + item.address.formattedAddress + '</td></tr>')
-            .append('<tr><td>locality</td><td>' + item.address.locality + '</td></tr>')
-            .append('<tr><td>postalCode</td><td>' + item.address.postalCode + '</td></tr>')
+            .append('<tr><td>addressLine:</td><td>' + item.address.addressLine + '</td></tr>')
+            .append('<tr><td>adminDistrict:</td><td>' + item.address.adminDistrict + '</td></tr>')
+            .append('<tr><td>adminDistrict2:</td><td>' + item.address.adminDistrict2 + '</td></tr>')
+            .append('<tr><td>countryRegion:</td><td>' + item.address.countryRegion + '</td></tr>')
+            .append('<tr><td>countryRegionIso2:</td><td>' + item.address.countryRegionIso2 + '</td></tr>')
+            .append('<tr><td>formattedAddress:</td><td>' + item.address.formattedAddress + '</td></tr>')
+            .append('<tr><td>locality:</td><td>' + item.address.locality + '</td></tr>')
+            .append('<tr><td>postalCode:</td><td>' + item.address.postalCode + '</td></tr>')
             //.append(' (Latitude: ' + item.point.coordinates[0] + ' Longitude: ' + item.point.coordinates[1] + ')');
 
         }
@@ -81,7 +81,7 @@
             <input id="searchBox" />
         </div>
         <div id="searchResult" class="ui-widget" style="margin-top: 1em;">
-            <table border="1">
+            <table>
             </table>
         </div>
     </div>
