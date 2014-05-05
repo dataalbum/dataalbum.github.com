@@ -60,8 +60,8 @@
         function displaySelectedItem(item) {
             $("#searchResult").empty()
             .append('RESULT:')
-            .append('<br />')
-            .append('addressLine: ' + item.address.addressLine)
+            .append('<ul>')
+            .append('<li>addressLine: ' + item.address.addressLine + '</li>')
             .append('<br />')
             .append('adminDistrict: ' + item.address.adminDistrict)
             .append('<br />')
@@ -76,7 +76,7 @@
             .append('locality: '+ item.address.locality)
             .append('<br />')
             .append('postalCode: '+ item.address.postalCode)
-            .append('<br /><br />')
+            .append('</ul>')
             .append(' (Latitude: ' + item.point.coordinates[0] + ' Longitude: ' + item.point.coordinates[1] + ')');
         }
     </script>
