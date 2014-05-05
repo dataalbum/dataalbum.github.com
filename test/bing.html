@@ -36,8 +36,8 @@
                                     response($.map(result.resources, function (item) {
                                         return {
                                             data: item,
-                                            label: item.address.addressline + ' (' + item.address.countryRegion + ')',
-                                            value: item.address.addressline
+                                            label: item.name + ' (' + item.address.countryRegion + ')',
+                                            value: item.name
                                         }
                                     }));
                                 }
