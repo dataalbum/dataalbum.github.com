@@ -20,11 +20,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
 			var mylist=document.getElementById("myList");
+			var url=document.getElementById("myList2");
 
             $("#searchBox").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "http://dev.virtualearth.net/REST/v1/Locations",
+                        url: url.options[url.selectedIndex].value,
                         dataType: "jsonp",
                         data: {
                             key: "AjJmmHStqwuzck0qLkrVicXCwD_IWmLb8bA_qVrs475C4ClUI0Xk6YU2QtHRB8ZP",
@@ -73,13 +74,21 @@
             .append('<tr><td>formattedAddress:</td><td>' + item.address.formattedAddress + '</td></tr>')
             .append('<tr><td>locality:</td><td>' + item.address.locality + '</td></tr>')
             .append('<tr><td>postalCode:</td><td>' + item.address.postalCode + '</td></tr>')
-            //.append(' (Latitude: ' + item.point.coordinates[0] + ' Longitude: ' + item.point.coordinates[1] + ')');
+            .append('<tr><td>Latitude:</td><td>' + item.point.coordinates[0] + '</td></tr>')
+            .append('<tr><td>Longitude:</td><td>' + item.point.coordinates[1] + '</td></tr>');
 
         }
     </script>
 </head>
 <body>
     <div>
+    	<div class="ui-widget">
+	    	Bing Maps API:
+	    	<select id="myList2">
+				<option value='http://dev.virtualearth.net/REST/v1/Locations'>Rest of the World</option>
+				<option value='http://cn.dev.virtualearth.net/REST/v1/Locations'>China</option>
+			</select>
+		</div>
     	<div class="ui-widget">
 	    	Culture Codes:
 	    	<select id="myList">
