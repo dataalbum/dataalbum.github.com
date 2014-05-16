@@ -661,7 +661,8 @@
 				cells.enter().append("td");
 				cells.attr("class", function(d) { 
 					if (d.column == "value1") { return "climacon " + symbolMap[d.value] ;}
-            		else if (d.column == "value2") { return windArrowMap[d.value] ;}
+					//WindDirection is changed from tenths to integers.
+            		else if (d.column == "value2") { return windArrowMap[Math.round(d.value / 10) * 10] ;}
             		else { return "" ; } 
 				;});
 				
