@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+body { 
+	font: 12px Arial;
+	background-color: black;
+	color: white;
+}
+
+path { 
+	stroke: steelblue;
+	stroke-width: 0.6;
+	fill: none;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: grey;
+	stroke-width: 1;
+	shape-rendering: crispEdges;
+}
+.axis text {
+	fill: grey;
+}
+
+</style>
+<body>
+	<h1>Monthly Temperatures in Oulu, Linnanmaa</h1>
+	<div id="chart"></div>
+	<p>Source: <a href="http://www.ipv6.willab.fi/weather/stats.html.fi">Linnanmaa weather station</a>.</p>
+	<p>Build with <a href="http://d3js.org">D3.js</a>.</p>
+
+<!-- load the d3.js library -->	
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+
+// Set the dimensions of the canvas / graph
+var	margin = {top: 200, right: 220, bottom: 30, left: 50},
+	width = 800 - margin.left - margin.right,
+	height = 370 - margin.top - margin.bottom;
+
+// Parse the date / time
+//var	parseDate = d3.time.format("%b").parse;
+
+// Set the ranges
+//var	x = d3.time.scale().range([0, width]);
+var	x = d3.scale.linear().range([0, width]);
+var	y = d3.scale.linear().range([height, 0]);
+var	y2 = d3.scale.linear().range([height, 0]);
+var	x2 = d3.scale.linear().range([0, width]);
+
+// Define the axes
+var	xAxis = d3.svg.axis().scale(x)
+	.orient("bottom").ticks(5);
+
+var	yAxis = d3.svg.axis().scale(y)
+	.orient("left").ticks(5);
+
+var	xAxis2 = d3.svg.axis().scale(x)
+	.orient("bottom").ticks(5);
+
+var	yAxis2 = d3.svg.axis().scale(y2)
+	.orient("left").ticks(5);
+
+// Define the line1
+var	valueline = d3.svg.line()
+	.x(function(d) { return x(d.month); })
+	.y(function(d) { return y(d.y2002); })
+
+// Define the line2
+var	valueline2 = d3.svg.line()
+	.x(function(d) { return x(d.month + 0.4); })
+	.y(function(d) { return y(d.y2003); });
+
+// Define the line3
+var	valueline3 = d3.svg.line()
+	.x(function(d) { return x(d.month + 0.8); })
+	.y(function(d) { return y(d.y2004); });
+
+// Define the line4
+var	valueline4 = d3.svg.line()
+	.x(function(d) { return x(d.month + 1.2); })
+	.y(function(d) { return y(d.y2005); });
+
+// Define the line5
+var	valueline5 = d3.svg.line()
+	.x(function(d) { return x(d.month + 1.6); })
+	.y(function(d) { return y(d.y2006); });
+
+// Define the line6
+var	valueline6 = d3.svg.line()
+	.x(function(d) { return x(d.month + 2); })
+	.y(function(d) { return y(d.y2007); });
+
+// Define the line7
+var	valueline7 = d3.svg.line()
+	.x(function(d) { return x(d.month + 2.4); })
+	.y(function(d) { return y(d.y2008); });
+
+// Define the line8
+var	valueline8 = d3.svg.line()
+	.x(function(d) { return x(d.month + 2.8); })
+	.y(function(d) { return y(d.y2009); });
+
+// Define the line9
+var	valueline9 = d3.svg.line()
+	.x(function(d) { return x(d.month + 3.2); })
+	.y(function(d) { return y(d.y2010); });
+
+// Define the line10
+var	valueline10 = d3.svg.line()
+	.x(function(d) { return x(d.month + 3.6); })
+	.y(function(d) { return y(d.y2011); });
+
+// Define the line11
+var	valueline11 = d3.svg.line()
+	.x(function(d) { return x(d.month + 4); })
+	.y(function(d) { return y(d.y2012); });
+
+// Define the line12
+var	valueline12 = d3.svg.line()
+	.x(function(d) { return x(d.month + 4.4); })
+	.y(function(d) { return y(d.y2013); });
+    
+// Adds the svg canvas
+var	svg = d3.select("#chart")
+	.append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+	.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// Get the data
+d3.csv("temperature.csv", function(error, data) {
+	console.log(data, error)
+	data.forEach(function(d) {
+		//d.date = parseDate(d.date);
+		d.month = +d.month;
+		d.y2002 = +d.y2002;
+		d.y2003 = +d.y2003+3;
+		d.y2004 = +d.y2004+6;
+		d.y2005 = +d.y2005+9;
+		d.y2006 = +d.y2006+12;
+		d.y2007 = +d.y2007+15;
+		d.y2008 = +d.y2008+18;
+		d.y2009 = +d.y2009+21;
+		d.y2010 = +d.y2010+24;
+		d.y2011 = +d.y2011+27;
+		d.y2012 = +d.y2012+30;
+		d.y2013 = +d.y2013+33;
+	});
+console.log(data)
+	// Scale the range of the data
+	x.domain(d3.extent(data, function(d) { return d.month; }));
+	x2.domain(d3.extent(data, function(d) { return d.month; }));
+
+	//y.domain([0, d3.max(data, function(d) { return Math.max(d.y2002, d.y2003); })]);
+	y.domain(d3.extent(data, function(d) { return d.y2002; }));
+	y2.domain(d3.extent(data, function(d) { return d.y2013 - 33; }));
+	/*y.domain([
+		d3.min(data, function(d) { return Math.min(d.y2002); }), 
+		d3.max(data, function(d) { return Math.max(d.y2002, d.y2003, d.y2004, d.y2005, d.y2006, d.y2007); })]);
+*/
+	// Add the valueline path.
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		//.style("stroke", "red")
+		.attr("d", valueline(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline2(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline3(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline4(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline5(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline6(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline7(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline8(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline9(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline10(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline11(data));
+
+	svg.append("path")		// Add the valueline path.
+		.attr("class", "line")
+		.attr("d", valueline12(data));
+
+	// Add the X Axis
+	svg.append("g")			// Add the X Axis
+		.attr("class", "x axis")
+		.attr("transform", "translate(0," + height + ")")
+		.call(xAxis);
+
+	// Add the Y Axis
+	svg.append("g")			// Add the Y Axis
+		.attr("class", "y axis")
+		.call(yAxis);
+/*
+	// Add the X Axis
+	svg.append("g")			// Add the X Axis
+		.attr("class", "x axis2")
+		.attr("transform", "translate(" + x(data[0].month + 4.4) + "," + y(data[1].month) + ")")
+		.call(xAxis);
+
+	// Add the Y Axis
+	svg.append("g")			// Add the Y Axis
+		.attr("class", "y axis2")
+		.attr("transform", "translate(" + x(data[0].month + 4.4) + "," + y(data[12].y2013) + ")")
+		//.attr("transform", "translate(212,-152)")
+		.call(yAxis2);
+*/
+
+});
+
+</script>
+</body>
