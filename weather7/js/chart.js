@@ -616,8 +616,9 @@
 			
 			//take only every third value
 			var everyThirdData = [];
+	//for (var i = 2; i < nestedData.length; i = i+3) {
 		
-			for (var i = 2; i < nestedData.length; i = i+3) {
+			for (var i = 2; i < nestedData.length; i = i+1) {
 		    	everyThirdData.push(nestedData[i]);
 			};
 			
@@ -676,8 +677,7 @@
 				return table;
 				 
 				}		    
-		   // update(arrData, everyThirdData);
-Update(arrData, nestedData);
+		   update(arrData, everyThirdData);
 		    
 		}
 
@@ -810,4 +810,3 @@ Update(arrData, nestedData);
 
 
 		}
-
