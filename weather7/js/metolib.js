@@ -155,7 +155,8 @@
                 storedQueryId : STORED_QUERY_FORECAST,
                 requestParameter : "temperature,pressure,weathersymbol3,windspeedms,winddirection,windgust,humidity,precipitation1h,totalcloudcover",
                 begin : new Date(),
-                end : new Date((new Date()).getTime() + 23 * 60 * 60 * 1000),
+                //end : new Date((new Date()).getTime() + 23 * 60 * 60 * 1000),
+                end : new Date((new Date()).getTime() + 24 * 60 * 60 * 1000),
                 timestep : 60 * 60 * 1000,
                 sites : [sites],
                 callback : function(data, errors) {
