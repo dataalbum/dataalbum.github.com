@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Search and Map</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script type="text/javascript">
+
+        // Replace the following string with the Bing Maps Key you received from the
+        // Bing Maps Account Center http://www.bingmapsportal.com
+
+        var BingMapsKey = "AjJmmHStqwuzck0qLkrVicXCwD_IWmLb8bA_qVrs475C4ClUI0Xk6YU2QtHRB8ZP";
+        var map = null;
+
+
+        //Make a REST request for the Bing Map REST Services and Bing Spatial Data Services
+        function MakeServiceRequest(request) {
+            var script = document.createElement("script");
+            script.setAttribute("type", "text/javascript");
+            script.setAttribute("src", request);
+            document.body.appendChild(script);
+        }
+
+        //Geocode the location specified by the user
+        function Geocode() {
+            //Create Bing Maps REST Services request to geocode the address provided by the user
+            var geocodeRequest = "http://dev.virtualearth.net/REST/v1/Locations/"
+               + document.getElementById('address').value
+               + "?output=json"
+               //Set the callback function
+               + "&jsonp=GetLocationCoordinates"
+               + "&key=" + BingMapsKey;
+            //Submit the request
+            MakeServiceRequest(geocodeRequest);
+        }
+
+        //Get the geocoded latitude and longitude from the response
+        function GetLocationCoordinates(geocodeResponse) {
+            if (geocodeResponse &&
+                   geocodeResponse.resourceSets &&
+                   geocodeResponse.resourceSets.length > 0 &&
+                   geocodeResponse.resourceSets[0].resources &&
+                   geocodeResponse.resourceSets[0].resources.length > 0) {
+
+                Search(geocodeResponse.resourceSets[0].resources[0].point.coordinates[0], geocodeResponse.resourceSets[0].resources[0].point.coordinates[1]);
+
+            }
+            else {//The location could not be geocoded.
+                document.getElementById("output").innerHTML = "";
+                var output = document.getElementById("output");
+                var resultsHeader = document.createElement("h4");
+                output.appendChild(resultsHeader);
+                resultsHeader.innerHTML = "The location could not be geocoded";
+            }
+        }
+
+        // Search the Fourth Coffee Shops data source for entities within "distance" of the geocoded location ("lat","long").
+        function Search(lat, long) {
+
+            //Get the distance to search selected by the user
+            var distance = document.getElementById('distance').value;
+            //Create a Bing Spatial Data Services request to search for entities and return the
+            var requestStr = "https://spatial.virtualearth.net/REST/v1/data/82e3db2e47a143bfb7f14413481b11b0/Stores/Stores?"
+            + "spatialFilter=nearby(" + lat + "," + long + "," + distance + ")"
+            + "&$select=EntityID,AddressLine,AdminDistrict,CountryRegion,Locality,PostalCode,Latitude,Longitude,StoreName,Company&$top=10"
+            + "&$format=json"
+            + "&key=" + BingMapsKey
+            // set the JSON callback function
+            + "&Jsonp=MapResults";
+            // + "&Jsonp=StaticMapResults";
+
+            //Submit reqquest
+            MakeServiceRequest(requestStr);
+        }
+
+
+        //Show results (up to 10) and put them on the map
+        function MapResults(response) {
+            //Display list of results
+            document.getElementById("output").innerHTML = "";
+            var output = document.getElementById("output");
+            var resultsHeader = document.createElement("h4");
+            var resultsList = document.createElement("ol");
+            output.appendChild(resultsHeader);
+            output.appendChild(resultsList); 
+            
+            //Create pushpin collection to display on the map
+            var pushpins = new Microsoft.Maps.EntityCollection();
+
+            //Check if there are results
+            if (response.d.results.length != 0) {
+                //Get the search results
+                var results = response.d.results;
+				console.log(results)
+                //initialize bounds for map area 
+                var minLatitude = results[0].Latitude; var maxLatitude = results[0].Latitude; ;
+                var minLongitude = results[0].Longitude; var maxLongitude = results[0].Longitude; 
+
+
+                // Display results header
+                resultsHeader.innerHTML = "Stores near your location"
+                var resultsListItem = null;
+                var resultStr = "";
+
+
+                //Display each entity and create a pushpin for the map
+                for (var i = 0; i < results.length; ++i) {
+                    resultsListItem = document.createElement("li");
+                    resultsList.appendChild(resultsListItem);
+                    resultStr = + results[i].EntityID + "<br/>"
+                        + results[i].StoreName + "<br/>"
+                        + results[i].AddressLine + "<br/>"
+                        + results[i].PostalCode + " "
+                        + results[i].Locality + "<br/><br/>";
+                    resultsListItem.innerHTML = resultStr;
+
+                    // Add pushpin to map collection
+                    var pushpinVal = (i+1).toString();
+                    pushpins.push(new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(results[i].Latitude, results[i].Longitude), { text: pushpinVal}));
+
+                    //Determine bounds that display all pushpins
+                    if (results[i].Latitude > maxLatitude) 
+                    {maxLatitude = results[i].Latitude; }
+                    else if (results[i].Latitude < minLatitude)
+                    { minLatitude = results[i].Latitude; }
+
+                    if (results[i].Longitude > maxLongitude)
+                    { maxLongitude = results[i].Longitude; }
+                    else if (results[i].Longitude < minLongitude)
+                    { minLongitude = results[i].Longitude; }
+                }
+
+                //Create map using the AJAX 7 map control
+                mapDiv.style.visibility = "visible";
+                if (map != null) {map.dispose() };
+                map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), 
+                { credentials: BingMapsKey, height: 400, width: 400, mapTypeId: "r" });
+
+                //Add the entity pushpins to the map
+                map.entities.push(pushpins);
+
+                //Add padding to map area so that pushpins are not on the edge
+                minLatitude -= 0.0001;
+                maxLatitude += 0.0001;
+                minLongitude -= 0.0001;
+                maxLongitude += 0.0001;
+                var mapArea = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(minLatitude,minLongitude),new Microsoft.Maps.Location(maxLatitude,maxLongitude));
+                map.setView({ bounds: mapArea });
+                map.setView({ zoom: 11 });
+            }
+            else { //No results were returned
+                resultsHeader.innerHTML = "No locations were found. Please try another location or increase the search distance."
+                resultsHeader.style.color = "DarkRed";
+                resultsHeader.style.fontFamily = "sans-serif";
+                resultsHeader.style.fontWeight = "normal";
+                map.dispose();
+            }
+
+        }
+
+
+//             function StaticMapResults(response) {
+//            //Create list of results
+//            document.getElementById("output").innerHTML = "";
+//            var output = document.getElementById("output");
+//            var resultsHeader = document.createElement("h4");
+//            var resultsList = document.createElement("ol");
+//            output.appendChild(resultsHeader);
+//            output.appendChild(resultsList);
+
+//            //Create REST Static Image URL
+//            var mapURL = "http://dev.virtualearth.net/REST/v1/Imagery/Map/Road?mapVersion=v1&key=" + BingMapsKey;
+
+//            if (response.d.results.length != 0) {
+//                //Get the search results
+//                var results = response.d.results;
+
+//                //initialize bounds for map area
+//                var minLatitude = results[0].Latitude; var maxLatitude = results[0].Latitude; ;
+//                var minLongitude = results[0].Longitude; var maxLongitude = results[0].Longitude;
+
+//                // Display results header
+//                resultsHeader.innerHTML = "Fourth Coffee Shops near your location"
+//                var resultsListItem = null;
+//                var resultStr = "";
+
+//                // Display the results.
+//                var resultsListItem = null;
+//                var resultStr = "";
+
+
+//                //Display each entity and create a pushpin for the map
+//                for (var i = 0; i < results.length; ++i) {
+//                    resultsListItem = document.createElement("li");
+//                    resultsList.appendChild(resultsListItem);
+//                    resultStr = "Store " + results[i].EntityID + "<br/>"
+//                        + results[i].AddressLine + "<br/>"
+//                        + results[i].PrimaryCity + ", "
+//                        + results[i].Subdivision + " "
+//                        + results[i].PostalCode + "<br/><br/>";
+//                    resultsListItem.innerHTML = resultStr;
+
+
+//                    if (results[i].Latitude > maxLatitude)
+//                    { maxLatitude = results[i].Latitude; }
+//                    else if (results[i].Latitude < minLatitude)
+//                    { minLatitude = results[i].Latitude; }
+
+//                    if (results[i].Longitude > maxLongitude)
+//                    { maxLongitude = results[i].Longitude; }
+//                    else if (results[i].Longitude < minLongitude)
+//                    { minLongitude = results[i].Longitude; }
+
+//                    mapURL = mapURL + "&pp=" + results[i].Latitude.toString() + "," + results[i].Longitude.toString() + ";;" + (i + 1).toString();
+//                }
+
+// 
+//             minLatitude -= 0.0001;
+//             maxLatitude += 0.0001;
+//             minLongitude -= 0.0001;
+//             maxLongitude += 0.0001;
+
+//             mapURL = mapURL + "&mapArea=" + minLatitude.toString() + "," + minLongitude.toString() + ","
+//                                + maxLatitude.toString() + "," + maxLongitude.toString() 
+//                                + "&declutter=1";
+
+
+//                //Create img element to hold static map
+//                var map = document.createElement("img");
+//                map.setAttribute("alt","Static Map showing Fourth Coffee Shops");
+//                map.setAttribute("style", "padding-left: 10px");
+//                map.setAttribute("src", mapURL);
+//                document.getElementById("mapDiv").appendChild(map);
+//                }
+//            else { //No results were returned
+//                resultsHeader.innerHTML = "No locations were found. Please try another location or increase the search distance."
+//                resultsHeader.style.color = "DarkRed";
+//                resultsHeader.style.fontFamily = "sans-serif";
+//                resultsHeader.style.fontWeight = "normal";
+//                map.dispose();
+//            }
+
+// }
+    </script>
+</head>
+<body>
+    <div style="color:#330000;font-size:larger;font-family:Arial,Sans-Serif">
+        <p> Search and Map Stores Near a Location </p>
+    </div>
+    <div style="color:#003366;font-size:large"><span>Search within&nbsp;</span>
+        <select id="distance">
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10" selected="selected">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="200">200</option>  
+            <option value="400">400</option>
+        </select><span>&nbsp;kilometers of&nbsp;</span>
+        <input id="address" type="text" value="Insert Location/Address" size="30" />  
+        <input type="button" value="Search" onclick="Geocode()" />
+    </div>
+    <div>
+        <div id="mapDiv" style="padding-top:10px;"></div> 
+        <div id="output" ></div>
+    </div>
+</body>
+</html>

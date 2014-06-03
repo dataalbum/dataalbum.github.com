@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+        <meta charset="utf-8">
+        <title>Sää</title>
+        <title></title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        
+        <!--[if lt IE 9]>
+          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="shortcut icon" href="/bootstrap/assets/img/favicon.ico">
+        <link rel="apple-touch-icon" href="/bootstrap/assets/img/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/assets/img/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/assets/img/apple-touch-icon-114x114.png">
+
+        <!-- Custom styles for this app -->
+    	<link href="../assets/css/theme.css" rel="stylesheet">
+
+    </head>
+    
+    <body>	
+<!-- main -->
+<div class="container">
+   <div class="row">
+	<!--
+  	First column
+  	-->
+	<div class="col-md-4 col-sm-4">
+    <div class="panel panel-default">
+ 		<div class="panel-body" id="observationCard">
+ 		</div>
+ 	</div>
+	<!-- next here -->
+ 	</div> <!-- column end -->
+ 	
+	<!--
+  	Second column
+  	--> 	 	
+    <div class="col-md-4 col-sm-4">
+    <div class="panel panel-default">
+ 		<div class="panel-body" id="clock">
+ 		</div>
+ 	</div>
+ 	</div> <!-- column end -->
+ 	
+ 	<!--
+  	Third column
+  	-->
+ 	<div class="col-md-4 col-sm-4">
+    <div class="panel panel-default">
+ 		<a href="multiline/">
+	 		<div class="panel-thumbnail"><img src="assets/img/multiline.PNG" class="img-responsive" ></div>
+ 		</a>
+ 		<div class="panel-body">
+ 			<p class="lead">Monthly Temperatures in Oulu, Linnanmaa</p>
+ 			<p>D3.js</p>
+ 		</div>
+ 	</div>
+ 	</div> <!-- column end -->
+    
+</div>
+</div> <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<!-- <script src="../assets/js/metolib-combined-1.1.8-min.js"></script> -->
+	<script src="../assets/js/utils-1.1.8-min.js"></script>
+	<script src="../assets/js/wfsrequestparser-1.1.8-min.js"></script>
+	<script src="../assets/js/weathersymbols.js"></script>
+	<script src="../assets/js/winddirections.js"></script>
+	<script src="../assets/js/getlocation2.js"></script>
+	<script src="../assets/js/meteoparser.js"></script>
+	<script src="../assets/js/meteodata.js"></script>
+	
+	<script>
+    
+    var server_url = "http://data.fmi.fi/fmi-apikey/516006c7-30ef-4474-97ea-76f7bf4ae01c/wfs";
+	var lat, lng;
+
+    
+    $(function() {
+		clock();
+		geoLocation();
+	});
+
+	$("#manualLocation").keypress(function(event) {
+		if (event.which == 13) {
+	    	event.preventDefault();
+			value = $("#manualLocation").val(); 
+			console.log(value)
+			getPlace(value);
+	    }
+	})
+	
+	</script>
+    </body>
+</html>

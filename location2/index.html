@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Use Bing Maps REST Services with jQuery</title>
+    <title>Use Bing Spatial Data Services with jQuery</title>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.5.1.js" type="text/javascript"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/jquery-ui.js" type="text/javascript"></script>
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -27,28 +27,35 @@
                     $.ajax({
                         url: url.options[url.selectedIndex].value,
                         dataType: "jsonp",
+                        cache: "true",
                         data: {
+                            spatialFilter: "nearby('" + request.term + "',50.0)",
                             key: "AjJmmHStqwuzck0qLkrVicXCwD_IWmLb8bA_qVrs475C4ClUI0Xk6YU2QtHRB8ZP",
+                            $format: "json"
+/*							
                             include: "ciso2",
                             inclnb: "1",
                             c: mylist.options[mylist.selectedIndex].value,
                             q: request.term
+*/
                         },
                         jsonp: "jsonp",
                         success: function (data) {
                         	console.log(data)
-                            var result = data.resourceSets[0];
+                            var result = data.d.results[0];
                             console.log(result)
                             if (result) {
-                                if (result.estimatedTotal > 0) {
-                                    response($.map(result.resources, function (item) {
+                                //if (result.estimatedTotal > 0) {
+                                    response($.map(data.d.results, function (item) {
+                                        console.log(item)
                                         return {
                                             data: item,
-                                            label: item.name + ' (' + item.address.countryRegion + ')',
-                                            value: item.name
+                                            //label: item.AddressLine + ' (' + item.CountryRegion + ')',
+                                            label: item.AddressLine + ', ' +item.Locality+ ', ' + item.CountryRegion,
+                                            value: item.AddressLine
                                         }
                                     }));
-                                }
+                                //}
                             }
                         }
                     });
@@ -67,18 +74,15 @@
         function displaySelectedItem(item) {
             $("#searchResult table").empty()
             .append('RESULT')
-            .append('<tr><td>addressLine:</td><td>' + item.address.addressLine + '</td></tr>')
-            .append('<tr><td>adminDistrict:</td><td>' + item.address.adminDistrict + '</td></tr>')
-            .append('<tr><td>adminDistrict2:</td><td>' + item.address.adminDistrict2 + '</td></tr>')
-            .append('<tr><td>countryRegion:</td><td>' + item.address.countryRegion + '</td></tr>')
-            .append('<tr><td>countryRegionIso2:</td><td>' + item.address.countryRegionIso2 + '</td></tr>')
-            .append('<tr><td>formattedAddress:</td><td>' + item.address.formattedAddress + '</td></tr>')
-            .append('<tr><td>landmark:</td><td>' + item.address.landmark + '</td></tr>')
-            .append('<tr><td>locality:</td><td>' + item.address.locality + '</td></tr>')
-            .append('<tr><td>neightborhood:</td><td>' + item.address.neighborhood + '</td></tr>')
-            .append('<tr><td>postalCode:</td><td>' + item.address.postalCode + '</td></tr>')
-            .append('<tr><td>Latitude:</td><td>' + item.point.coordinates[0] + '</td></tr>')
-            .append('<tr><td>Longitude:</td><td>' + item.point.coordinates[1] + '</td></tr>');
+            .append('<tr><td>AddressLine:</td><td>' + item.AddressLine + '</td></tr>')
+            .append('<tr><td>AdminDistrict:</td><td>' + item.AdminDistrict + '</td></tr>')
+            .append('<tr><td>CountryRegion:</td><td>' + item.CountryRegion + '</td></tr>')
+            .append('<tr><td>Locality:</td><td>' + item.Locality + '</td></tr>')
+            .append('<tr><td>PostalCode:</td><td>' + item.PostalCode + '</td></tr>')
+            .append('<tr><td>Latitude:</td><td>' + item.Latitude + '</td></tr>')
+            .append('<tr><td>Longitude:</td><td>' + item.Longitude + '</td></tr>')
+            .append('<tr><td>StoreName:</td><td>' + item.StoreName + '</td></tr>')
+            .append('<tr><td>Company:</td><td>' + item.Company + '</td></tr>');
 
         }
     </script>
@@ -86,13 +90,15 @@
 <body>
     <div>
     	<div class="ui-widget">
-	    	Bing Maps API:
+	    	Data Source:
 	    	<select id="myList2">
+				<option value='https://spatial.virtualearth.net/REST/v1/data/82e3db2e47a143bfb7f14413481b11b0/Stores/Stores'>Stores</option>
+<!-- 			<option value='https://spatial.virtualearth.net/REST/v1/data/ff4c267b7f2e4ee9a7431ee74b23dfcb/MySource/FourthCoffeeShops'>My Source</option>
 				<option value='http://dev.virtualearth.net/REST/v1/Locations'>Rest of the World</option>
-				<option value='http://cn.dev.virtualearth.net/REST/v1/Locations'>China</option>
+				<option value='http://cn.dev.virtualearth.net/REST/v1/Locations'>China</option> -->
 			</select>
 		</div>
-    	<div class="ui-widget">
+<!--    	<div class="ui-widget">
 	    	Culture Codes:
 	    	<select id="myList">
 	  			<option></option>
@@ -204,7 +210,7 @@
 				<option value='wo'>Wolof</option>
 				<option value='yo-Latn'>Yoruba</option>
 			</select>
-		</div>
+</div>-->
         <div class="ui-widget">
             <label for="searchBox">
                 Search:
