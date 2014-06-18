@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+        <meta charset="utf-8">
+        <title>Forecast</title>
+        <title></title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+        <!--[if lt IE 9]>
+          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="shortcut icon" href="/bootstrap/assets/img/favicon.ico">
+        <link rel="apple-touch-icon" href="/bootstrap/assets/img/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/assets/img/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/assets/img/apple-touch-icon-114x114.png">
+        
+		<!-- Bootstrap core CSS -->
+    	<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Bootstrap core CSS -->
+    	<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+
+    	<!-- Climacons Font -->
+    	<link href="../assets/css/climacons-font.css" rel="stylesheet">
+    	
+    	<!-- Icomoon Font -->
+    	<link href="../assets/css/icomoon-font.css" rel="stylesheet">
+    	
+    	<!-- Custom styles for this app -->
+    	<link href="../assets/css/theme.css" rel="stylesheet">
+
+    	
+    </head>
+    
+    <body>	
+<!-- main -->
+<div class="container">
+   <div class="row">
+	<!--
+  	First column
+  	-->
+	<div class="col-md-12 col-sm-12">
+    <div class="panel panel-default">
+ 		<div class="panel-body">
+ 			<h1 id="city"></h1>
+ 		</div>
+ 		<table class="table table-tile" id="forecasttable"></table>
+ 	</div>
+ 	<!-- next here -->
+ 	</div> <!-- column end -->
+
+	<!--
+  	Second column
+  	--> 	 	
+    <div class="col-md-12 col-sm-12">
+    <div class="panel panel-default">
+ 		<div class="panel-body" id="forecast">
+ 			<!-- Forecast -->
+ 		</div>
+ 	</div>
+	</div> <!-- column end -->
+    
+</div>
+</div> <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+	<script src="../assets/js/moment-with-langs.min.js"></script>
+	<script src="../assets/js/getforecast.js"></script>
+	<script src="../assets/js/skycons.js"></script>
+	<script src="../assets/js/winddirections.js"></script>
+	
+	
+	<script>
+    
+    $(function() {
+		geoLocation();
+	});
+	
+	</script>
+    </body>
+</html>

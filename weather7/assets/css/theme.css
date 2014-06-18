@@ -100,7 +100,7 @@ body {
 	padding-top:20px;
 }
 
-.panel {
+.panel .table-tile {
 	/*font: normal 14px Nunito,arial,sans-serif;*/
 	font-family: 14px Tahoma, Verdana, Segoe, sans-serif;
 }
@@ -129,6 +129,26 @@ hr {
 
 .aboutme {
 	text-align: center;
+}
+
+/* Skycons Weather Icons */
+canvas {
+	display: block;
+	float: left;
+	margin-left: 8px;
+	margin-top: 8px;
+}
+
+.dark-text {
+  background-color: #bbcbc4;
+  color: #31444b;
+  border-color: #31444b; 	
+}
+
+.table-tile > tbody > tr > td {
+	border: 10px solid white;
+	background-color: steelblue;
+	color: white;
 }
 
 /* end theme styles */
