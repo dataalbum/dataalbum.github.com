@@ -163,7 +163,9 @@ function forecastTable(data1,data2) {
 		}
 		
 		//forecast2 data
-		tr.append("<td class='climacon " + symbolMap[data2.locations[0].data.weathersymbol3.timeValuePairs[i].value] + "'> " + Math.round(data2.locations[0].data.Temperature.timeValuePairs[i].value) + "°C</td>");
+		console.log(data2.locations[0].data.weathersymbol3.timeValuePairs[i].value);
+		console.log(data2.locations[0].data.temperature.timeValuePairs[i].value);
+		tr.append("<td class='climacon " + symbolMap[data2.locations[0].data.weathersymbol3.timeValuePairs[i].value] + "'> " + Math.round(data2.locations[0].data.temperature.timeValuePairs[i].value) + "°C</td>");
 		//tr.append("<td>" + Math.round(data2.locations[0].data.Temperature.timeValuePairs[i].value) + "°C</td>");
 		
 		//"climacon " + symbolMap[d.value]

@@ -46,13 +46,13 @@
 		{
 			"key": "Sademäärä",
 			"type": "bar",
-			"values": dataset.locations[0].data.Precipitation1h.timeValuePairs,
+			"values": dataset.locations[0].data.precipitation1h.timeValuePairs,
 			"yAxis": 2
 		},
 		{
 			"key": "Lämpötila",
 			"type": "line",
-			"values": dataset.locations[0].data.Temperature.timeValuePairs,
+			"values": dataset.locations[0].data.temperature.timeValuePairs,
 			"yAxis": 1
 		}
 		]
@@ -71,13 +71,13 @@
 		{
 			"key": "Tuuli",
 			"type": "line",
-			"values": dataset.locations[0].data.WindSpeedMS.timeValuePairs,
+			"values": dataset.locations[0].data.windspeedms.timeValuePairs,
 			"yAxis": 1
 		},
 		{
 			"key": "Puuska",
 			"type": "line",
-			"values": dataset.locations[0].data.WindGust.timeValuePairs,
+			"values": dataset.locations[0].data.windgust.timeValuePairs,
 			"yAxis": 1
 		}
 		]
@@ -121,7 +121,7 @@
 		}
 		]
 		.map(function(series) {
-			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } });
+			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 }; });
 			return series;
 		});
 		
@@ -136,20 +136,20 @@
 		    var chart = nv.models.multiChart()
 		        .margin({top: 30, right: 60, bottom: 50, left: 70})
 		        //.x(function(d) { return d })
-		        .color(d3.scale.category10().range())
+		        .color(d3.scale.category10().range());
 			
 			chart.showLegend(true);
 		    
 		    chart.xAxis
-		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" })
+		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" ;})
 		        .showMaxMin(false);
 		
 		    chart.yAxis1
-		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "°C" })
+		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "°C" ;})
 		        .showMaxMin(false);
 		
 		    chart.yAxis2
-		        .tickFormat(function(d) { return d3.format(',.1f')(d) + "mm" })
+		        .tickFormat(function(d) { return d3.format(',.1f')(d) + "mm" ;})
 		        .showMaxMin(false);
 		    //chart.bars1.forceY([0]);
 		
@@ -160,13 +160,13 @@
 			//hide bar if precipitation = 0
 			d3.selectAll("#forecastChart2 .bars2Wrap .nv-series-0")
 				.style("display", function(d){ 
-					return d3.sum(dataset.locations[0].data.Precipitation1h.timeValuePairs, function(d) { 
+					return d3.sum(dataset.locations[0].data.precipitation1h.timeValuePairs, function(d) { 
 						return d.value }) == 0 ? "none" : "";});
 			
 			//hide y2 axis labels if precipitation = 0
 			d3.selectAll("#forecastChart2 .y2.axis text")
 				.style("display", function(d){ 
-					return d3.sum(dataset.locations[0].data.Precipitation1h.timeValuePairs, function(d) { 
+					return d3.sum(dataset.locations[0].data.precipitation1h.timeValuePairs, function(d) { 
 						return d.value }) == 0 ? "none" : "";});
 			
 			nv.utils.windowResize(chart.update);
@@ -183,16 +183,16 @@
 		    var chart = nv.models.multiChart()
 		        .margin({top: 30, right: 60, bottom: 50, left: 70})
 		        //.x(function(d) { return d })
-		        .color(d3.scale.category10().range())
+		        .color(d3.scale.category10().range());
 			
 			chart.showLegend(true);
 		    
 		    chart.xAxis
-		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" })
+		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" ;})
 		        .showMaxMin(false);
 		
 		    chart.yAxis1
-		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "m/s" })
+		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "m/s" ;});
 
 		    d3.select('#windForecastChart svg')
 		        .datum(windForecastData)
@@ -212,16 +212,16 @@
 		    var chart = nv.models.multiChart()
 		        .margin({top: 30, right: 60, bottom: 50, left: 70})
 		        //.x(function(d) { return d })
-		        .color(d3.scale.category10().range())
+		        .color(d3.scale.category10().range());
 			
 			chart.showLegend(true);
 		    
 		    chart.xAxis
-		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" })
+		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" ;})
 		        .showMaxMin(false);
 		
 		    chart.yAxis1
-		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "%" })
+		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "%" ;});
 
 		    d3.select('#humidityForecastChart svg')
 		        .datum(humidityForecastData)
@@ -241,16 +241,16 @@
 		    var chart = nv.models.multiChart()
 		        .margin({top: 30, right: 60, bottom: 50, left: 70})
 		        //.x(function(d) { return d })
-		        .color(d3.scale.category10().range())
+		        .color(d3.scale.category10().range());
 			
 			chart.showLegend(true);
 		    
 		    chart.xAxis
-		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" })
+		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" ;})
 		        .showMaxMin(false);
 		
 		    chart.yAxis1
-		        .tickFormat(function(d) { return d3.format(',.1f')(d) + "hPa" })
+		        .tickFormat(function(d) { return d3.format(',.1f')(d) + "hPa" ;});
 
 		    d3.select('#pressureForecastChart svg')
 		        .datum(pressureForecastData)
@@ -270,7 +270,7 @@
 	 */
 	function showObservationChart(dataset) {
 		
-		console.log(dataset)
+		console.log(dataset);
 		
 		var temperature = dataset.locations[0].data.t2m.timeValuePairs;
 		var windSpeed = dataset.locations[0].data.ws_10min.timeValuePairs;
@@ -306,11 +306,11 @@
 		}
 		]
 		.map(function(series) {
-			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } });
+			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } ;});
 			return series;
 		});
 
-		console.log(observationData)
+		console.log(observationData);
 
 		/*
 		 * Data: wind, wind cust
@@ -331,11 +331,11 @@
 		}
 		]
 		.map(function(series) {
-			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } });
+			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } ;});
 			return series;
 		});
 		
-		console.log(windObservationData)
+		console.log(windObservationData);
 
 		/*
 		 * Data: humidity
@@ -350,11 +350,11 @@
 		}
 		]
 		.map(function(series) {
-			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } });
+			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } ;});
 			return series;
 		});
 		
-		console.log(humidityObservationData)
+		console.log(humidityObservationData);
 
 
 		/*
@@ -370,11 +370,11 @@
 		}
 		]
 		.map(function(series) {
-			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } });
+			series.values = series.values.map(function(d) { return {x: d.time, y: d.value = d.value || 0 } ;});
 			return series;
 		});
 		
-		console.log(pressureObservationData)
+		console.log(pressureObservationData);
 
 		
 		
@@ -385,20 +385,20 @@
 		    var chart = nv.models.multiChart()
 		        .margin({top: 30, right: 60, bottom: 50, left: 70})
 		        //.x(function(d) { return d })
-		        .color(d3.scale.category10().range())
+		        .color(d3.scale.category10().range());
 			
 			chart.showLegend(true);
 		    
 		    chart.xAxis
-		        .tickFormat(function (d) { return d3.time.format('%H:%M')(new Date(d)) })
+		        .tickFormat(function (d) { return d3.time.format('%H:%M')(new Date(d)) ;})
 		        .showMaxMin(false);
 		
 		    chart.yAxis1
-		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "°C" })
+		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "°C" ;})
 		        .showMaxMin(false);
 		
 		    chart.yAxis2
-		        .tickFormat(function(d) { return d3.format(',.1f')(d) + "mm" })
+		        .tickFormat(function(d) { return d3.format(',.1f')(d) + "mm" ;})
 		        .showMaxMin(false);
 		    
 		    //chart.bars2.forceY([0]);
@@ -411,7 +411,7 @@
 			d3.selectAll("#observationChart2 .bars2Wrap .nv-series-0")
 				.style("display", function(d){ 
 					return d3.sum(r_1h, function(d) { 
-						return d.value }) == 0 ? "none" : "";});
+						return d.value ;}) == 0 ? "none" : "";});
 /*
 			//hide line2 ("#forecastChart2 .lines2Wrap .nv-series-0") if precipitation = 0
 			d3.selectAll("#observationChart2 .stack2Wrap .nv-series-0")
@@ -424,7 +424,7 @@
 				//.style("display", "none");
 				.style("display", function(d){ 
 					return d3.sum(r_1h, function(d) { 
-						return d.value }) == 0 ? "none" : "";});
+						return d.value ;}) == 0 ? "none" : "";});
 			
 			nv.utils.windowResize(chart.update);
 			
@@ -440,16 +440,16 @@
 		    var chart = nv.models.multiChart()
 		        .margin({top: 30, right: 60, bottom: 50, left: 70})
 		        //.x(function(d) { return d })
-		        .color(d3.scale.category10().range())
+		        .color(d3.scale.category10().range());
 			
 			chart.showLegend(true);
 		    
 		    chart.xAxis
-		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" })
+		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" ;})
 		        .showMaxMin(false);
 		
 		    chart.yAxis1
-		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "m/s" })
+		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "m/s" ;});
 
 		    d3.select('#windObservationChart svg')
 		        .datum(windObservationData)
@@ -469,16 +469,16 @@
 		    var chart = nv.models.multiChart()
 		        .margin({top: 30, right: 60, bottom: 50, left: 70})
 		        //.x(function(d) { return d })
-		        .color(d3.scale.category10().range())
+		        .color(d3.scale.category10().range());
 			
 			chart.showLegend(true);
 		    
 		    chart.xAxis
-		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" })
+		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" ;})
 		        .showMaxMin(false);
 		
 		    chart.yAxis1
-		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "%" })
+		        .tickFormat(function(d) { return d3.format(',.0f')(d) + "%" ;});
 
 		    d3.select('#humidityObservationChart svg')
 		        .datum(humidityObservationData)
@@ -498,16 +498,16 @@
 		    var chart = nv.models.multiChart()
 		        .margin({top: 30, right: 60, bottom: 50, left: 70})
 		        //.x(function(d) { return d })
-		        .color(d3.scale.category10().range())
+		        .color(d3.scale.category10().range());
 			
 			chart.showLegend(true);
 		    
 		    chart.xAxis
-		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" })
+		        .tickFormat(function (d) { return d3.time.format('%H')(new Date(d)) + ":00" ;})
 		        .showMaxMin(false);
 		
 		    chart.yAxis1
-		        .tickFormat(function(d) { return d3.format(',.1f')(d) + "hPa" })
+		        .tickFormat(function(d) { return d3.format(',.1f')(d) + "hPa" ;});
 
 		    d3.select('#pressureObservationChart svg')
 		        .datum(pressureObservationData)
@@ -523,7 +523,7 @@
 	}
 		function showForecastMain(dataset,errors){
 
-			console.log(dataset)
+			console.log(dataset);
 			/*
 			//data processing
 			var shiftedTemp = dataset.locations[0].data.temperature.timeValuePairs.shift();
@@ -554,14 +554,14 @@
 				weatherSymbolTemp.enter().append("h1");
 				weatherSymbolTemp.attr("class", function(d) { return "climacon " + symbolMap[d.data.weathersymbol3.timeValuePairs[0].value] ; });
 				weatherSymbolTemp.text(function(d){ 
-					return " " + d3.format('.0f')(d.data.Temperature.timeValuePairs[0].value) + "°C "; });				
+					return " " + d3.format('.0f')(d.data.temperature.timeValuePairs[0].value) + "°C "; });				
 
 				//header timedate
 				var textTime = header.selectAll("p")
 					.data(data);
 
 				textTime.enter().append("p").attr("class", "lead");
-				textTime.text(function(d){ return d.data.Temperature.timeValuePairs[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.data.Temperature.timeValuePairs[0].time)); });				
+				textTime.text(function(d){ return d.data.temperature.timeValuePairs[0].time = d3.time.format("%d.%m.%Y %H:%M")(new Date(d.data.temperature.timeValuePairs[0].time)); });				
 
 				textPlace.exit().remove();
 				weatherSymbolTemp.exit().remove();
@@ -573,7 +573,7 @@
 		
 		function showForecastTable(dataset,errors){
 
-			console.log(dataset)
+			console.log(dataset);
 
 			//data processing
 			var arrData = dataset.locations;
@@ -585,10 +585,10 @@
 			dataset.locations[0].data.winddirection.timeValuePairs.shift();
 			*/
 			//shifted parameters
-			var temperature = dataset.locations[0].data.Temperature.timeValuePairs;
+			var temperature = dataset.locations[0].data.temperature.timeValuePairs;
 			var weatherSymbol3 = dataset.locations[0].data.weathersymbol3.timeValuePairs;
-			var windDirection = dataset.locations[0].data.WindDirection.timeValuePairs;
-			var windSpeend = dataset.locations[0].data.WindSpeedMS.timeValuePairs;			
+			var windDirection = dataset.locations[0].data.winddirection.timeValuePairs;
+			var windSpeend = dataset.locations[0].data.windspeedms.timeValuePairs;			
 
 			//merge parameters
 			var concatedData = temperature.concat(
@@ -596,12 +596,12 @@
 					windDirection,
 					windSpeend);
 
-			console.log(concatedData)
+			console.log(concatedData);
 			
 			var nestedData = d3.nest()
 				.key(function(d) { return d.time; })
 				.entries(concatedData);
-			console.log(nestedData)
+			console.log(nestedData);
 			
 			nestedData.forEach(function(d) {
 				d.key = +d.key;
@@ -612,7 +612,7 @@
                 d.value2 = d.values[2].value;//windDirectionMap[d.values[2].value];
                 d.value3 = d3.format('.0f')(d.values[3].value) + " m/s";
 			});
-			console.log(nestedData)
+			console.log(nestedData);
 			
 			//take only every third value
 			var everyThirdData = [];
@@ -622,7 +622,7 @@
 		    	everyThirdData.push(nestedData[i]);
 			};
 			
-			console.log(everyThirdData)
+			console.log(everyThirdData);
 			
 			//create table
 			var columns = ["time0", "value1", "value0", "value2", "value3"];
@@ -631,7 +631,7 @@
 		    
 			function update(infoData, forecastData) {
 				
-				console.log(infoData, forecastData)
+				console.log(infoData, forecastData);
 				
 			    forecastTable.selectAll('table').data(forecastData).enter().append('table');
 			    var table = forecastTable.select("table").attr("class", "table dark-text");
@@ -683,14 +683,14 @@
 
 		function showObservationList(dataset,errors){
 
-			console.log(dataset)
+			console.log(dataset);
 			
 			//var width = 1280,
     			//height = 200;
 			
 			//data processing
 			var arrData = dataset.locations;
-			console.log(arrData)
+			console.log(arrData);
 						
 			var temperature = dataset.locations[0].data.t2m.timeValuePairs;
 			var windSpeed = dataset.locations[0].data.ws_10min.timeValuePairs;
@@ -715,15 +715,15 @@
 						snow, //snow depth, cm
 						pressure, //hPa 
 						visibility); //näkyvyys, m
-			console.log(concatedData)
+			console.log(concatedData);
 			
 			var nestedData = d3.nest()
 						.key(function(d) { return d.time; })
 						.entries(concatedData);
-			console.log(nestedData)
+			console.log(nestedData);
 			
 			var lastObs  = [nestedData.pop()];
-			console.log(lastObs)
+			console.log(lastObs);
 
 			lastObs.forEach(function(d) {
 				d.key = +d.key;
@@ -751,7 +751,7 @@
                 d.values[10].header = "Näkyvyys";
                 d.values[10].value = d3.format('.0f')(d.values[10].value / 1000) + " km";
 			});
-			console.log(lastObs)
+			console.log(lastObs);
 
 			//observation header
 			var observationHeader = d3.select("#observationHeader");
@@ -767,7 +767,7 @@
 		    
 			function update(infoData, observationData) {
 				
-				console.log(observationData)
+				console.log(observationData);
 				
 			    observationList.selectAll('table').data(observationData).enter().append('table');
 			    var table = observationList.select("table").attr("class", "observationTable");         
@@ -775,7 +775,7 @@
 				//observation time
 				var info = table.selectAll("p")
 					.data(observationData);
-				info.enter().append("p")
+				info.enter().append("p");
 				info.text(function(d){ return d.values[0].time ; }); 
 			    
 			    table.selectAll('tbody').data(observationData).enter().append('tbody');
