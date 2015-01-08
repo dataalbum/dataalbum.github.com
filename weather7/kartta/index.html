@@ -86,8 +86,9 @@
 					var obj = {
 						lat: dataset.locations[i].info.position[0],
 						lon: dataset.locations[i].info.position[1],
-						value: dataset.locations[i].data.Precipitation1h.timeValuePairs[1].value
+						value: dataset.locations[i].data.precipitation1h.timeValuePairs[1].value
 					};
+					console.log(obj);
 					data.push(obj);
 				}
 				console.log(data);
@@ -139,7 +140,7 @@
   						{icon: L.divIcon({
   							className : 'circle climacon ' + symbolMap[dataset.locations[i].data.weathersymbol3.timeValuePairs[1].value],
     						iconSize: new L.Point(10, 10), 
-    						html: " " + Math.round(dataset.locations[i].data.Temperature.timeValuePairs[1].value)
+    						html: " " + Math.round(dataset.locations[i].data.temperature.timeValuePairs[1].value)
 						})
 					}).addTo(map);
 				};
