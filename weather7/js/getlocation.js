@@ -32,7 +32,7 @@
 						//localForecastHeader(server_url, city);
 						localForecastChart(server_url, city);
 						localObservationChart(server_url, city);
-						cityForecastMap(server_url, city);
+						//cityForecastMap(server_url, city);
 			        } else {
 			          alert("No results found");
 			        }
@@ -69,7 +69,7 @@
 		  geocoder.geocode( { 'address': address}, function(results, status) {
 		    if (status == google.maps.GeocoderStatus.OK) {
 		    	console.log(results[0].geometry.location)
-		      geoCode(results[0].geometry.location.ob, results[0].geometry.location.pb);
+		      geoCode(results[0].geometry.location.k, results[0].geometry.location.D);
 		  }
 		});
 		};
