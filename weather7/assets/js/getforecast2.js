@@ -1,5 +1,5 @@
 /*
- * Get location 
+ * Get location Nominatim OSM
  */
 function geoLocation() {
 
@@ -48,6 +48,52 @@ function geoCode(lat,lng) {
 } //Get location end 
 
 /*
+ * Get location Google Maps
+ */
+        function geoLocationGoogle() {
+
+  			if (navigator.geolocation) {
+    			navigator.geolocation.getCurrentPosition(codeLatLngGoogle, errorFunction);
+			} 
+			
+			function errorFunction(){
+			    alert("Geocoder failed");
+			}
+		};
+			function codeLatLngGoogle(position) {
+				console.log(position)
+			    lat = position.coords.latitude;
+			    lng = position.coords.longitude;
+				geoCodeGoogle(position.coords.latitude, position.coords.longitude);				
+			};
+			function geoCodeGoogle(lat, lng) {
+			    
+				var geocoder = new google.maps.Geocoder();
+			    var latlng = new google.maps.LatLng(lat, lng);
+			    geocoder.geocode({'latLng': latlng}, function(results, status) {
+			      if (status == google.maps.GeocoderStatus.OK) {
+			      console.log(results)
+			        if (results[1]) {
+			         	//2nd address component
+						city = results[0].address_components[2].long_name;
+						address = [results[0]];
+						console.log(address)
+         				console.log(city)
+						$('#city').append(city);
+						getForecast(lat,lng,city);
+			        } else {
+			          alert("No results found");
+			        }
+			      } else {
+			        alert("Geocoder failed due to: " + status);
+			      }
+				});
+		  	};
+
+
+
+
+/*
  * Get Forecast
  * Forecast.io API
  * https://api.forecast.io/forecast/4bbca72ee6a5c85729d0fe28c53e68a4/LATITUDE,LONGITUDE
@@ -91,8 +137,8 @@ function getForecast(lat,lng,site) {
 		}
 	});
 	$.when(loadForecast1,loadForecast2).done(function() {
-		console.log(forecast1);
-		console.log(forecast2);
+		//console.log(forecast1);
+		//console.log(forecast2);
 		forecastTable(forecast1, forecast2);
 	});
 } //Get Forecast end
